@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 
@@ -11,9 +11,6 @@ import rospy
 from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
-
-active_=rospy.get_param("/active")
-flag = 1
 
 msg = """
 Reading from the keyboard  and Publishing to Twist!
@@ -177,14 +174,14 @@ def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
 if __name__=="__main__":
-
-
-    settings = termios.tcgetattr(sys.stdin)
     rospy.init_node('teleop_twist_keyboard')
+    active_=rospy.get_param("/active")
+    flag = 1
+    settings = termios.tcgetattr(sys.stdin)
     speed = rospy.get_param("~speed", 0.5)
     turn = rospy.get_param("~turn", 1.0)
     repeat = rospy.get_param("~repeat_rate", 0.0)
-    key_timeout = rospy.get_param("~key_timeout", 0.0)
+    key_timeout = rospy.get_param("~key_timeout", 0.1)
     #key_timeout = 0.0
     if key_timeout == 0.0:
         key_timeout = None
@@ -206,6 +203,10 @@ if __name__=="__main__":
 
     while(1):
         active_=rospy.get_param("/active")
+
+        # First modality.
+
+        # Second modality.
 
         if active_ == 2:
             key = getKey(key_timeout)
