@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="des_x" default="-1.0"/>
+<arg name="des_y" default= "-1.0"/>
+
+<param name="active" type="int" value="0" />
+<param name="des_pos_x" value="$(arg des_x)" />
+<param name="des_pos_y" value="$(arg des_y)" />
+
+<node pkg="final_assignment" type="UI.py" name="UI" launch-prefix="xterm -e" />
+
+<!-- <node pkg="final_assignment" type="wall_follow_service.py" name="wall_follower" />
+<node pkg="final_assignment" type="go_to_point_service.py" name="go_to_point" />
+<node pkg="final_assignment" type="bug.py" name="bug" output="screen" /> -->
+
+<node pkg="final_assignment" type="my_teleop_twist_keyboard.py" name="my_teleop_twist_kb" launch-prefix="xterm -e" /> 
+
+
+</launch>
