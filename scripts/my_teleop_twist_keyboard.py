@@ -240,9 +240,8 @@ if __name__=="__main__":
 
         else:
             if flag == 1:
-               
                 pub_thread.my_stop() 
-                print("idleee")
+                print("IDLE MODALITY 2")
             flag = 0
             
 

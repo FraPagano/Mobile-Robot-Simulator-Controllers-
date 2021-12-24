@@ -13,13 +13,14 @@ def interpreter():
 		print(active_)
 
 	elif command == 1:
+
 		print("Modality 1 is active.")
 		active_=rospy.get_param("/active")
 		print("Where do you want the robot to go?")
-		des_x = float(input("Insert the desired x position: "))
-		des_y = float(input("Insert the desired y position: "))
-		rospy.set_param('des_pos_x', des_x)
-		rospy.set_param('des_pos_y', des_y)
+		des_x_input = float(input("Insert the desired x position: "))
+		des_y_input = float(input("Insert the desired y position: "))
+		rospy.set_param('des_pos_x', des_x_input)
+		rospy.set_param('des_pos_y', des_y_input)
 		rospy.set_param('active', 1)
 
 	elif command == 2:
