@@ -14,7 +14,7 @@ def interpreter():
 
 	elif command == 1:
 
-		print("Modality 1 is active.")
+		print("Modality 1 is active, press '0' to cancel the target.")
 		active_=rospy.get_param("/active")
 		print("Where do you want the robot to go?")
 		des_x_input = float(input("Insert the desired x position: "))
@@ -27,12 +27,12 @@ def interpreter():
 		rospy.set_param('active', 2)
 		print("Modality 2 is active.")
 		active_=rospy.get_param("/active")
-		print(active_)
+		
 	elif command == 3:
 		rospy.set_param('active', 3)
 		print("Modality 3 is active.")
 		active_=rospy.get_param("/active")
-		print(active_)
+		
 	else:
 		print("Wrong key")
 
