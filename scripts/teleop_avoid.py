@@ -3,13 +3,14 @@
 from __future__ import print_function
 
 import threading
-
+from sensor_msgs.msg import LaserScan
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
 
 
 from geometry_msgs.msg import Twist
-
+import time
+from std_srvs.srv import *
 import sys, select, termios, tty
 
 msg = """
@@ -38,6 +39,10 @@ e/c : increase/decrease only angular speed by 10%
 CTRL-C to quit
 """
 
+ok_left = True
+ok_right = True
+ok_straight = True
+
 moveBindings = {
         'i':(1,0,0,0),
         'o':(1,0,0,-1),
@@ -58,6 +63,8 @@ moveBindings = {
         't':(0,0,1,0),
         'b':(0,0,-1,0),
     }
+
+#moveBindings_temp = {}
 
 speedBindings={
         'q':(1.1,1.1),
@@ -169,12 +176,88 @@ def getKey(key_timeout):
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     return key
 
+def clbk_laser(msg):
+
+
+    global ok_left
+    global ok_right
+    global ok_straight
+
+    right = min(min(msg.ranges[0:143]), 1)
+    front = min(min(msg.ranges[288:431]), 1)
+    left = min(min(msg.ranges[576:719]), 1)
+
+    if right != 1.0:
+        ok_right =False
+    else:
+        ok_right =True
+
+    if front != 1.0:
+        ok_straight =False
+    else:
+        ok_straight =True
+
+    if left != 1.0:
+        ok_left =False
+    else:
+        ok_left =True
+
+
+
+
+
+def pop_dict(dictionary):
+
+    global ok_left
+    global ok_right
+    global ok_straight
+    
+
+    if not ok_straight and not ok_right and not ok_left:
+        popped1 = dictionary.pop('i')
+        popped2 = dictionary.pop('j')
+        popped3 = dictionary.pop('l')
+        print("\rCommand " + str(popped1) + " disabled")
+        print("\rCommand " + str(popped2) + " disabled")
+        print("\rCommand " + str(popped3) + " disabled")
+    elif not ok_left and not ok_straight and ok_right:
+        popped1 = dictionary.pop('i')
+        popped2 = dictionary.pop('j')
+        print("\rCommand " + str(popped1) + " disabled")
+        print("\rCommand " + str(popped2) + " disabled")
+    elif ok_left and not ok_straight and not ok_right:
+        popped1 = dictionary.pop('i')
+        popped2 = dictionary.pop('l')
+        print("\rCommand " + str(popped1) + " disabled")
+        print("Command " + str(popped2) + " disabled")
+    elif not ok_left and ok_straight and not ok_right:
+        popped1 = dictionary.pop('l')
+        popped2 = dictionary.pop('j')
+        print("\rCommand " + str(popped1) + " disabled")
+        print("\rCommand " + str(popped2) + " disabled")
+    elif ok_left and not ok_straight and ok_right:
+        popped1 = dictionary.pop('i')
+        print("\rCommand " + str(popped1) + " disabled")
+    elif not ok_left and ok_straight and ok_right:
+        popped1 = dictionary.pop('j')
+        print("\rCommand " + str(popped1) + " disabled")
+    elif ok_left and ok_straight and not ok_right:
+        popped1 = dictionary.pop('l')
+        print("\rCommand " + str(popped1) + " disabled")
+
+
+
+
+
+
+
+
 
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
 if __name__=="__main__":
-    rospy.init_node('my_teleop_twist_kb')
+    rospy.init_node('teleop_avoid')
     active_=rospy.get_param("/active")
     flag = 1
     settings = termios.tcgetattr(sys.stdin)
@@ -182,7 +265,7 @@ if __name__=="__main__":
     turn = rospy.get_param("~turn", 1.0)
     repeat = rospy.get_param("~repeat_rate", 0.0)
     key_timeout = rospy.get_param("~key_timeout", 0.1)
-
+    sub = rospy.Subscriber('/scan', LaserScan, clbk_laser)
     if key_timeout == 0.0:
         key_timeout = None
 
@@ -194,27 +277,33 @@ if __name__=="__main__":
     th = 0
     status = 0
 
-
+    rate = rospy.Rate(5)
     pub_thread.wait_for_subscribers()
     pub_thread.update(x, y, z, th, speed, turn)
-
+    moveBindings_temp = {}
     print(msg)
     print(vels(speed,turn))
-
     while(1):
         active_=rospy.get_param("/active")
-
-        # First modality.
-
-        # Second modality.
-
-        if active_ == 2:
+        moveBindings_temp = moveBindings.copy()
+        if active_ == 3:
             key = getKey(key_timeout)
-            if key in moveBindings.keys():
-                x = moveBindings[key][0]
-                y = moveBindings[key][1]
-                z = moveBindings[key][2]
-                th = moveBindings[key][3]
+            
+            pop_dict(moveBindings_temp)
+
+            if key in moveBindings_temp.keys():
+
+                x = moveBindings_temp[key][0] 
+                y = moveBindings_temp[key][1]
+                z = moveBindings_temp[key][2]
+                th = moveBindings_temp[key][3]
+
+                print("x=" + str(x))
+                print("y=" + str(y))
+                print("z=" + str(z))
+                print("th=" + str(th))
+                print("key=" + str(key))
+
             elif key in speedBindings.keys():
                 speed = speed * speedBindings[key][0]
                 turn = turn * speedBindings[key][1]
@@ -243,6 +332,8 @@ if __name__=="__main__":
                 pub_thread.my_stop() 
                 print("IDLE MODALITY 2")
             flag = 0
+
+        rate.sleep()
             
 
 

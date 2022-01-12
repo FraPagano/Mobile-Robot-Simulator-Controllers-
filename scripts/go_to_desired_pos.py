@@ -40,12 +40,13 @@ def update_variables():
 	desired_position_x = rospy.get_param('des_pos_x')
 	desired_position_y = rospy.get_param('des_pos_y')
 
-def my_callback(event):
+def my_callback_timeout(event):
 	if active_==1:
 		print ("Timer called at " + str(event.current_real))
-		print("TIMEOUT: 60 seconds left! Let's go back to starting point..\n")
+		print("Position not reached, target canceled\n")
 		rospy.set_param('active', 0)
-		set_goal(-5, 8)
+		
+
 
 
 def main():
@@ -70,14 +71,16 @@ def main():
 		
 		
 		update_variables()
+
 		if(i%5==0):
 			print("X: " + str(position_.x))
 			print("Y: " + str(position_.y))
 		i=i+1
+
 		if active_==1:
 			
 			if flag == 1:
-				rospy.Timer(rospy.Duration(10),my_callback)
+				rospy.Timer(rospy.Duration(60),my_callback_timeout)
 				set_goal(desired_position_x, desired_position_y)
 				flag = 0
 
