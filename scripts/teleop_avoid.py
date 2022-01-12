@@ -17,20 +17,8 @@ msg = """
 Reading from the keyboard  and Publishing to Twist!
 ---------------------------
 Moving around:
-   u    i    o
-   j    k    l
-   m    ,    .
-
-For Holonomic mode (strafing), hold down the shift key:
----------------------------
-   U    I    O
-   J    K    L
-   M    <    >
-
-t : up (+z)
-b : down (-z)
-
-anything else : stop
+       i    
+   j   k    l
 
 q/z : increase/decrease max speeds by 10%
 w/x : increase/decrease only linear speed by 10%
@@ -45,26 +33,11 @@ ok_straight = True
 
 moveBindings = {
         'i':(1,0,0,0),
-        'o':(1,0,0,-1),
         'j':(0,0,0,1),
         'l':(0,0,0,-1),
-        'u':(1,0,0,1),
-        ',':(-1,0,0,0),
-        '.':(-1,0,0,1),
-        'm':(-1,0,0,-1),
-        'O':(1,-1,0,0),
-        'I':(1,0,0,0),
-        'J':(0,1,0,0),
-        'L':(0,-1,0,0),
-        'U':(1,1,0,0),
-        '<':(-1,0,0,0),
-        '>':(-1,-1,0,0),
-        'M':(-1,1,0,0),
-        't':(0,0,1,0),
-        'b':(0,0,-1,0),
+        'k':(-1,0,0,0),
     }
 
-#moveBindings_temp = {}
 
 speedBindings={
         'q':(1.1,1.1),
@@ -217,33 +190,33 @@ def pop_dict(dictionary):
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('j')
         popped3 = dictionary.pop('l')
-        print("\rCommand " + str(popped1) + " disabled")
-        print("\rCommand " + str(popped2) + " disabled")
-        print("\rCommand " + str(popped3) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
+        print("Command " + str(popped2) + " disabled" , end="\r")
+        print("Command " + str(popped3) + " disabled" , end="\r")
     elif not ok_left and not ok_straight and ok_right:
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('j')
-        print("\rCommand " + str(popped1) + " disabled")
-        print("\rCommand " + str(popped2) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
+        print("Command " + str(popped2) + " disabled" , end="\r")
     elif ok_left and not ok_straight and not ok_right:
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('l')
-        print("\rCommand " + str(popped1) + " disabled")
-        print("Command " + str(popped2) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
+        print("Command " + str(popped2) + " disabled" , end="\r")
     elif not ok_left and ok_straight and not ok_right:
         popped1 = dictionary.pop('l')
         popped2 = dictionary.pop('j')
-        print("\rCommand " + str(popped1) + " disabled")
-        print("\rCommand " + str(popped2) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
+        print("Command " + str(popped2) + " disabled" , end="\r")
     elif ok_left and not ok_straight and ok_right:
         popped1 = dictionary.pop('i')
-        print("\rCommand " + str(popped1) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
     elif not ok_left and ok_straight and ok_right:
         popped1 = dictionary.pop('j')
-        print("\rCommand " + str(popped1) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
     elif ok_left and ok_straight and not ok_right:
         popped1 = dictionary.pop('l')
-        print("\rCommand " + str(popped1) + " disabled")
+        print("Command " + str(popped1) + " disabled" , end="\r")
 
 
 
@@ -298,12 +271,6 @@ if __name__=="__main__":
                 z = moveBindings_temp[key][2]
                 th = moveBindings_temp[key][3]
 
-                print("x=" + str(x))
-                print("y=" + str(y))
-                print("z=" + str(z))
-                print("th=" + str(th))
-                print("key=" + str(key))
-
             elif key in speedBindings.keys():
                 speed = speed * speedBindings[key][0]
                 turn = turn * speedBindings[key][1]
@@ -330,7 +297,7 @@ if __name__=="__main__":
         else:
             if flag == 1:
                 pub_thread.my_stop() 
-                print("IDLE MODALITY 2")
+                print("IDLE MODALITY 3")
             flag = 0
 
         rate.sleep()

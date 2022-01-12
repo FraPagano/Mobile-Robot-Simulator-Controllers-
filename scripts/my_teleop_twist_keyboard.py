@@ -204,10 +204,6 @@ if __name__=="__main__":
     while(1):
         active_=rospy.get_param("/active")
 
-        # First modality.
-
-        # Second modality.
-
         if active_ == 2:
             key = getKey(key_timeout)
             if key in moveBindings.keys():
