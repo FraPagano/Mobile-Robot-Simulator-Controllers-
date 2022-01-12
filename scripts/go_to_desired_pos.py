@@ -40,6 +40,14 @@ def update_variables():
 	desired_position_x = rospy.get_param('des_pos_x')
 	desired_position_y = rospy.get_param('des_pos_y')
 
+def my_callback(event):
+	if active_==1:
+		print ("Timer called at " + str(event.current_real))
+		print("TIMEOUT: 60 seconds left! Let's go back to starting point..\n")
+		rospy.set_param('active', 0)
+		set_goal(-5, 8)
+
+
 def main():
 
 	global pub_vel 
@@ -56,17 +64,20 @@ def main():
 	sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
 	rate = rospy.Rate(10)
 
-	#rospy.Timer(rospy.Duration(10))
 	
+	i=0
 	while (1):
-
+		
+		
 		update_variables()
-		print("X: " + str(position_.x))
-		print("Y: " + str(position_.y))
-
+		if(i%5==0):
+			print("X: " + str(position_.x))
+			print("Y: " + str(position_.y))
+		i=i+1
 		if active_==1:
 			
 			if flag == 1:
+				rospy.Timer(rospy.Duration(10),my_callback)
 				set_goal(desired_position_x, desired_position_y)
 				flag = 0
 
