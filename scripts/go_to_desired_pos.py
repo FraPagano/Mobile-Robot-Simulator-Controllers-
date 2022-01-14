@@ -14,6 +14,19 @@ from std_srvs.srv import *
 import time
 import math
 
+class bcolors:
+	HEADER = '\033[95m'
+	OKBLUE = '\033[94m'
+	OKCYAN = '\033[96m'
+	OKGREEN = '\033[92m'
+	WARNING = '\033[93m'
+	FAIL = '\033[91m'
+	ENDC = '\033[0m'
+	BOLD = '\033[1m'
+	UNDERLINE = '\033[4m'
+	ORANGE = '\033[33m' 
+	PURPLE  = '\033[35m'
+
 goal_msg=MoveBaseActionGoal()
 goal_cancel=GoalID()
 position_=Point()
@@ -42,8 +55,8 @@ def update_variables():
 
 def my_callback_timeout(event):
 	if active_==1:
-		print ("Timer called at " + str(event.current_real))
-		print("Position not reached, target canceled\n")
+		print (bcolors.WARNING + "Timer called at " + str(event.current_real) + bcolors.ENDC)
+		print(bcolors.WARNING + "Position not reached, target canceled\n" + bcolors.ENDC)
 		rospy.set_param('active', 0)
 		
 
@@ -73,8 +86,9 @@ def main():
 		update_variables()
 
 		if(i%5==0):
-			print("X: " + str(position_.x))
-			print("Y: " + str(position_.y))
+			print(bcolors.OKBLUE + "X: " + str(position_.x) + bcolors.ENDC)
+			print(bcolors.PURPLE + "Y: " + str(position_.y) + bcolors.ENDC)
+			print("\n")
 		i=i+1
 
 		if active_==1:
@@ -85,12 +99,12 @@ def main():
 				flag = 0
 
 			if abs(desired_position_x-position_.x) <= 0.4 and abs(desired_position_y-position_.y) <= 0.4:
-				print("Target reached, IDLE\n")
+				print(bcolors.OKGREEN + bcolors.UNDERLINE + "Target reached\n" + bcolors.ENDC)
 				rospy.set_param('active', 0)
 
 		else:
 			if flag == 0:
-				print("IDLE MODALITY 1\n")
+				print(bcolors.OKCYAN + bcolors.UNDERLINE + "IDLE MODALITY 1\n" + bcolors.ENDC)
 				pub_cancel_goal.publish(goal_cancel)
 				flag = 1
 

@@ -13,17 +13,32 @@ import time
 from std_srvs.srv import *
 import sys, select, termios, tty
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    ORANGE = '\033[33m' 
+    PURPLE  = '\033[35m'
+
 msg = """
+""" + bcolors.BOLD +"""
 Reading from the keyboard  and Publishing to Twist!
 ---------------------------
+""" + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + """
 Moving around:
        i    
    j   k    l
-
+""" + bcolors.HEADER + bcolors.BOLD +"""
 q/z : increase/decrease max speeds by 10%
 w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
-
+""" + bcolors.ENDC + """
 CTRL-C to quit
 """
 
@@ -176,9 +191,6 @@ def clbk_laser(msg):
         ok_left =True
 
 
-
-
-
 def pop_dict(dictionary):
 
     global ok_left
@@ -190,40 +202,33 @@ def pop_dict(dictionary):
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('j')
         popped3 = dictionary.pop('l')
-        print("Command " + str(popped1) + " disabled" , end="\r")
-        print("Command " + str(popped2) + " disabled" , end="\r")
-        print("Command " + str(popped3) + " disabled" , end="\r")
+        print(bcolors.FAIL  + "Command 'i' disabled" + bcolors.ENDC, end="\r")
+        print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
+        print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
     elif not ok_left and not ok_straight and ok_right:
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('j')
-        print("Command " + str(popped1) + " disabled" , end="\r")
-        print("Command " + str(popped2) + " disabled" , end="\r")
+        print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
+        print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
     elif ok_left and not ok_straight and not ok_right:
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('l')
-        print("Command " + str(popped1) + " disabled" , end="\r")
-        print("Command " + str(popped2) + " disabled" , end="\r")
+        print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
+        print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
     elif not ok_left and ok_straight and not ok_right:
         popped1 = dictionary.pop('l')
         popped2 = dictionary.pop('j')
-        print("Command " + str(popped1) + " disabled" , end="\r")
-        print("Command " + str(popped2) + " disabled" , end="\r")
+        print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
+        print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
     elif ok_left and not ok_straight and ok_right:
         popped1 = dictionary.pop('i')
-        print("Command " + str(popped1) + " disabled" , end="\r")
+        print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
     elif not ok_left and ok_straight and ok_right:
         popped1 = dictionary.pop('j')
-        print("Command " + str(popped1) + " disabled" , end="\r")
+        print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
     elif ok_left and ok_straight and not ok_right:
         popped1 = dictionary.pop('l')
-        print("Command " + str(popped1) + " disabled" , end="\r")
-
-
-
-
-
-
-
+        print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
 
 
 def vels(speed, turn):
@@ -297,7 +302,7 @@ if __name__=="__main__":
         else:
             if flag == 1:
                 pub_thread.my_stop() 
-                print("IDLE MODALITY 3")
+                print(bcolors.OKGREEN + bcolors.BOLD + "IDLE MODALITY 3" + bcolors.ENDC)
             flag = 0
 
         rate.sleep()

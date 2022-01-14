@@ -12,14 +12,32 @@ from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
 
-msg = """
-Reading from the keyboard  and Publishing to Twist!
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    ORANGE = '\033[33m' 
+    PURPLE  = '\033[35m'
+
+msg = """ 
+""" + bcolors.BOLD +"""
+Reading from the keyboard and Publishing to Twist!
+
 ---------------------------
+
+""" + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + """
 Moving around:
    u    i    o
    j    k    l
    m    ,    .
 
+""" + bcolors.ENDC + bcolors.OKCYAN + bcolors.BOLD + """
 For Holonomic mode (strafing), hold down the shift key:
 ---------------------------
    U    I    O
@@ -28,13 +46,13 @@ For Holonomic mode (strafing), hold down the shift key:
 
 t : up (+z)
 b : down (-z)
-
+""" + bcolors.ENDC + """
 anything else : stop
-
+""" + bcolors.HEADER + bcolors.BOLD +"""
 q/z : increase/decrease max speeds by 10%
 w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
-
+"""+ bcolors.ENDC +""" 
 CTRL-C to quit
 """
 
@@ -237,7 +255,7 @@ if __name__=="__main__":
         else:
             if flag == 1:
                 pub_thread.my_stop() 
-                print("IDLE MODALITY 2")
+                print(bcolors.OKGREEN + bcolors.BOLD + "IDLE MODALITY 2" + bcolors.ENDC)
             flag = 0
             
 
