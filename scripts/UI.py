@@ -14,6 +14,7 @@ def interpreter():
 
 	elif command == 1:
 
+		rospy.set_param('active', 0)
 		print("Modality 1 is active, press '0' to cancel the target.")
 		active_=rospy.get_param("/active")
 		print("Where do you want the robot to go?")
