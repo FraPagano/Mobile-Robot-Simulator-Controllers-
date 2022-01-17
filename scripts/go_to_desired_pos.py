@@ -14,6 +14,9 @@ from std_srvs.srv import *
 import time
 import math
 
+
+
+
 class bcolors:
 	HEADER = '\033[95m'
 	OKBLUE = '\033[94m'
@@ -26,6 +29,14 @@ class bcolors:
 	UNDERLINE = '\033[4m'
 	ORANGE = '\033[33m' 
 	PURPLE  = '\033[35m'
+
+msg = """ 
+""" + bcolors.BOLD + """
+This node makes the robot autonomously reach a x,y position inserted by the user.
+The user x,y inputs are published on the 'move_base/goal' topic, and 
+therefore the robot is going to plan the path through the Dijkstra's algorithm. 
+""" +bcolors.ENDC + """
+"""
 
 goal_msg=MoveBaseActionGoal()
 goal_cancel=GoalID()
@@ -55,12 +66,9 @@ def update_variables():
 
 def my_callback_timeout(event):
 	if active_==1:
-		print (bcolors.WARNING + "Timer called at " + str(event.current_real) + bcolors.ENDC)
-		print(bcolors.WARNING + "Position not reached, target canceled\n" + bcolors.ENDC)
+		print (bcolors.FAIL + "Timer called after " + str(event.current_real) + "seconds." + bcolors.ENDC)
+		print(bcolors.FAIL + bcolors.BOLD + "Position not reached, target canceled\n" + bcolors.ENDC)
 		rospy.set_param('active', 0)
-		
-
-
 
 def main():
 
@@ -77,40 +85,30 @@ def main():
 	pub_goal.publish(goal_msg)
 	sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
 	rate = rospy.Rate(10)
-
-	
-	i=0
+	print(msg)
 	while (1):
 		
-		
 		update_variables()
-
-		if(i%5==0):
-			print(bcolors.OKBLUE + "X: " + str(position_.x) + bcolors.ENDC)
-			print(bcolors.PURPLE + "Y: " + str(position_.y) + bcolors.ENDC)
-			print("\n")
-		i=i+1
 
 		if active_==1:
 			
 			if flag == 1:
-				rospy.Timer(rospy.Duration(60),my_callback_timeout)
+				print(bcolors.OKGREEN + bcolors.UNDERLINE + "The robot is moving towards your desired target" + bcolors.ENDC)
+				rospy.Timer(rospy.Duration(120),my_callback_timeout)
 				set_goal(desired_position_x, desired_position_y)
 				flag = 0
 
 			if abs(desired_position_x-position_.x) <= 0.4 and abs(desired_position_y-position_.y) <= 0.4:
-				print(bcolors.OKGREEN + bcolors.UNDERLINE + "Target reached\n" + bcolors.ENDC)
+				print(bcolors.OKGREEN + bcolors.UNDERLINE + bcolors.BOLD + "Target reached\n" + bcolors.ENDC)
 				rospy.set_param('active', 0)
 
 		else:
 			if flag == 0:
-				print(bcolors.OKCYAN + bcolors.UNDERLINE + "IDLE MODALITY 1\n" + bcolors.ENDC)
+				print(bcolors.OKBLUE + "Modality 1 is currently in idle state\n" + bcolors.ENDC)
 				pub_cancel_goal.publish(goal_cancel)
 				flag = 1
 
 		rate.sleep()
-
-	
 
 
 if __name__ == '__main__':

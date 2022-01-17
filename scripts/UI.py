@@ -16,41 +16,62 @@ class bcolors:
 	ORANGE = '\033[33m' 
 	PURPLE  = '\033[35m' 
 
+intro = """ 
+""" + bcolors.HEADER + bcolors.BOLD + """
+Hi! This is your User Interface """ + bcolors.ENDC + bcolors.UNDERLINE + """
+You can move the robot through three different modalities:
+"""
 
+menu_msg = """
+""" + bcolors.ENDC + """
+----------------------------------------------------------------
+[1] """ + bcolors.UNDERLINE + """Insert your desired position """ + bcolors.ENDC + """
+[2] """ + bcolors.UNDERLINE + """Free Drive the robot with your keyboard """ + bcolors.ENDC +"""
+[3] """ + bcolors.UNDERLINE + """Free Drive the robot with your keyboard assisted by an obstacle avoidance algorithm """ + bcolors.ENDC + """
+[4] """ + bcolors.UNDERLINE + bcolors.FAIL + """Quit the simulaiton
+"""
+
+flag = False
 def interpreter():
+	global flag 
+	print(menu_msg)
 
-	command = int(input(bcolors.HEADER + 'Choose your modality or press [4] for quit \n' + bcolors.ENDC))
-
-	if command == 0:
+	if flag == True:
+		print(bcolors.FAIL + bcolors.BOLD + "Press [0] for canceling the target" + bcolors.ENDC)
+		flag = False
+	command = input(bcolors.HEADER + 'Instert a command \n' + bcolors.ENDC)
+	if command == "0":
 		rospy.set_param('active', 0)
 		print(bcolors.OKGREEN + "Idle" + bcolors.ENDC)
 		active_=rospy.get_param("/active")
 		print(active_)
 
-	elif command == 1:
+	elif command == "1":
 
 		rospy.set_param('active', 0)
-		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 1 is active," + bcolors.ENDC + " press '0' to cancel the target.")
+		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 1 is active.")
 		active_=rospy.get_param("/active")
 		print(bcolors.OKBLUE + bcolors.BOLD + "Where do you want the robot to go?" + bcolors.ENDC)
 		des_x_input = float(input(bcolors.UNDERLINE + bcolors.OKBLUE +"Insert the desired x position: " + bcolors.ENDC))
 		des_y_input = float(input(bcolors.UNDERLINE + bcolors.OKBLUE +"Insert the desired y position: " + bcolors.ENDC))
 		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Okay, let's reach the psotion x= " + str(des_x_input) + " y= " + str(des_y_input) + bcolors.ENDC)
+		print(bcolors.OKGREEN + bcolors.UNDERLINE + "The robot is moving towards your desired target" + bcolors.ENDC)		
 		rospy.set_param('des_pos_x', des_x_input)
 		rospy.set_param('des_pos_y', des_y_input)
 		rospy.set_param('active', 1)
+		flag=True
 
-	elif command == 2:
+	elif command == "2":
 		rospy.set_param('active', 2)
 		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 2 is active." + bcolors.ENDC)
 		active_=rospy.get_param("/active")
 		
-	elif command == 3:
+	elif command == "3":
 		rospy.set_param('active', 3)
 		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 3 is active." + bcolors.ENDC)
 		active_=rospy.get_param("/active")
 
-	elif command == 4:
+	elif command == "4":
 		print(bcolors.WARNING + bcolors.BOLD + "Exiting..." + bcolors.ENDC)
 		os.kill(os.getpid(), signal.SIGKILL)
 		
@@ -59,10 +80,8 @@ def interpreter():
 
 
 def main():
-	print(bcolors.HEADER + bcolors.BOLD + "Hi! This is your User Interface" + bcolors.ENDC) 
-	print(bcolors.UNDERLINE + "You can move the robot through three different modalities:" + bcolors.ENDC)
-	print("\n[1] " + bcolors.UNDERLINE + "By selecting your desired position\n\n" + bcolors.ENDC + "[2] " + bcolors.UNDERLINE + "By controlling it with your keyboard \n\n" + bcolors.ENDC + "[3] " + bcolors.UNDERLINE + "By controlling it with your keyboard assisted by an obstacle avoidance algorithm\n" + bcolors.ENDC)
-
+	
+	print(intro)
 	while not rospy.is_shutdown():
 		interpreter()
 

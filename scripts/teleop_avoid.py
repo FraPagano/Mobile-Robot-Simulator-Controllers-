@@ -28,18 +28,20 @@ class bcolors:
 
 msg = """
 """ + bcolors.BOLD +"""
-Reading from the keyboard  and Publishing to Twist!
+Reading from the keyboard and Publishing to Twist!
 ---------------------------
 """ + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + """
-Moving around:
-       i    
-   j   k    l
+[i] go straight    
+[j] turn left
+[l] turn right
+[k] go backwards
+
 """ + bcolors.HEADER + bcolors.BOLD +"""
-q/z : increase/decrease max speeds by 10%
-w/x : increase/decrease only linear speed by 10%
-e/c : increase/decrease only angular speed by 10%
+[q]/[z] : increase/decrease max speeds by 10%
+[w]/[x] : increase/decrease only linear speed by 10%
+[e]/[c] : increase/decrease only angular speed by 10%
 """ + bcolors.ENDC + """
-CTRL-C to quit
+
 """
 
 ok_left = True

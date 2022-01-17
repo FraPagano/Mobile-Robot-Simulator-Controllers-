@@ -53,7 +53,7 @@ q/z : increase/decrease max speeds by 10%
 w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
 """+ bcolors.ENDC +""" 
-CTRL-C to quit
+
 """
 
 moveBindings = {
