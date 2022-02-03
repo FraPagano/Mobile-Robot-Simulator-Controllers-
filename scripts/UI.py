@@ -42,9 +42,8 @@ def interpreter():
 	command = input(bcolors.HEADER + 'Instert a command \n' + bcolors.ENDC)
 	if command == "0":
 		rospy.set_param('active', 0)
-		print(bcolors.OKGREEN + "Idle" + bcolors.ENDC)
+		print(bcolors.OKGREEN + "Now the application is in idle" + bcolors.ENDC)
 		active_=rospy.get_param("/active")
-		print(active_)
 
 	elif command == "1":
 

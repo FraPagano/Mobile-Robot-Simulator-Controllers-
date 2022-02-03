@@ -192,10 +192,13 @@ def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
 if __name__=="__main__":
+
+    settings = termios.tcgetattr(sys.stdin)
+
     rospy.init_node('my_teleop_twist_kb')
     active_=rospy.get_param("/active")
     flag = 1
-    settings = termios.tcgetattr(sys.stdin)
+    
     speed = rospy.get_param("~speed", 0.5)
     turn = rospy.get_param("~turn", 1.0)
     repeat = rospy.get_param("~repeat_rate", 0.0)

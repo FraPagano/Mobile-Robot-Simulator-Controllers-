@@ -2,20 +2,10 @@
 
 # import ros stuff
 import rospy
-from sensor_msgs.msg import LaserScan
-from move_base_msgs.msg import MoveBaseActionGoal
-
-from actionlib_msgs.msg import GoalID 
-
-from geometry_msgs.msg import Twist, Point
-from nav_msgs.msg import Odometry
+import actionlib
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from tf import transformations
 from std_srvs.srv import *
-import time
-import math
-
-
-
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -33,30 +23,79 @@ class bcolors:
 msg = """ 
 """ + bcolors.BOLD + """
 This node makes the robot autonomously reach a x,y position inserted by the user.
-The user x,y inputs are published on the 'move_base/goal' topic, and 
-therefore the robot is going to plan the path through the Dijkstra's algorithm. 
+The user's x,y coordinates are reached thanks to the 'move_base' action server. 
+The robot is going to plan the path through the Dijkstra's algorithm. 
 """ +bcolors.ENDC + """
 """
 
-goal_msg=MoveBaseActionGoal()
-goal_cancel=GoalID()
-position_=Point()
+goal_msg=MoveBaseGoal()
+
 my_timer = 0
-goal_msg.goal.target_pose.header.frame_id = 'map'
-goal_msg.goal.target_pose.pose.orientation.w = 1
 active_ = rospy.get_param('active')
 desired_position_x = rospy.get_param('des_pos_x')
 desired_position_y = rospy.get_param('des_pos_y')
+client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
+achieved = False
+goal_cont = 1
+cont = 1
+
+def action_client():
+
+	global goal_msg
+	global client
+
+	
+	client.wait_for_server()
+
+	goal_msg.target_pose.header.frame_id = 'map'
+	goal_msg.target_pose.header.stamp = rospy.Time.now()
+	goal_msg.target_pose.pose.orientation.w = 1
+
+
+def done_cb(status, result):
+	global client
+	global achieved
+	global goal_cont
+
+	goal_cont += 1
+
+	if status == 2:
+		print(bcolors.FAIL + "The goal received a cancel request after it started executing. Execution terminated." + bcolors.ENDC)
+		return
+	if status == 3:
+		print(bcolors.OKGREEN + bcolors.UNDERLINE + bcolors.BOLD + "Goal successfully achieved" + bcolors.ENDC)
+		cont = 1
+		achieved = True
+		return
+	if status == 4:
+		print(bcolors.FAIL + "Timeout expired, the desired poition is not reachable. Goal aborted."  + bcolors.ENDC)
+		return
+	if status == 5:
+		print(bcolors.FAIL + "The goal was rejected" + bcolors.ENDC)
+		return
+	if status == 6:
+		print(bcolors.FAIL + "The goal received a cancel request after it started executing and has not yet completed execution"+ bcolors.ENDC)
+		return
+	if status == 8:
+		print(bcolors.FAIL + "The goal received a cancel request before it started executing and was successfully cancelled."+ bcolors.ENDC)
+		return
+
+
+def active_cb():
+	print(bcolors.OKBLUE + bcolors.BOLD +"Goal number "+ str(goal_cont) + " is being processed..."  + bcolors.ENDC)
+
+def feedback_cb(feedback):
+	global cont
+	cont += 1
+	print(str(cont) + ")\tFeedback from goal number " + str(goal_cont) + " received!")
 
 def set_goal(x, y):
-	goal_msg.goal.target_pose.pose.position.x = x
-	goal_msg.goal.target_pose.pose.position.y = y
-	pub_goal.publish(goal_msg)
 
-def clbk_odom(msg):
-
-	global position_
-	position_ = msg.pose.pose.position
+	global goal_msg
+	global client
+	goal_msg.target_pose.pose.position.x = x
+	goal_msg.target_pose.pose.position.y = y
+	client.send_goal(goal_msg, done_cb, active_cb, feedback_cb)
 
 def update_variables():
 	global desired_position_x, desired_position_y, active_
@@ -64,26 +103,16 @@ def update_variables():
 	desired_position_x = rospy.get_param('des_pos_x')
 	desired_position_y = rospy.get_param('des_pos_y')
 
-def my_callback_timeout(event):
-	if active_==1:
-		print (bcolors.FAIL + "Timer called after " + str(event.current_real) + "seconds." + bcolors.ENDC)
-		print(bcolors.FAIL + bcolors.BOLD + "Position not reached, target canceled\n" + bcolors.ENDC)
-		rospy.set_param('active', 0)
-
 def main():
 
-	global pub_vel 
-	global pub_goal
+	global client
+	global goal_msg
+	global achieved
 
 	flag=0
 	
 	rospy.init_node('go_to_desired_pos')
-	pub_goal = rospy.Publisher('/move_base/goal', MoveBaseActionGoal, queue_size=1)
-	pub_cancel_goal = rospy.Publisher('/move_base/cancel', GoalID, queue_size=1)
-	pub_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-
-	pub_goal.publish(goal_msg)
-	sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
+	action_client()
 	rate = rospy.Rate(10)
 	print(msg)
 	while (1):
@@ -94,19 +123,18 @@ def main():
 			
 			if flag == 1:
 				print(bcolors.OKGREEN + bcolors.UNDERLINE + "The robot is moving towards your desired target" + bcolors.ENDC)
-				rospy.Timer(rospy.Duration(120),my_callback_timeout)
 				set_goal(desired_position_x, desired_position_y)
 				flag = 0
 
-			if abs(desired_position_x-position_.x) <= 0.4 and abs(desired_position_y-position_.y) <= 0.4:
-				print(bcolors.OKGREEN + bcolors.UNDERLINE + bcolors.BOLD + "Target reached\n" + bcolors.ENDC)
-				rospy.set_param('active', 0)
-
 		else:
-			if flag == 0:
+			if flag == 0 and achieved == False:
 				print(bcolors.OKBLUE + "Modality 1 is currently in idle state\n" + bcolors.ENDC)
-				pub_cancel_goal.publish(goal_cancel)
+				client.cancel_goal()
 				flag = 1
+
+			if achieved == True:
+				flag = 1
+				achieved = False
 
 		rate.sleep()
 

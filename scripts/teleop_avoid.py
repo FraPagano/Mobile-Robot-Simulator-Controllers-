@@ -163,6 +163,7 @@ def getKey(key_timeout):
         key = sys.stdin.read(1)
     else:
         key = ''
+    
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     return key
 
@@ -204,7 +205,7 @@ def pop_dict(dictionary):
         popped1 = dictionary.pop('i')
         popped2 = dictionary.pop('j')
         popped3 = dictionary.pop('l')
-        print(bcolors.FAIL  + "Command 'i' disabled" + bcolors.ENDC, end="\r")
+        print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
     elif not ok_left and not ok_straight and ok_right:
@@ -237,10 +238,13 @@ def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
 if __name__=="__main__":
+
+    settings = termios.tcgetattr(sys.stdin)
+
     rospy.init_node('teleop_avoid')
     active_=rospy.get_param("/active")
     flag = 1
-    settings = termios.tcgetattr(sys.stdin)
+    
     speed = rospy.get_param("~speed", 0.5)
     turn = rospy.get_param("~turn", 1.0)
     repeat = rospy.get_param("~repeat_rate", 0.0)
@@ -308,6 +312,5 @@ if __name__=="__main__":
             flag = 0
 
         rate.sleep()
-            
 
 
