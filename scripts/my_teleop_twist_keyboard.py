@@ -223,6 +223,7 @@ if __name__=="__main__":
     print(vels(speed,turn))
 
     while(1):
+        
         active_=rospy.get_param("/active")
 
         if active_ == 2:
@@ -258,7 +259,7 @@ if __name__=="__main__":
         else:
             if flag == 1:
                 pub_thread.my_stop() 
-                print(bcolors.OKGREEN + bcolors.BOLD + "IDLE MODALITY 2" + bcolors.ENDC)
+                print(bcolors.OKGREEN + bcolors.BOLD + "Modality 2 is currently in idle state\n" + bcolors.ENDC)
             flag = 0
             
 
