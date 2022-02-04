@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 
+# IMPORTS
 from __future__ import print_function
-
 import threading
-
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
-
-
 from geometry_msgs.msg import Twist
-
 import sys, select, termios, tty
 
+ # COLORS
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -25,6 +22,7 @@ class bcolors:
     ORANGE = '\033[33m' 
     PURPLE  = '\033[35m'
 
+# Instructions message
 msg = """ 
 """ + bcolors.BOLD +"""
 Reading from the keyboard and Publishing to Twist!
@@ -55,7 +53,7 @@ e/c : increase/decrease only angular speed by 10%
 """+ bcolors.ENDC +""" 
 
 """
-
+# Dictionary for movement commands
 moveBindings = {
         'i':(1,0,0,0),
         'o':(1,0,0,-1),
@@ -76,7 +74,7 @@ moveBindings = {
         't':(0,0,1,0),
         'b':(0,0,-1,0),
     }
-
+# Dictionary for velocities
 speedBindings={
         'q':(1.1,1.1),
         'z':(.9,.9),
@@ -86,10 +84,11 @@ speedBindings={
         'c':(1,.9),
     }
 
+
 class PublishThread(threading.Thread):
     def __init__(self, rate):
         super(PublishThread, self).__init__()
-        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1) #Publisher on the 'cmd_vel' topic
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
@@ -136,7 +135,9 @@ class PublishThread(threading.Thread):
         self.update(0, 0, 0, 0, 0, 0)
         self.join()
 
+    
     def my_stop(self):
+        # Class funtion for stopping the robot movement 
         twist = Twist()
         twist.linear.x = 0
         twist.linear.y = 0
@@ -174,14 +175,14 @@ class PublishThread(threading.Thread):
         twist.angular.x = 0
         twist.angular.y = 0
         twist.angular.z = 0
-        self.publisher.publish(twist)
+        self.publisher.publish(twist) # Publishes the twist message 
 
 
-def getKey(key_timeout):
+def getKey(key_timeout): # Get input key
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
-        key = sys.stdin.read(1)
+        key = sys.stdin.read(1) # Get input key from standard input
     else:
         key = ''
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
@@ -193,16 +194,18 @@ def vels(speed, turn):
 
 if __name__=="__main__":
 
-    settings = termios.tcgetattr(sys.stdin)
+    settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
 
-    rospy.init_node('my_teleop_twist_kb')
-    active_=rospy.get_param("/active")
-    flag = 1
+    rospy.init_node('my_teleop_twist_kb')   # Init node
+    active_=rospy.get_param("/active")      # We want a local variable that is equal to the ROS parameter   
+    flag = 1                                # Useful flag for determine an idle status
     
     speed = rospy.get_param("~speed", 0.5)
     turn = rospy.get_param("~turn", 1.0)
     repeat = rospy.get_param("~repeat_rate", 0.0)
-    key_timeout = rospy.get_param("~key_timeout", 0.1)
+
+    # Timeout set at 0.1 seconds. That means that the user needs to keep the key pushed for moving the robot. 
+    key_timeout = rospy.get_param("~key_timeout", 0.1) 
 
     if key_timeout == 0.0:
         key_timeout = None
@@ -223,12 +226,12 @@ if __name__=="__main__":
     print(vels(speed,turn))
 
     while(1):
-        
-        active_=rospy.get_param("/active")
 
-        if active_ == 2:
-            key = getKey(key_timeout)
-            if key in moveBindings.keys():
+        active_=rospy.get_param("/active") # Update the system status
+
+        if active_ == 2: # If this modality is active
+            key = getKey(key_timeout) #Get the input command
+            if key in moveBindings.keys(): # If the input command is in the dictionary set the x, y, z, th variables
                 x = moveBindings[key][0]
                 y = moveBindings[key][1]
                 z = moveBindings[key][2]
@@ -257,7 +260,7 @@ if __name__=="__main__":
             flag = 1
 
         else:
-            if flag == 1:
+            if flag == 1: # Put the current modality in Idle state
                 pub_thread.my_stop() 
                 print(bcolors.OKGREEN + bcolors.BOLD + "Modality 2 is currently in idle state\n" + bcolors.ENDC)
             flag = 0

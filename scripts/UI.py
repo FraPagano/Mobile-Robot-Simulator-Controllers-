@@ -58,7 +58,7 @@ def interpreter():
 
 	elif command == "1": # Modality one chosen
 
-		rospy.set_param('active', 0) # 
+		rospy.set_param('active', 0) # Useful for changing goal 
 		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 1 is active.")
 		active_=rospy.get_param("/active")
 		print(bcolors.OKBLUE + bcolors.BOLD + "Where do you want the robot to go?" + bcolors.ENDC)

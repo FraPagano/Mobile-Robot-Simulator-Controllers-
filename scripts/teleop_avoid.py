@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 
+# IMPORTS
 from __future__ import print_function
-
 import threading
 from sensor_msgs.msg import LaserScan
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
-
-
 from geometry_msgs.msg import Twist
 import time
 from std_srvs.srv import *
 import sys, select, termios, tty
 
+# COLORS
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -26,6 +25,7 @@ class bcolors:
     ORANGE = '\033[33m' 
     PURPLE  = '\033[35m'
 
+# Instructions message
 msg = """
 """ + bcolors.BOLD +"""
 Reading from the keyboard and Publishing to Twist!
@@ -44,10 +44,13 @@ Reading from the keyboard and Publishing to Twist!
 
 """
 
-ok_left = True
-ok_right = True
-ok_straight = True
+# Bool variables for taking into account where obstacles are
 
+ok_left = True      # When there's no wall on the left of the robot this variable is True, otherwise is False
+ok_right = True     # When there's no wall on the right of the robot this variable is True, otherwise is False
+ok_straight = True  # When there's no wall in front of the robot this variable is True, otherwise is False
+
+# Dictionary for movement commands
 moveBindings = {
         'i':(1,0,0,0),
         'j':(0,0,0,1),
@@ -55,7 +58,7 @@ moveBindings = {
         'k':(-1,0,0,0),
     }
 
-
+# Dictionary for velocities
 speedBindings={
         'q':(1.1,1.1),
         'z':(.9,.9),
@@ -68,7 +71,7 @@ speedBindings={
 class PublishThread(threading.Thread):
     def __init__(self, rate):
         super(PublishThread, self).__init__()
-        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1) #Publisher on the 'cmd_vel' topic
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
@@ -116,6 +119,7 @@ class PublishThread(threading.Thread):
         self.join()
 
     def my_stop(self):
+        # Class funtion for stopping the robot movement 
         twist = Twist()
         twist.linear.x = 0
         twist.linear.y = 0
@@ -156,11 +160,11 @@ class PublishThread(threading.Thread):
         self.publisher.publish(twist)
 
 
-def getKey(key_timeout):
+def getKey(key_timeout): # Get input key
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
-        key = sys.stdin.read(1)
+        key = sys.stdin.read(1) # Get input key from standard input
     else:
         key = ''
     
@@ -169,68 +173,73 @@ def getKey(key_timeout):
 
 def clbk_laser(msg):
 
+# Callback for detecting obstacles from laser scan
 
     global ok_left
     global ok_right
     global ok_straight
 
-    right = min(min(msg.ranges[0:143]), 1)
-    front = min(min(msg.ranges[288:431]), 1)
-    left = min(min(msg.ranges[576:719]), 1)
+    right = min(min(msg.ranges[0:143]), 1)      # Detects obstacles on the right of the robot
+    front = min(min(msg.ranges[288:431]), 1)    # Detects obstacles in front of the robot
+    left = min(min(msg.ranges[576:719]), 1)     # Detects obstacles on the left of the robot
 
-    if right != 1.0:
+    if right != 1.0:    # No obstacles detected on the right at a distance less than 1 meter
         ok_right =False
-    else:
+    else:               # Obstacle detected on the right of the robot
         ok_right =True
 
-    if front != 1.0:
+    if front != 1.0:    # No obstacles detected in the front direction at a distance less than 1 meter
         ok_straight =False
-    else:
+    else:               # Obstacle detected in front of the robot
         ok_straight =True
 
-    if left != 1.0:
+    if left != 1.0:     # No obstacles detected on the left at a distance less than 1 meter
         ok_left =False
-    else:
+    else:               # Obstacle detected on the left of the robot
         ok_left =True
 
 
 def pop_dict(dictionary):
 
+# Function that removes commands from the dictionary when an obstacle is detected. In this way, when an obstacle is detected,
+# the movement in that direction is disabled
     global ok_left
     global ok_right
     global ok_straight
     
+    # All the cases the robot could face
 
-    if not ok_straight and not ok_right and not ok_left:
-        popped1 = dictionary.pop('i')
-        popped2 = dictionary.pop('j')
-        popped3 = dictionary.pop('l')
+    if not ok_straight and not ok_right and not ok_left: # Obstacles in every direction
+        # Disable all the three commands 
+        popped1 = dictionary.pop('i')   # Disable the front movement 
+        popped2 = dictionary.pop('j')   # Disable the left turn movement   
+        popped3 = dictionary.pop('l')   # Disable the right turn movement 
         print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
-    elif not ok_left and not ok_straight and ok_right:
-        popped1 = dictionary.pop('i')
-        popped2 = dictionary.pop('j')
+    elif not ok_left and not ok_straight and ok_right: # Obstacles on the left and in the front direction, so right direction is free
+        popped1 = dictionary.pop('i')   # Disable the front movement 
+        popped2 = dictionary.pop('j')   # Disable the left turn movement
         print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
-    elif ok_left and not ok_straight and not ok_right:
-        popped1 = dictionary.pop('i')
-        popped2 = dictionary.pop('l')
+    elif ok_left and not ok_straight and not ok_right: # Obstacles on the right and in the front direction, so left direction is free
+        popped1 = dictionary.pop('i')   # Disable the front movement 
+        popped2 = dictionary.pop('l')   # Disable the right turn movement
         print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
-    elif not ok_left and ok_straight and not ok_right:
-        popped1 = dictionary.pop('l')
-        popped2 = dictionary.pop('j')
+    elif not ok_left and ok_straight and not ok_right: # Obstacles on the right and on the left, so the front direction is free
+        popped1 = dictionary.pop('l')   # Disable the right turn movement
+        popped2 = dictionary.pop('j')   # Disable the left turn movement
         print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
         print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
-    elif ok_left and not ok_straight and ok_right:
-        popped1 = dictionary.pop('i')
+    elif ok_left and not ok_straight and ok_right: # Obstacles only in the front direction, so the left and right directions are free
+        popped1 = dictionary.pop('i')   # Disable the front movement 
         print(bcolors.FAIL + "Command 'i' disabled" + bcolors.ENDC , end="\r")
-    elif not ok_left and ok_straight and ok_right:
-        popped1 = dictionary.pop('j')
+    elif not ok_left and ok_straight and ok_right: # Obstacles only in the left direction, so the front and right directions are free
+        popped1 = dictionary.pop('j')   # Disable the left turn movement 
         print(bcolors.FAIL + "Command 'j' disabled" + bcolors.ENDC , end="\r")
-    elif ok_left and ok_straight and not ok_right:
-        popped1 = dictionary.pop('l')
+    elif ok_left and ok_straight and not ok_right: # Obstacles only in the right direction, so the front and left directions are free
+        popped1 = dictionary.pop('l')   # Disable the right turn movement 
         print(bcolors.FAIL + "Command 'l' disabled" + bcolors.ENDC , end="\r")
 
 
@@ -239,11 +248,11 @@ def vels(speed, turn):
 
 if __name__=="__main__":
 
-    settings = termios.tcgetattr(sys.stdin)
+    settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
 
-    rospy.init_node('teleop_avoid')
-    active_=rospy.get_param("/active")
-    flag = 1
+    rospy.init_node('teleop_avoid') # Init node
+    active_=rospy.get_param("/active") # We want a local variable that is equal to the ROS parameter 
+    flag = 1 
     
     speed = rospy.get_param("~speed", 0.5)
     turn = rospy.get_param("~turn", 1.0)
