@@ -106,10 +106,10 @@
 <param name="des_pos_y" type="double" value="1" />
 
 
-<node pkg="final_assignment" type="UI.py" name="UI" required="true" launch-prefix="xterm -e" />
-<node pkg="final_assignment" type="go_to_desired_pos.py" name="go_to_desired_pos" required="true" launch-prefix="xterm -e" />
-<node pkg="final_assignment" type="my_teleop_twist_keyboard.py" name="my_teleop_twist_kb" required="true" launch-prefix="xterm -e" /> 
-<node pkg="final_assignment" type="teleop_avoid.py" name="teleop_avoid" required="true" launch-prefix="xterm -e" /> 
+<node pkg="final_assignment" type="UI.py" name="UI" required="true" launch-prefix="xterm -fa 'Monospace' -fs 10 -e" />
+<node pkg="final_assignment" type="go_to_desired_pos.py" name="go_to_desired_pos" required="true" launch-prefix="xterm -fa 'Monospace' -fs 10 -e" />
+<node pkg="final_assignment" type="my_teleop_twist_keyboard.py" name="my_teleop_twist_kb" required="true" launch-prefix="xterm -fa 'Monospace' -fs 10 -e" /> 
+<node pkg="final_assignment" type="teleop_avoid.py" name="teleop_avoid" required="true" launch-prefix="xterm -fa 'Monospace' -fs 10 -e" /> 
 
 
 
