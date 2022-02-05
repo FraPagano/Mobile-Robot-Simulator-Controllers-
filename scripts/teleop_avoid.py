@@ -249,10 +249,13 @@ def vels(speed, turn):
 
 if __name__=="__main__":
 
-    settings_old = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
+    # Settings for avoid printing commands on terminal
+    settings_old = termios.tcgetattr(sys.stdin) 
     settings_new = settings_old
     settings_new[3] = settings_new[3] & ~termios.ECHO
-    rospy.init_node('teleop_avoid') # Init node
+
+    # Init node
+    rospy.init_node('teleop_avoid') 
     active_=rospy.get_param("/active") # We want a local variable that is equal to the ROS parameter 
     flag = 1 
     
