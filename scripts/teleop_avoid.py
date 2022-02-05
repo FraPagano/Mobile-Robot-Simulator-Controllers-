@@ -164,11 +164,12 @@ def getKey(key_timeout): # Get input key
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings_new)
         key = sys.stdin.read(1) # Get input key from standard input
     else:
         key = ''
     
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings_old)
     return key
 
 def clbk_laser(msg):
@@ -248,8 +249,9 @@ def vels(speed, turn):
 
 if __name__=="__main__":
 
-    settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
-
+    settings_old = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
+    settings_new = settings_old
+    settings_new[3] = settings_new[3] & ~termios.ECHO
     rospy.init_node('teleop_avoid') # Init node
     active_=rospy.get_param("/active") # We want a local variable that is equal to the ROS parameter 
     flag = 1 
