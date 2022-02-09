@@ -19,6 +19,17 @@ class bcolors:
 	ORANGE = '\033[33m' 
 	PURPLE  = '\033[35m' 
 
+ascii_art_message = """ """ + bcolors.BOLD + bcolors.HEADER + """
+				 _________
+			|\     /|\ _   __/
+			| )   ( |   ) (   
+			| |   | |   | |   
+			| |   | |   | |   
+			| |   | |   | |   
+			| (___) |___) (___
+			(_______)\_______/
+""" + bcolors.ENDC +""" """
+
 # Intro message
 intro = """ 
 """ + bcolors.HEADER + bcolors.BOLD + """
@@ -97,7 +108,7 @@ def interpreter():
 
 
 def main():
-	
+	print(ascii_art_message)
 	print(intro)
 	while not rospy.is_shutdown():
 		interpreter()
