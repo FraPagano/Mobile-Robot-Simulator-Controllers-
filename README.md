@@ -1,4 +1,4 @@
-# ## Research Track 1, final assignment
+## Research Track 1, final assignment
 
 ================================
 
@@ -16,7 +16,7 @@ The software architecture must control the robot in three different ways:
 In order to accomplish such task I wrote four nodes in python:
 
  1. **UI.py**
- 2. **go_to_des_pos.py**
+ 2. **go_to_desired_pos.py**
  3. **my_teleop_twist_keyboard.py**
  4. **teleop_avoid**
 
@@ -49,11 +49,10 @@ The greaest issues that I faced with during the implementation of the project we
 #### User Interface Node
 The User Interface node handles the user keyboard inputs. Here's a legend of the allowed commands:
 
- - *'1'* keyboard key is used for choosing the  autonomously reaching modality;
- - *'2'* keyboard key is used for the free keyboard driving modality;
- - *'3'* keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;
- - *'4'* keyboard key is used for quitting the application and terminates all nodes;
- 
+ 1. *'1'* keyboard key is used for choosing the  autonomously reaching modality;
+ 2. *'2'* keyboard key is used for the free keyboard driving modality;
+ 3. *'3'* keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;
+ 4. *'4'* keyboard key is used for quitting the application and terminates all nodes;
 This node is very simply designed. Essentially, a function called `interpreter()` is looped insiude a `while not rospy.is_shutdown():` loop. This function gets the keyboard user input and changes the ROS parameter ***active*** depending on which modality was chosen. 
 Here's the `interpreter()` code:
 ``` python
@@ -99,9 +98,188 @@ def interpreter():
 		print(bcolors.FAIL + bcolors.BOLD + "Wrong key! Use the shown commands " + bcolors.ENDC)
 ```
 ####  Autonomously reaching node (First Modality)
-####  Free drive with keyboard node  (Second Modality)
-####  Free drive with keyboard and collision avoidance algorithm node  (Third Modality)
+This node makes the robot autonomously reach a x,y position inserted by the user. The robot can reach the user's x,y coordinates thanks to the **'move_base' action server**.
+The robot is going to plan the path through the Dijkstra's algorithm.
+When the first modality is selected, the UI.py node sets the active ROS parameter to 1 letting the first modality's loop to run all the necessary code for sending the desired goal. 
+The desired x, y coordinates are ROS parameters too and they are set by the UI.py node. When the first modality is running and a goal is received, this node uses the `send_goal(goal_msg, done_cb(), active_cb(), feedback_cb())` function for asking the action server to compute the path planning for the desired goal. 
+ 
+ 
+ 1.  ***goal_msg*** is a  MoveBaseGoal() action message containing all the information about the desired goal (i.e. x, y coordinates, referencing frame, etc... )
+ 2. ***done_cb(status, result)*** is a callback function called after the execution of the action server. It gives the client information about the termination of the goal process. In particular, this callback function returns a value that is stored in am `int` variable that I called *status*. Depending on the value of this variable the client knows the status of the goal processing. 
+ 3. ***active_cb()*** is a callback funtion called before the execution of the action server. I used this callback funtion in order to take into account the number of processed goals.
+ 4. ***feedback_cb(feedback)*** is a callback funtion called durning the execution of the action server. It returns feedbacks about the goal processing. 
 
+Here's a picture that I took into account: 
+
+<p align="center">
+ <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Circuit.JPG" height=320 width=380>
+</p>
+
+Thanks to the ***done_cb(status, result)*** function I could manage the result of the goal achievement.
+Here's the ***done_cb(status, result)*** code:
+
+```python
+def done_cb(status, result):
+# Function called after goal was processed. It is used to notify the client on the current status of every goal in the system.
+global client
+global achieved
+global goal_cont
+goal_cont += 1 # Increment goal counter
+if status == 2:
+		print(bcolors.FAIL + "The goal received a cancel request after it started executing. Execution terminated." + bcolors.ENDC)
+		cont = 1
+		return
+if status == 3:
+		print(bcolors.OKGREEN + bcolors.UNDERLINE + bcolors.BOLD + "Goal successfully achieved" + bcolors.ENDC)
+		cont = 1
+		achieved = True
+		return
+if status == 4:
+		print(bcolors.FAIL + "Timeout expired, the desired poition is not reachable. Goal aborted." + bcolors.ENDC)
+		cont = 1
+		return
+if status == 5:
+		print(bcolors.FAIL + "The goal was rejected" + bcolors.ENDC)
+		cont = 1
+		return
+if status == 6:
+		print(bcolors.FAIL + "The goal received a cancel request after it started executing and has not yet completed execution"+ bcolors.ENDC)
+		cont = 1
+		return
+if status == 8:
+		print(bcolors.FAIL + "The goal received a cancel request before it started executing and was successfully cancelled."+ bcolors.ENDC)
+		cont = 1
+		return
+```
+
+A concept that I want to point out is the that the achievement of the goal implies a cancel of such goal. So, I had to use a flag (`bool achieved`) to differentiate the case in which a goal was achieved (in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server) and the case in which the user decides to send a cancel request before the goal achievement (making the code to send a cancel request to the server).
+
+This is a piece of code about the differentiation that I just pointed out:  
+```python
+if flag == 0 and achieved == False: # If we are in Idle state but a goal was not achieved we need to cancel the goal
+		print("Modality 1 is currently in idle state\n")
+		client.cancel_goal() # Send a cancel request
+		flag = 1 # Ready to set a new goal if this modality is unlocked
+if achieved == True: # If a goal was achieved there's no need to cancel the goal
+		flag = 1
+		achieved = False
+```
+ 
+####  Free drive with keyboard node  (Second Modality)
+This node reads inputs from the keyboar and publishes a Twist() message to the `cmd_vel` topic. 
+Basically I relied on the ***teleop_twist_keyboard***  code. So, the functionality is the same:
+```
+# Instructions
+Moving around:
+							u i o
+							j k l
+							m , .
+For Holonomic mode (strafing), hold down the shift key:
+---------------------------
+
+							U I O
+							J K L
+							M < >
+							
+t : up (+z)
+b : down (-z)
+anything else : stop
+
+q/z : increase/decrease max speeds by 10%
+
+w/x : increase/decrease only linear speed by 10%
+
+e/c : increase/decrease only angular speed by 10%
+```
+
+I modified some lines of code in order to adapt the process on my needs. This modality is a total free driving algorithm, that means that the robot can obviously bump into the obstacles. 
+The main changes I've made from the ***teleop_twist_keyboard*** node are:
+
+ 1. Insertion of an `if(active == 2)` statement in order to block the code when another modality is running.
+ 2. The keys now must be kept pressed in order to move the robot. I did this by setting the `key_timeout` variable  to 0.1. Such variable was the `select()` timeout. That means that the `select()` function waits 0.1 seconds for new inputs at every loop. 
+
+####  Free drive with keyboard and collision avoidance algorithm node  (Third Modality)
+This node reads inputs from the keyboar and publishes a Twist() message to the `cmd_vel` topic. 
+Basically I relied on the ***teleop_twist_keyboard***  code. So, the functionality is quite the same:
+```
+# Instructions
+Reading from the keyboard and Publishing to Twist!
+---------------------------
+[i] go straight
+[j] turn left
+[l] turn right
+[k] go backwards
+
+[q]/[z] : increase/decrease max speeds by 10%
+[w]/[x] : increase/decrease only linear speed by 10%
+[e]/[c] : increase/decrease only angular speed by 10%
+```
+
+I modified some lines of code in order to adapt the process on my needs. This modality has also a collision avoidance algorithm that I implemented with my colleagues: [Alessandro Perri](https://github.com/PerriAlessandro), [Matteo Carlone](https://github.com/MatteoCarlone), [Luca Predieri](https://github.com/LucaPredieri) and [Fabio Conti](https://github.com/Fabioconti99). 
+This algorithm is based on the modification of a Dictionary. 
+Dictionary is adata type similar to a list and it contains a collection of objects. These objects are idexed with the key/value pair. In this case the contained value are  the linear and angular velocity combinations that the robot should assume after that an input occurrs. 
+Such collision avoidance algorithm just uses the`.pop(key)` method that removes and returns the element idexed by *key* of  the dictionary. In this way, when the distance between the robot and the obstacle is less than a threshold value, a command is disabled just by popping such index from the dictionary. Moreover, by this way the robot cannot move in the direction in which the obstacle is detected. 
+For implementing such algorithm, I needed the subscription to the `/scan` topic. This subscription allowed me to detect the obstacles in the simulation environment but also their position with respect to the robot by slicing the LaserScan array in three parts: front, left and right direction:
+```python
+def clbk_laser(msg):
+		# Callback for detecting obstacles from laser scan
+		global ok_left		#This variable is set to True when there are no obstacles on the left of the robot
+		global ok_right		#This variable is set to True when there are no obstacles on the right of the robot
+		global ok_straight	#This variable is set to True when there are no obstacles in front of the robot
+		
+		right = min(min(msg.ranges[0:143]), 1) # Detects obstacles on the right of the robot
+		front = min(min(msg.ranges[288:431]), 1) # Detects obstacles in front of the robot
+		left = min(min(msg.ranges[576:719]), 1) # Detects obstacles on the left of the robot
+		
+		if right != 1.0: # No obstacles detected on the right at a distance less than 1 meter
+				ok_right =False
+		else: # Obstacle detected on the right of the robot
+				ok_right =True
+		if front != 1.0: # No obstacles detected in the front direction at a distance less than 1 meter
+				ok_straight =False
+		else: # Obstacle detected in front of the robot
+				ok_straight =True
+		if left != 1.0: # No obstacles detected on the left at a distance less than 1 meter
+				ok_left =False
+		else: # Obstacle detected on the left of the robot
+				ok_left =True
+``` 
+Then, I considered all the eight combination that the robot could face:
+ 
+ <p align="center">
+ <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Circuit.JPG" height=320 width=380>
+</p>
+
+and finally I popped the dictionary indexes that would have moved the robot towards the detected obstacle:
+```python
+def pop_dict(dictionary):
+# Function that removes commands from the dictionary when an obstacle is detected. 
+#In this way, when an obstacle is detected, the movement in that direction is disabled
+		global ok_left
+		global ok_right
+		global ok_straight
+		# All the cases the robot could face
+		if not ok_straight and not ok_right and not ok_left: # Obstacles in every direction
+				# Disable all the three commands
+				dictionary.pop('i') # Disable the front movement
+				dictionary.pop('j') # Disable the left turn movement
+				dictionary.pop('l') # Disable the right turn movement
+		elif not ok_left and not ok_straight and ok_right: # Obstacles on the left and in the front direction, so right direction is free
+				dictionary.pop('i') # Disable the front movement
+				dictionary.pop('j') # Disable the left turn movement
+		elif ok_left and not ok_straight and not ok_right: # Obstacles on the right and in the front direction, so left direction is free
+				dictionary.pop('i') # Disable the front movement
+				dictionary.pop('l') # Disable the right turn movement
+		elif not ok_left and ok_straight and not ok_right: # Obstacles on the right and on the left, so the front direction is free
+				dictionary.pop('l') # Disable the right turn movement
+				dictionary.pop('j') # Disable the left turn movement
+		elif ok_left and not ok_straight and ok_right: # Obstacles only in the front direction, so the left and right directions are free
+				dictionary.pop('i') # Disable the front movement
+		elif not ok_left and ok_straight and ok_right: # Obstacles only in the left direction, so the front and right directions are free
+				dictionary.pop('j') # Disable the left turn movement
+		elif ok_left and ok_straight and not ok_right: # Obstacles only in the right direction, so the front and left directions are free
+				dictionary.pop('l') # Disable the right turn movement
+```
 
 ###  Installing and running 
 ----------------------
@@ -112,13 +290,13 @@ First of all, [xterm](https://it.wikipedia.org/wiki/Xterm), a standard terminal 
 sudo apt update
 sudo apt-get install xterm
 ```
-I created a launch file in the launch directory that executes all the necessary nodes and the simulation environment. You can run the program by entering the following command:
+I created a launch file in the launch directory that executes all the necessary nodes and the simulation environment. You can run the programs by entering the following command:
 
 ```
 roslaunch final_assignment launchAll.launch 
 ```
 
-The three modalities and the UI nodes will run on an xterm terminal. 
+The three modalities and the UI nodes will run on different xterm terminals. You can control the robot with the three different modalities by reerring to each xterm terminal that will appear after the launch file execution. 
 
 If any of the three node terminates, the launch file will terminates all the nodes.
 
@@ -157,18 +335,8 @@ I created also a global flowchart in order to have a more precise general idea o
 ### Results
 --------------------------------
 
-The final result is that the robot correctly runs around the circuit and, despite there are some things that could be improved in the future, I am satisfied with the work that I've done specially because that was my first approach with the ROS framework. 
-
-In order to make you understand how my code works, I recorded this video:
-
-
-https://user-images.githubusercontent.com/91267426/143897374-b2abea45-ce71-4e31-89b0-dc77842e4775.mp4
-
-
-
-
-
+The final result is that the robot correctly runs around the simulation environment and, despite there are some things that could be improved in the future, I am satisfied with the work that I've done. 
 
 ### Possible Improvements
 --------------------------------
-A possible improvement could be the usage of an algorithm such that it can map the entire environment from the beginning of the simulation and so that it can immediately detect all the x, y coordinates that cannot be reached. 
+A possible improvement could be the usage of an algorithm such that the robot could map the entire environment from the beginning of the simulation and so that it can immediately detect all the x, y coordinates that cannot be reached. 
