@@ -171,15 +171,15 @@ Basically I relied on the ***teleop_twist_keyboard***  code. So, the functionali
 ```
 # Instructions
 Moving around:
-							u i o
-							j k l
-							m , .
+					u i o
+					j k l
+					m , .
 For Holonomic mode (strafing), hold down the shift key:
 ---------------------------
 
-							U I O
-							J K L
-							M < >
+					U I O
+					J K L
+					M < >
 							
 t : up (+z)
 b : down (-z)
