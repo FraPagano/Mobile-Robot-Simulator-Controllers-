@@ -6,7 +6,7 @@
 
 --------------------------------
 
-The second assignment of the [Research Track 1](https://unige.it/en/off.f/2021/ins/51201.html?codcla=10635) class is about a mobile robot simulator using the ROS framework.  The last course lectures were about the software architecture for the control of a mobile robot and this assignment is about the development of such software architecture. The software will rely on the move_base  and gmapping packages for localizing the robot and plan the motion. 
+The final assignment of the [Research Track 1](https://unige.it/en/off.f/2021/ins/51201.html?codcla=10635) class is about a mobile robot simulator using the ROS framework.  The last course lectures were about the software architecture for the control of a mobile robot and this assignment is about the development of such software architecture. The software will rely on the move_base  and gmapping packages for localizing the robot and plan the motion. 
 The software architecture must control the robot in three different ways:
 
  1. Autonomously reach a x,y coordinate inserted by the user;
@@ -310,7 +310,7 @@ If any of the three node terminates, the launch file will terminates all the nod
 In order to have a GUI plugin for visualizing the ROS computation graph, here's a *rqt_graph* about the project:
 
 <p align="center">
-<img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos%2C%20gifs%20%20and%20images/rqt_graph.jpg" height=250 width=500>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG" height=250 width=500>
 </p>
 
 As you can see, the *control* node publishes both the linear and the angular velocity to the robot in the environment on the */cmd_vel* topic.  At the same time, the control node is subscibed to the */stage_ros* topic that provides the robot's distances from the wall. The *ui*  node, instead, handles inputs from the user and sends requests in order to let the *control* node to modify the robot velocity.
