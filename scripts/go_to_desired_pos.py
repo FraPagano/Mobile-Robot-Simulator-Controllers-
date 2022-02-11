@@ -120,15 +120,11 @@ def update_variables():
 def main():
 
 	global client
-	global goal_msg
 	global achieved
 
 	rospy.init_node('go_to_desired_pos') # Init node
-
 	action_client() # Setting some goals' parameter
-
 	flag=0 # Flag used in order to know if the previous state was Idle or not
-
 	print(msg) 
 
 	while (1):
