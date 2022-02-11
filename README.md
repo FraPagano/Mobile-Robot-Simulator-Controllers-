@@ -20,13 +20,11 @@ In order to accomplish such task I wrote four nodes in python:
  3. **my_teleop_twist_keyboard.py**
  4. **teleop_avoid**
 
-Here's some pictures that show the simulation enviroment provided us by profesor [Carmine Recchiuto](https://github.com/CarmineD8):
+Here's a picture that shows the simulation enviroment provided us by profesor [Carmine Recchiuto](https://github.com/CarmineD8):
 <p align="center">
- <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Robot.JPG" height=320 width=380>
+ <img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Simulation_Env.JPG" height=320 width=500>
 </p>
-<p align="center">
- <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Circuit.JPG" height=320 width=380>
-</p>
+
 
 The structure is quite simple: The UI.py node is the user interface that the user should use when he wants to change the controlling modality or cancel a goal. The other three nodes represent the three robot controlling modalities. The activation of a nodes rather than the deactivation the other two is made through a ROS parameter called: ***active***. 
 This parameter is set to value:
@@ -112,7 +110,7 @@ The desired x, y coordinates are ROS parameters too and they are set by the UI.p
 Here's a picture that I took into account: 
 
 <p align="center">
- <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Circuit.JPG" height=320 width=380>
+ <img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
 </p>
 
 Thanks to the ***done_cb(status, result)*** function I could manage the result of the goal achievement.
@@ -171,15 +169,15 @@ Basically I relied on the ***teleop_twist_keyboard***  code. So, the functionali
 ```
 # Instructions
 Moving around:
-					u i o
-					j k l
-					m , .
+				u i o
+				j k l
+				m , .
 For Holonomic mode (strafing), hold down the shift key:
 ---------------------------
 
-					U I O
-					J K L
-					M < >
+				U I O
+				J K L
+				M < >
 							
 t : up (+z)
 b : down (-z)
@@ -220,6 +218,13 @@ This algorithm is based on the modification of a Dictionary.
 Dictionary is adata type similar to a list and it contains a collection of objects. These objects are idexed with the key/value pair. In this case the contained value are  the linear and angular velocity combinations that the robot should assume after that an input occurrs. 
 Such collision avoidance algorithm just uses the`.pop(key)` method that removes and returns the element idexed by *key* of  the dictionary. In this way, when the distance between the robot and the obstacle is less than a threshold value, a command is disabled just by popping such index from the dictionary. Moreover, by this way the robot cannot move in the direction in which the obstacle is detected. 
 For implementing such algorithm, I needed the subscription to the `/scan` topic. This subscription allowed me to detect the obstacles in the simulation environment but also their position with respect to the robot by slicing the LaserScan array in three parts: front, left and right direction:
+
+Here's a picture that represent how I sliced the laser scan span:
+
+<p align="center">
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/laser_scan.jpg" height=380 width=450>
+</p>
+
 ```python
 def clbk_laser(msg):
 		# Callback for detecting obstacles from laser scan
@@ -246,8 +251,8 @@ def clbk_laser(msg):
 ``` 
 Then, I considered all the eight combination that the robot could face:
  
- <p align="center">
- <img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos,%20gifs%20%20and%20images/Circuit.JPG" height=320 width=380>
+<p align="center">
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/8_combinations.jpg" height=380 width=400>
 </p>
 
 and finally I popped the dictionary indexes that would have moved the robot towards the detected obstacle:
