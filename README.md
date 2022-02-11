@@ -321,18 +321,18 @@ For a more precise description of what the four nodes do you can consult the fol
 
 This is the UI.py node's flowchart:
 <p align="center">
-<img src="" height=670 width=650>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/UI_flowchart.jpeg" height=670 width=750>
 </p>
 
 This is the go_to_desired_pos.py node's flowchart:
 <p align="center">
-<img src="" height=670 width=750>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/go_to_desire_pos_flowchart.jpeg" height=670 width=700>
 </p>
 
 This is the my_teleop_twist_keyboard.py node's flowchart:
 
 <p align="center">
-<img src="" height=670 width=750>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/my_teleop_twist_keyboard_flowchart.jpeg" height=670 width=750>
 </p>
 
 This is the teleop_avoid.py node's flowchart:
