@@ -310,38 +310,42 @@ If any of the three node terminates, the launch file will terminates all the nod
 In order to have a GUI plugin for visualizing the ROS computation graph, here's a *rqt_graph* about the project:
 
 <p align="center">
-<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG" height=250 width=500>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG" height=320 width=660>
 </p>
 
-As you can see, the *control* node publishes both the linear and the angular velocity to the robot in the environment on the */cmd_vel* topic.  At the same time, the control node is subscibed to the */stage_ros* topic that provides the robot's distances from the wall. The *ui*  node, instead, handles inputs from the user and sends requests in order to let the *control* node to modify the robot velocity.
 
 ### Flowcharts
 --------------------------------
 
-For a more precise description of what the two nodes do you can consult the following flowcharts, created with [Lucidchart](https://www.lucidchart.com/pages/it/landing?utm_source=google&utm_medium=cpc&utm_campaign=_chart_it_allcountries_mixed_search_brand_bmm_&km_CPC_CampaignId=9589672283&km_CPC_AdGroupID=99331286392&km_CPC_Keyword=%2Blucidcharts&km_CPC_MatchType=b&km_CPC_ExtensionID=&km_CPC_Network=g&km_CPC_AdPosition=&km_CPC_Creative=424699413299&km_CPC_TargetID=kwd-334618660008&km_CPC_Country=1008337&km_CPC_Device=c&km_CPC_placement=&km_CPC_target=&mkwid=sKwFuAgHb_pcrid_424699413299_pkw_%2Blucidcharts_pmt_b_pdv_c_slid__pgrid_99331286392_ptaid_kwd-334618660008_&gclid=CjwKCAjw5c6LBhBdEiwAP9ejG86DblinG5ivYRvMmKSvI8Dl7as9i2oINlmgqIDoj0gpLX6WfnCenRoCxxQQAvD_BwE):
+For a more precise description of what the four nodes do you can consult the following flowcharts, created with [Lucidchart](https://www.lucidchart.com/pages/it/landing?utm_source=google&utm_medium=cpc&utm_campaign=_chart_it_allcountries_mixed_search_brand_bmm_&km_CPC_CampaignId=9589672283&km_CPC_AdGroupID=99331286392&km_CPC_Keyword=%2Blucidcharts&km_CPC_MatchType=b&km_CPC_ExtensionID=&km_CPC_Network=g&km_CPC_AdPosition=&km_CPC_Creative=424699413299&km_CPC_TargetID=kwd-334618660008&km_CPC_Country=1008337&km_CPC_Device=c&km_CPC_placement=&km_CPC_target=&mkwid=sKwFuAgHb_pcrid_424699413299_pkw_%2Blucidcharts_pmt_b_pdv_c_slid__pgrid_99331286392_ptaid_kwd-334618660008_&gclid=CjwKCAjw5c6LBhBdEiwAP9ejG86DblinG5ivYRvMmKSvI8Dl7as9i2oINlmgqIDoj0gpLX6WfnCenRoCxxQQAvD_BwE):
 
-This is the controller node's flowchart:
+This is the UI.py node's flowchart:
 <p align="center">
-<img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos%2C%20gifs%20%20and%20images/controller_flowchart.jpeg" height=670 width=650>
+<img src="" height=670 width=650>
 </p>
 
-This one, instead, is the UI node's flowchart:
+This is the go_to_desired_pos.py node's flowchart:
 <p align="center">
-<img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos%2C%20gifs%20%20and%20images/ui_flowchart.jpeg" height=670 width=750>
+<img src="" height=670 width=750>
 </p>
 
-
-I created also a global flowchart in order to have a more precise general idea of the project's implementation:
+This is the my_teleop_twist_keyboard.py node's flowchart:
 
 <p align="center">
-<img src="https://github.com/FraPagano/RT_Assignment_2/blob/main/Videos%2C%20gifs%20%20and%20images/global_flowchart.jpeg" height=600 width=750>
+<img src="" height=670 width=750>
+</p>
+
+This is the teleop_avoid.py node's flowchart:
+
+<p align="center">
+<img src="" height=670 width=750>
 </p>
 
 ### Results
 --------------------------------
 
-The final result is that the robot correctly runs around the simulation environment and, despite there are some things that could be improved in the future, I am satisfied with the work that I've done. 
+The final result is that the robot correctly runs around the simulation environment switching among the three modalities. 
 
 ### Possible Improvements
 --------------------------------
-A possible improvement could be the usage of an algorithm such that the robot could map the entire environment from the beginning of the simulation and so that it can immediately detect all the x, y coordinates that cannot be reached. 
+A possible improvement that could be done is the usage of an algorithm such that the robot could map the entire environment from the beginning of the simulation and so that it can immediately detect all the x, y coordinates that cannot be reached. 
