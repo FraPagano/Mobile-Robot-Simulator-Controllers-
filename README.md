@@ -310,7 +310,7 @@ If any of the three node terminates, the launch file will terminates all the nod
 In order to have a GUI plugin for visualizing the ROS computation graph, here's a *rqt_graph* about the project:
 
 <p align="center">
-<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG" height=320 width=660>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG" height=380 width=750>
 </p>
 
 
