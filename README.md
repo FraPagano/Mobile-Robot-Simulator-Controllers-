@@ -49,14 +49,14 @@ if input == 3
 ```
 
 <p align="center">
-<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/scheme.jpg" height=350 width=450>
 </p>
 
 The greatest issues that I faced with during the implementation of the project were:
 
  - Become familiar with ROS parameter usage;
 
- - Become familiar with the simulation environment (Gezebo, RVIZ).
+ - Become familiar with the simulation environment (Gazebo, RVIZ).
 
 ### Code description
 ---------------------------
