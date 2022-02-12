@@ -338,7 +338,7 @@ This is the my_teleop_twist_keyboard.py node's flowchart:
 This is the teleop_avoid.py node's flowchart:
 
 <p align="center">
-<img src="" height=670 width=750>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/teleop_avoid_flowchart.jpeg" height=760 width=710>
 </p>
 
 ### Results
