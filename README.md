@@ -11,7 +11,7 @@ The software architecture must control the robot in three different ways:
 
  1. Autonomously reach a x,y coordinate inserted by the user;
  2. Let the user drive the robot with the keyboard;
- 3. Let the user drive the robot assisting them to avoid collisions.
+ 3. Let the user drive the robot with the keyboard assisting them to avoid collisions.
 
 In order to accomplish such task I wrote four nodes in python:
 
@@ -27,7 +27,7 @@ Here's a picture that shows the simulation enviroment provided us by profesor [C
 
 
 The structure is quite simple: The UI.py node is the user interface that the user should use when he wants to change the controlling modality or cancel a goal. The other three nodes represent the three robot controlling modalities. The activation of a nodes rather than the deactivation the other two is made through a ROS parameter called: ***active***. 
-This parameter is set to value:
+This parameter is set to three different values, each of them represent a m=controlling modality:
 
  1. ***active == 1***, for activating the first modality;
  2. ***active == 2***, for activating the second modality;
@@ -35,11 +35,28 @@ This parameter is set to value:
 
 So that when the user chooses one modality through the user interface node, the ***active*** parameter is set to one these three values and the other two modalities will be blocked. Moreover, to set an idle state of the whole system, the ***active*** parameter can be set to 0. 
 
-The greaest issues that I faced with during the implementation of the project were:
+```python
+#PSEUDOCODE
+
+input = get_input()
+if input == 1
+	active = 1	# activates the first modality
+if input == 2
+	active = 2	# activates the second modality
+if input == 3
+	active = 3	# activates the third modality
+
+```
+
+<p align="center">
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
+</p>
+
+The greatest issues that I faced with during the implementation of the project were:
 
  - Become familiar with ROS parameter usage;
 
- - Become familiar with the simulation environment.
+ - Become familiar with the simulation environment (Gezebo, RVIZ).
 
 ### Code description
 ---------------------------
@@ -51,34 +68,27 @@ The User Interface node handles the user keyboard inputs. Here's a legend of the
  2. *'2'* keyboard key is used for the free keyboard driving modality;
  3. *'3'* keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;
  4. *'4'* keyboard key is used for quitting the application and terminates all nodes;
-This node is very simply designed. Essentially, a function called `interpreter()` is looped insiude a `while not rospy.is_shutdown():` loop. This function gets the keyboard user input and changes the ROS parameter ***active*** depending on which modality was chosen. 
+This node is very simply designed. Essentially, a function called `interpreter()` is looped inside a `while not rospy.is_shutdown():` loop. This function gets the keyboard user input and changes the ROS parameter ***active*** depending on which modality was chosen. 
 Here's the `interpreter()` code:
 ``` python
 def interpreter():
 	#Function that receives inputs and sets all the ROS parameters
-	global flag
-	if flag == True:
-		print(bcolors.FAIL + bcolors.BOLD + "Press [0] for canceling the goal" + bcolors.ENDC)
-		flag = False
+	
 	command = input(bcolors.HEADER + 'Choose a modality: \n' + bcolors.ENDC) # Stores the input key
+	
 	if command == "0":
 		rospy.set_param('active', 0) # if the active parameter is 0 the current goal is canceled
 		print(bcolors.OKGREEN + "No modality is active, please choose one for controlling the robot" + bcolors.ENDC) # Sysytem in idle state
 		active_=rospy.get_param("/active")
 	elif command == "1": # Modality one chosen
 		rospy.set_param('active', 0) # Useful for changing goal
-		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 1 is active.")
 		active_=rospy.get_param("/active")
-		print(bcolors.OKBLUE + bcolors.BOLD + "Where do you want the robot to go?" + bcolors.ENDC)
 		# Receive the desired cooridnates as input
 		des_x_input = float(input(bcolors.UNDERLINE + bcolors.OKBLUE +"Insert the desired x position: " + bcolors.ENDC))
 		des_y_input = float(input(bcolors.UNDERLINE + bcolors.OKBLUE +"Insert the desired y position: " + bcolors.ENDC))
-		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Okay, let's reach the psotion x= " + str(des_x_input) + " y= " + str(des_y_input) + bcolors.ENDC)
-		print(bcolors.OKGREEN + bcolors.UNDERLINE + "\nThe robot is moving towards your desired target" + bcolors.ENDC)
 		rospy.set_param('des_pos_x', des_x_input) # Update the desired X coordinate
 		rospy.set_param('des_pos_y', des_y_input) # Update the desired Y coordinate
 		rospy.set_param('active', 1) # Modality 1 active
-		flag=True
 	elif command == "2": # Modality two chosen
 		rospy.set_param('active', 2) # Modality two active
 		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 2 is active." + bcolors.ENDC)
@@ -86,8 +96,6 @@ def interpreter():
 		active_=rospy.get_param("/active")
 	elif command == "3": # Modality three chosen
 		rospy.set_param('active', 3) # # Modality three active
-		print(bcolors.OKGREEN + bcolors.UNDERLINE + "Modality 3 is active." + bcolors.ENDC)
-		print(bcolors.BOLD + bcolors.OKBLUE + "Use the 'teleop_avoid' xterm terminal to control the robot" + bcolors.ENDC)
 		active_=rospy.get_param("/active")
 	elif command == "4": # Exit command
 		print(bcolors.WARNING + bcolors.BOLD + "Exiting..." + bcolors.ENDC)
@@ -99,7 +107,9 @@ def interpreter():
 This node makes the robot autonomously reach a x,y position inserted by the user. The robot can reach the user's x,y coordinates thanks to the **'move_base' action server**.
 The robot is going to plan the path through the Dijkstra's algorithm.
 When the first modality is selected, the UI.py node sets the active ROS parameter to 1 letting the first modality's loop to run all the necessary code for sending the desired goal. 
-The desired x, y coordinates are ROS parameters too and they are set by the UI.py node. When the first modality is running and a goal is received, this node uses the `send_goal(goal_msg, done_cb(), active_cb(), feedback_cb())` function for asking the action server to compute the path planning for the desired goal. 
+The desired x, y coordinates are ROS parameters too and they are set by the UI.py node. 
+
+When the first modality is running and a goal is received, this node uses the `send_goal(goal_msg, done_cb(), active_cb(), feedback_cb())` function for asking the action server to compute the path planning for the desired goal. 
  
  
  1.  ***goal_msg*** is a  MoveBaseGoal() action message containing all the information about the desired goal (i.e. x, y coordinates, referencing frame, etc... )
@@ -107,10 +117,10 @@ The desired x, y coordinates are ROS parameters too and they are set by the UI.p
  3. ***active_cb()*** is a callback funtion called before the execution of the action server. I used this callback funtion in order to take into account the number of processed goals.
  4. ***feedback_cb(feedback)*** is a callback funtion called durning the execution of the action server. It returns feedbacks about the goal processing. 
 
-Here's a picture that I took into account: 
+Here's a picture that clarify this concept: 
 
 <p align="center">
- <img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
+<img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
 </p>
 
 Thanks to the ***done_cb(status, result)*** function I could manage the result of the goal achievement.
@@ -150,7 +160,7 @@ if status == 8:
 		return
 ```
 
-A concept that I want to point out is the that the achievement of the goal implies a cancel of such goal. So, I had to use a flag (`bool achieved`) to differentiate the case in which a goal was achieved (in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server) and the case in which the user decides to send a cancel request before the goal achievement (making the code to send a cancel request to the server).
+A concept that I want to point out is the that the achievement of the goal implies a cancel of such goal. So, I had to use a flag (`bool achieved`) to differentiate the case in which a goal was achieved (in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server) and the case in which the user decides to send a cancel request before the goal achievement (in this case we must send a cancel request to the server).
 
 This is a piece of code about the differentiation that I just pointed out:  
 ```python
@@ -197,8 +207,8 @@ The main changes I've made from the ***teleop_twist_keyboard*** node are:
  2. The keys now must be kept pressed in order to move the robot. I did this by setting the `key_timeout` variable  to 0.1. Such variable was the `select()` timeout. That means that the `select()` function waits 0.1 seconds for new inputs at every loop. 
 
 ####  Free drive with keyboard and collision avoidance algorithm node  (Third Modality)
-This node reads inputs from the keyboar and publishes a Twist() message to the `cmd_vel` topic. 
-Basically I relied on the ***teleop_twist_keyboard***  code. So, the functionality is quite the same:
+This node reads inputs from the keyboard and publishes a Twist() message to the `/cmd_vel` topic. 
+Basically I relied on the ***teleop_twist_keyboard***  code and therefore the functionality is quite the same:
 ```
 # Instructions
 Reading from the keyboard and Publishing to Twist!
