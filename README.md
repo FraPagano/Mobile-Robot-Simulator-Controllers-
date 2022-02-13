@@ -117,7 +117,7 @@ When the first modality is running and a goal is received, this node uses the `s
  3. ***active_cb()*** is a callback funtion called before the execution of the action server. I used this callback funtion in order to take into account the number of processed goals.
  4. ***feedback_cb(feedback)*** is a callback funtion called durning the execution of the action server. It returns feedbacks about the goal processing. 
 
-Here's a picture that clarify this concept: 
+Here's a picture that clarifies this concept: 
 
 <p align="center">
 <img src="https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG" height=250 width=480>
