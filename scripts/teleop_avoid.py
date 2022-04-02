@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
 
+"""
+.. module:: teleop_avoid
+    :platform: Unix
+    :synopsis: Python module for controlling the robot using the keyboard assisted by an obstacle avoidance algorithm
+.. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
+
+This node implements the third modality for controlling the robot. 
+
+"""
+
+
 # IMPORTS
 from __future__ import print_function
 import threading
@@ -13,6 +24,9 @@ import sys, select, termios, tty
 
 # COLORS
 class bcolors:
+    """
+    This class is used for printing colors
+    """
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
@@ -46,9 +60,18 @@ Reading from the keyboard and Publishing to Twist!
 
 # Bool variables for taking into account where obstacles are
 
-ok_left = True      # When there's no wall on the left of the robot this variable is True, otherwise is False
-ok_right = True     # When there's no wall on the right of the robot this variable is True, otherwise is False
-ok_straight = True  # When there's no wall in front of the robot this variable is True, otherwise is False
+"""
+When there's no wall on the left of the robot this variable is True, otherwise is False
+"""
+ok_left = True 
+"""
+# When there's no wall on the right of the robot this variable is True, otherwise is False
+"""     
+ok_right = True
+"""
+When there's no wall in front of the robot this variable is True, otherwise is False
+"""     
+ok_straight = True  
 
 # Dictionary for movement commands
 moveBindings = {
@@ -69,6 +92,9 @@ speedBindings={
     }
 
 class PublishThread(threading.Thread):
+    """
+    class publish thread
+    """
     def __init__(self, rate):
         super(PublishThread, self).__init__()
         self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1) #Publisher on the 'cmd_vel' topic

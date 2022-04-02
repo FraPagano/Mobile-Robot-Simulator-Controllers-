@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classgo__to__desired__pos_1_1bcolors" kind="class" language="Python" prot="public">
+    <compoundname>go_to_desired_pos::bcolors</compoundname>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1abd92d22e6ed7f3c4f69202ac7fffe845" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::HEADER</definition>
+        <argsstring></argsstring>
+        <name>HEADER</name>
+        <initializer>=  &apos;\033[95m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="28" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1ad670b4e2d27301a4db8837951e1fd4a9" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::OKBLUE</definition>
+        <argsstring></argsstring>
+        <name>OKBLUE</name>
+        <initializer>=  &apos;\033[94m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="29" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a4997208826aeca9a9eb612874bbac12a" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::OKCYAN</definition>
+        <argsstring></argsstring>
+        <name>OKCYAN</name>
+        <initializer>=  &apos;\033[96m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="30" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1aa043944b89710fa564a0e69815a3d043" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::OKGREEN</definition>
+        <argsstring></argsstring>
+        <name>OKGREEN</name>
+        <initializer>=  &apos;\033[92m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="31" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a8fa2057c120c663ab1ff111536cea97e" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::WARNING</definition>
+        <argsstring></argsstring>
+        <name>WARNING</name>
+        <initializer>=  &apos;\033[93m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="32" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1ac67c6bd654480e87ac91361fcd42d41b" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::FAIL</definition>
+        <argsstring></argsstring>
+        <name>FAIL</name>
+        <initializer>=  &apos;\033[91m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="33" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a67024e98e08dfcfcad01c4980effec9d" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::ENDC</definition>
+        <argsstring></argsstring>
+        <name>ENDC</name>
+        <initializer>=  &apos;\033[0m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="34" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a7ecd4bcdeddb5c5f058f3c4ed7f11fac" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::BOLD</definition>
+        <argsstring></argsstring>
+        <name>BOLD</name>
+        <initializer>=  &apos;\033[1m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="35" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a62ad8200c12dff3c954f7366cdd8ba68" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::UNDERLINE</definition>
+        <argsstring></argsstring>
+        <name>UNDERLINE</name>
+        <initializer>=  &apos;\033[4m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="36" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1a58e9175fea55aad7f8785fcc1c68b269" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::ORANGE</definition>
+        <argsstring></argsstring>
+        <name>ORANGE</name>
+        <initializer>=  &apos;\033[33m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="37" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgo__to__desired__pos_1_1bcolors_1ade795088e1e08864287078e5aed53ef4" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string go_to_desired_pos.bcolors::PURPLE</definition>
+        <argsstring></argsstring>
+        <name>PURPLE</name>
+        <initializer>=  &apos;\033[35m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/go_to_desired_pos.py" line="38" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>This class is used for printing colors on the temrinal
+</verbatim> </para>
+    </detaileddescription>
+    <location file="scripts/go_to_desired_pos.py" line="23" column="1" bodyfile="scripts/go_to_desired_pos.py" bodystart="23" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a7ecd4bcdeddb5c5f058f3c4ed7f11fac" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>BOLD</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a67024e98e08dfcfcad01c4980effec9d" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>ENDC</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1ac67c6bd654480e87ac91361fcd42d41b" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>FAIL</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1abd92d22e6ed7f3c4f69202ac7fffe845" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>HEADER</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1ad670b4e2d27301a4db8837951e1fd4a9" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>OKBLUE</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a4997208826aeca9a9eb612874bbac12a" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>OKCYAN</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1aa043944b89710fa564a0e69815a3d043" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>OKGREEN</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a58e9175fea55aad7f8785fcc1c68b269" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>ORANGE</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1ade795088e1e08864287078e5aed53ef4" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>PURPLE</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a62ad8200c12dff3c954f7366cdd8ba68" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>UNDERLINE</name></member>
+      <member refid="classgo__to__desired__pos_1_1bcolors_1a8fa2057c120c663ab1ff111536cea97e" prot="public" virt="non-virtual"><scope>go_to_desired_pos::bcolors</scope><name>WARNING</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

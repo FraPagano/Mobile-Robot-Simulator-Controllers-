@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespacemy__teleop__twist__keyboard" kind="namespace" language="Python">
+    <compoundname>my_teleop_twist_keyboard</compoundname>
+    <innerclass refid="classmy__teleop__twist__keyboard_1_1bcolors" prot="public">my_teleop_twist_keyboard::bcolors</innerclass>
+    <innerclass refid="classmy__teleop__twist__keyboard_1_1_publish_thread" prot="public">my_teleop_twist_keyboard::PublishThread</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1abbc3765e4a6dcda2e2a3e78cb7715d50" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.msg</definition>
+        <argsstring></argsstring>
+        <name>msg</name>
+        <initializer>=  &quot;&quot;&quot; 
+&quot;&quot;&quot; + bcolors.BOLD +&quot;&quot;&quot;
+Reading from the keyboard and Publishing to Twist!
+
+---------------------------
+
+&quot;&quot;&quot; + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + &quot;&quot;&quot;
+Moving around:
+   u    i    o
+   j    k    l
+   m    ,    .
+
+&quot;&quot;&quot; + bcolors.ENDC + bcolors.OKCYAN + bcolors.BOLD + &quot;&quot;&quot;
+For Holonomic mode (strafing), hold down the shift key:
+---------------------------
+   U    I    O
+   J    K    L
+   M    &lt;    &gt;
+
+t : up (+z)
+b : down (-z)
+&quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+anything else : stop
+&quot;&quot;&quot; + bcolors.HEADER + bcolors.BOLD +&quot;&quot;&quot;
+q/z : increase/decrease max speeds by 10%
+w/x : increase/decrease only linear speed by 10%
+e/c : increase/decrease only angular speed by 10%
+&quot;&quot;&quot;+ bcolors.ENDC +&quot;&quot;&quot; 
+
+&quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="43" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a7c579f87cb79a96719d3c18c2d54e615" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary my_teleop_twist_keyboard.moveBindings</definition>
+        <argsstring></argsstring>
+        <name>moveBindings</name>
+        <initializer>=  {
+        &apos;i&apos;:(1,0,0,0),
+        &apos;o&apos;:(1,0,0,-1),
+        &apos;j&apos;:(0,0,0,1),
+        &apos;l&apos;:(0,0,0,-1),
+        &apos;u&apos;:(1,0,0,1),
+        &apos;,&apos;:(-1,0,0,0),
+        &apos;.&apos;:(-1,0,0,1),
+        &apos;m&apos;:(-1,0,0,-1),
+        &apos;O&apos;:(1,-1,0,0),
+        &apos;I&apos;:(1,0,0,0),
+        &apos;J&apos;:(0,1,0,0),
+        &apos;L&apos;:(0,-1,0,0),
+        &apos;U&apos;:(1,1,0,0),
+        &apos;&lt;&apos;:(-1,0,0,0),
+        &apos;&gt;&apos;:(-1,-1,0,0),
+        &apos;M&apos;:(-1,1,0,0),
+        &apos;t&apos;:(0,0,1,0),
+        &apos;b&apos;:(0,0,-1,0),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="74" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a6f218b85ef57f9d907f413379a993e04" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary my_teleop_twist_keyboard.speedBindings</definition>
+        <argsstring></argsstring>
+        <name>speedBindings</name>
+        <initializer>= {
+        &apos;q&apos;:(1.1,1.1),
+        &apos;z&apos;:(.9,.9),
+        &apos;w&apos;:(1.1,1),
+        &apos;x&apos;:(.9,1),
+        &apos;e&apos;:(1,1.1),
+        &apos;c&apos;:(1,.9),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="95" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a4b1b2295429759f0e17fcb6f563a7aa0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.settings</definition>
+        <argsstring></argsstring>
+        <name>settings</name>
+        <initializer>=  termios.tcgetattr(sys.stdin)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="217" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1adaa3566f185d1c9b55ae1f86ecc3459d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.active_</definition>
+        <argsstring></argsstring>
+        <name>active_</name>
+        <initializer>= rospy.get_param(&quot;/active&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="220" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1aafe6cc06d82f9f4b3405b695c9b99c13" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int my_teleop_twist_keyboard::flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="221" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1ad55422a58ec7cb72322d5600d899b1fc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dictionary my_teleop_twist_keyboard::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <initializer>=  rospy.get_param(&quot;~speed&quot;, 0.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="223" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a16764d4a3d31c4ccc68e219f9b1a4da9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dictionary my_teleop_twist_keyboard::turn</definition>
+        <argsstring></argsstring>
+        <name>turn</name>
+        <initializer>=  rospy.get_param(&quot;~turn&quot;, 1.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="224" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a968a1f0e856a42973588d6d9915823cc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.repeat</definition>
+        <argsstring></argsstring>
+        <name>repeat</name>
+        <initializer>=  rospy.get_param(&quot;~repeat_rate&quot;, 0.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="225" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a18e9daf2f658ac775b20dcdbf7d4f3b7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.key_timeout</definition>
+        <argsstring></argsstring>
+        <name>key_timeout</name>
+        <initializer>=  rospy.get_param(&quot;~key_timeout&quot;, 0.1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="228" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a253a21a772943acdf6d7e9e3cd6dbf1a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.pub_thread</definition>
+        <argsstring></argsstring>
+        <name>pub_thread</name>
+        <initializer>=  <ref refid="classmy__teleop__twist__keyboard_1_1_publish_thread" kindref="compound">PublishThread</ref>(repeat)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="233" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1ae74e9e753a08b1c96335a8d3b14be741" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int my_teleop_twist_keyboard::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="235" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1ab0c1f38f065004a56641e85c34254375" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int my_teleop_twist_keyboard::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="236" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a4f27349327e7f6e43f54afa6155077f7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int my_teleop_twist_keyboard::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="237" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1ac9517f3649b45ac34a99ebce1262ff8a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int my_teleop_twist_keyboard::th</definition>
+        <argsstring></argsstring>
+        <name>th</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="238" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a82ff106c63d6474cc76c7f7c26655eeb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>tuple my_teleop_twist_keyboard::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="239" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemy__teleop__twist__keyboard_1a4daa72e49db6ab676dcd9d8079858bd6" prot="public" static="no" mutable="no">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <initializer>=  getKey(key_timeout)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="253" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacemy__teleop__twist__keyboard_1abc5b33a8b498134ec0ae3f3538eb565a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.getKey</definition>
+        <argsstring>(key_timeout)</argsstring>
+        <name>getKey</name>
+        <param>
+          <type>key_timeout</type>
+          <defname>key_timeout</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="201" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="201" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacemy__teleop__twist__keyboard_1a3bc29fafdd88f1ec6323407b3b9d6a9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.vels</definition>
+        <argsstring>(speed, turn)</argsstring>
+        <name>vels</name>
+        <param>
+          <type>speed</type>
+          <defname>speed</defname>
+        </param>
+        <param>
+          <type>turn</type>
+          <defname>turn</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/my_teleop_twist_keyboard.py" line="212" column="1" bodyfile="scripts/my_teleop_twist_keyboard.py" bodystart="212" bodyend="214"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>.. module:: my_teleop_twist_keyboard
+:platform: Unix
+:synopsis: Python module for controlling the robot using the keyboard
+.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;
+
+This node implements the second modality for controlling the robot. </verbatim> </para>
+    </detaileddescription>
+    <location file="scripts/my_teleop_twist_keyboard.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

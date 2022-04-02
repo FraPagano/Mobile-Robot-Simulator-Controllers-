@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
 
+
+"""
+.. module:: my_teleop_twist_keyboard
+    :platform: Unix
+    :synopsis: Python module for controlling the robot using the keyboard
+.. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
+
+This node implements the second modality for controlling the robot. 
+
+"""
+
+
+
+
 # IMPORTS
 from __future__ import print_function
 import threading
@@ -10,6 +24,9 @@ import sys, select, termios, tty
 
  # COLORS
 class bcolors:
+    """
+    This class is used for printing colors
+    """
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
@@ -86,6 +103,9 @@ speedBindings={
 
 
 class PublishThread(threading.Thread):
+    """
+    class publish thread
+    """
     def __init__(self, rate):
         super(PublishThread, self).__init__()
         self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1) #Publisher on the 'cmd_vel' topic

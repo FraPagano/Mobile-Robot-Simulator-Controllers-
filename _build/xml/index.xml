@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+  <compound refid="classgo__to__desired__pos_1_1bcolors" kind="class"><name>go_to_desired_pos::bcolors</name>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1abd92d22e6ed7f3c4f69202ac7fffe845" kind="variable"><name>HEADER</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1ad670b4e2d27301a4db8837951e1fd4a9" kind="variable"><name>OKBLUE</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a4997208826aeca9a9eb612874bbac12a" kind="variable"><name>OKCYAN</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1aa043944b89710fa564a0e69815a3d043" kind="variable"><name>OKGREEN</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a8fa2057c120c663ab1ff111536cea97e" kind="variable"><name>WARNING</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1ac67c6bd654480e87ac91361fcd42d41b" kind="variable"><name>FAIL</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a67024e98e08dfcfcad01c4980effec9d" kind="variable"><name>ENDC</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a7ecd4bcdeddb5c5f058f3c4ed7f11fac" kind="variable"><name>BOLD</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a62ad8200c12dff3c954f7366cdd8ba68" kind="variable"><name>UNDERLINE</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1a58e9175fea55aad7f8785fcc1c68b269" kind="variable"><name>ORANGE</name></member>
+    <member refid="classgo__to__desired__pos_1_1bcolors_1ade795088e1e08864287078e5aed53ef4" kind="variable"><name>PURPLE</name></member>
+  </compound>
+  <compound refid="classmy__teleop__twist__keyboard_1_1bcolors" kind="class"><name>my_teleop_twist_keyboard::bcolors</name>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aee18c70149b781df6ab93f9f982e5d65" kind="variable"><name>HEADER</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a70368eec2c9e01759af023d39bb77b83" kind="variable"><name>OKBLUE</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a6533519e2e043a7c09b1982c1e3d0132" kind="variable"><name>OKCYAN</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1ac9209f866324b75821bfaef28a9332c0" kind="variable"><name>OKGREEN</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aba0abe99072dc857471c45d207b61b0f" kind="variable"><name>WARNING</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1ab0736da480b2b07bfa517aaf5752b85d" kind="variable"><name>FAIL</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a4f86e344dbca8977d43a218d7af02034" kind="variable"><name>ENDC</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aced4766ac9aab1c47df32d7cd3ef22ce" kind="variable"><name>BOLD</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1acd4186cf758c82afb5f41d75ad1edddd" kind="variable"><name>UNDERLINE</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a245a5dd9fa1bf1b6fd9a67108b2e407f" kind="variable"><name>ORANGE</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a364a42df368cf5ef2ad685c9f190664e" kind="variable"><name>PURPLE</name></member>
+  </compound>
+  <compound refid="classteleop__avoid_1_1bcolors" kind="class"><name>teleop_avoid::bcolors</name>
+    <member refid="classteleop__avoid_1_1bcolors_1ac4c14b1d655cc6bf747f304a0596a84f" kind="variable"><name>HEADER</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1a53614708dcdcd329e323e6a0df9b7dc5" kind="variable"><name>OKBLUE</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1ac9879132542e69fb8ef8e0acc980efc6" kind="variable"><name>OKCYAN</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1aefe4702cc325d7d6b76df64bd53d3046" kind="variable"><name>OKGREEN</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1a0be62f96498bfd85b7e5be4cfd94456d" kind="variable"><name>WARNING</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1acada3083c5fa741e40b3847ee5dea39d" kind="variable"><name>FAIL</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1aa51b9ac0336e7fbbcc76b06285ae7a14" kind="variable"><name>ENDC</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1aedbe052ae07c04d8eb4ec7851ad0dd98" kind="variable"><name>BOLD</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1a0167ebf78026f731d565b2279fd6bdaa" kind="variable"><name>UNDERLINE</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1a650ecd373654c3280716f614625f1a05" kind="variable"><name>ORANGE</name></member>
+    <member refid="classteleop__avoid_1_1bcolors_1af6c6631f53350b7ec54ffd989629a5d6" kind="variable"><name>PURPLE</name></member>
+  </compound>
+  <compound refid="class_u_i_1_1bcolors" kind="class"><name>UI::bcolors</name>
+    <member refid="class_u_i_1_1bcolors_1a510dbfb28083883992dbb0f4e59ce715" kind="variable"><name>HEADER</name></member>
+    <member refid="class_u_i_1_1bcolors_1a90d3010720550ed7bdb0a7f42725d351" kind="variable"><name>OKBLUE</name></member>
+    <member refid="class_u_i_1_1bcolors_1a0fa85164e16b98c717d89ba6f4d0b2f0" kind="variable"><name>OKCYAN</name></member>
+    <member refid="class_u_i_1_1bcolors_1acf6408f9d2f6807f758903a6dda4d578" kind="variable"><name>OKGREEN</name></member>
+    <member refid="class_u_i_1_1bcolors_1a3a40bb712b82cb32276d43b68809f27f" kind="variable"><name>WARNING</name></member>
+    <member refid="class_u_i_1_1bcolors_1a050f5652235119a2f3adacc5731e37a9" kind="variable"><name>FAIL</name></member>
+    <member refid="class_u_i_1_1bcolors_1a6ff31308cf483d6e9314709041e17430" kind="variable"><name>ENDC</name></member>
+    <member refid="class_u_i_1_1bcolors_1ac7400a33c4890d8070e232b011e39ec6" kind="variable"><name>BOLD</name></member>
+    <member refid="class_u_i_1_1bcolors_1a76379952b638e525d008ad6d8c23e04f" kind="variable"><name>UNDERLINE</name></member>
+    <member refid="class_u_i_1_1bcolors_1aa9517285242e56e54b6758042b570b57" kind="variable"><name>ORANGE</name></member>
+    <member refid="class_u_i_1_1bcolors_1ac0e7f2f88b30df892f610f5a02d685e4" kind="variable"><name>PURPLE</name></member>
+  </compound>
+  <compound refid="classmy__teleop__twist__keyboard_1_1_publish_thread" kind="class"><name>my_teleop_twist_keyboard::PublishThread</name>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1aec35dcce150b30a9b19e92ed8986ce19" kind="variable"><name>publisher</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a574f97fd3f35b3db86afa22e53a32e04" kind="variable"><name>x</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1af9ed521ee9facff87f33564f4eef3e2a" kind="variable"><name>y</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a2b3810775c6b67c8a28a29f3c81f7038" kind="variable"><name>z</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1adcf6630a4d601c26cfe9061f2b7f03fd" kind="variable"><name>th</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1ac2ecdbf0fe2d4d31bd2f813850ee0bbb" kind="variable"><name>speed</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55e836ff327763c452768d87c55d0176" kind="variable"><name>turn</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a39eaa3a49d374bea6ca00138f764074f" kind="variable"><name>condition</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a287e23c5cf1abb621d17bfb69d50705f" kind="variable"><name>done</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a61edcea412dbacc9087a28517a2975ce" kind="variable"><name>timeout</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a19a8ca2d3407c75799e41dde2ce11885" kind="function"><name>__init__</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55b1fb277c2401beb6fb18ecf24e6aaf" kind="function"><name>wait_for_subscribers</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1ae46b48e4ba0f93fc2e615764b68b5155" kind="function"><name>update</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a7429b55e6c9ff20e0329d5ec150ec596" kind="function"><name>stop</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a388a7a6eb413bb4fcfa891f7144cf365" kind="function"><name>my_stop</name></member>
+    <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a93b860e2c01e5b015dc49463736c110b" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="classteleop__avoid_1_1_publish_thread" kind="class"><name>teleop_avoid::PublishThread</name>
+    <member refid="classteleop__avoid_1_1_publish_thread_1adce9f8330ad073614ca5306635a27447" kind="variable"><name>publisher</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a96ae4b40448a4aea9b7a9deff2af2d11" kind="variable"><name>x</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1ae8a9c3c106e29bcbe6ff28fc780aee60" kind="variable"><name>y</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a99006d95a88abc0dd3fb6531994c8299" kind="variable"><name>z</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1aa7427ad22036faa34cb14d925bdbb98b" kind="variable"><name>th</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1ae3c0c36419cd312f146b9878d8ffe6c0" kind="variable"><name>speed</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1afd4d7551e6eb576ceed1dc41a9ca2e1c" kind="variable"><name>turn</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a67f561fdab8535c8d9c3e86d10a98424" kind="variable"><name>condition</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1aa14e6318b0317203e2cffad681307a13" kind="variable"><name>done</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1af59e49ad834b3c4aba4883983c85e3ac" kind="variable"><name>timeout</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1aeea6ca7a73a293f502446631ecdbf625" kind="function"><name>__init__</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a493316df8974a1060a95b291346ec606" kind="function"><name>wait_for_subscribers</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a55fb1ed47bca2fb8b060319bfa8e89e8" kind="function"><name>update</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1ac0bc5e2a87d31f8c95d7aac8404e89e6" kind="function"><name>stop</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1ac6923beb90347986dd67697109591b2d" kind="function"><name>my_stop</name></member>
+    <member refid="classteleop__avoid_1_1_publish_thread_1a8b644ef2a17ba7e15a8aeef408ec709c" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="namespaceconf" kind="namespace"><name>conf</name>
+    <member refid="conf_8py_1a332f430461432dc465213f884a1e4967" kind="variable"><name>shell</name></member>
+    <member refid="conf_8py_1a45653c983098153b78e33600e39230eb" kind="variable"><name>project</name></member>
+    <member refid="conf_8py_1a33fa97cf51dcb25970fbf53f10159589" kind="variable"><name>copyright</name></member>
+    <member refid="conf_8py_1a637c239d256432248aa8d9f3ab0b8c52" kind="variable"><name>author</name></member>
+    <member refid="conf_8py_1a325dc746d8bf05c54d26351c35a21d90" kind="variable"><name>release</name></member>
+    <member refid="conf_8py_1ae475e080536acb271a0a0efe56c3ba42" kind="variable"><name>extensions</name></member>
+    <member refid="conf_8py_1ae850ae634911b713e036b43894fdd525" kind="variable"><name>templates_path</name></member>
+    <member refid="conf_8py_1a7ad48fb6f3e9b129c02346ea0d3527c1" kind="variable"><name>exclude_patterns</name></member>
+    <member refid="conf_8py_1a48cdbd350be55d619af304194f372f62" kind="variable"><name>autodoc_member_order</name></member>
+    <member refid="conf_8py_1a3117edf4443d9b8c70a9f0f44294ba79" kind="variable"><name>highlight_language</name></member>
+    <member refid="conf_8py_1a10af2a769eb3bd3322e874f677e435b1" kind="variable"><name>source_suffix</name></member>
+    <member refid="conf_8py_1a6fcd7e5236f355b1e1a55f9d95988810" kind="variable"><name>master_doc</name></member>
+    <member refid="conf_8py_1a6c3bfcc1a44546c1c75ce20f55bd0fd6" kind="variable"><name>html_theme</name></member>
+    <member refid="conf_8py_1af4fb5d8851ccaade135c2668dd3ced41" kind="variable"><name>html_static_path</name></member>
+    <member refid="conf_8py_1a8375f4f963de3ac8026eaa9beced9564" kind="variable"><name>intersphinx_mapping</name></member>
+    <member refid="conf_8py_1a8fe7f0d85f975f4ecba5cb6066959a09" kind="variable"><name>todo_include_todos</name></member>
+  </compound>
+  <compound refid="namespacego__to__desired__pos" kind="namespace"><name>go_to_desired_pos</name>
+    <member refid="namespacego__to__desired__pos_1a80580676d20031c0e3712da4ad3fb507" kind="variable"><name>msg</name></member>
+    <member refid="namespacego__to__desired__pos_1add72cc2098a501ed25cfcd55fa664d2e" kind="variable"><name>goal_msg</name></member>
+    <member refid="namespacego__to__desired__pos_1af39d3fc360f394ec059ac0e3709c7c5b" kind="variable"><name>client</name></member>
+    <member refid="namespacego__to__desired__pos_1a1e503658605e92390edef3716fa6776c" kind="variable"><name>achieved</name></member>
+    <member refid="namespacego__to__desired__pos_1a7caaaadcd3c4fcc974106343b87467e1" kind="variable"><name>goal_cont</name></member>
+    <member refid="namespacego__to__desired__pos_1aa86c2059ac5c0b84936d1fd6fec31473" kind="variable"><name>cont</name></member>
+    <member refid="namespacego__to__desired__pos_1a9e258a2e74d4a72baef75f9ba74f3dbc" kind="function"><name>action_client</name></member>
+    <member refid="namespacego__to__desired__pos_1a89512116ac44f939e16b01b46e19fc7b" kind="function"><name>done_cb</name></member>
+    <member refid="namespacego__to__desired__pos_1a1db04c45bf06719794b54728d4f0543b" kind="function"><name>active_cb</name></member>
+    <member refid="namespacego__to__desired__pos_1a04f86e2e0c72cfe737f7f23db591914e" kind="function"><name>feedback_cb</name></member>
+    <member refid="namespacego__to__desired__pos_1afbc845f273d7ff6a512879b7e829db92" kind="function"><name>set_goal</name></member>
+    <member refid="namespacego__to__desired__pos_1abfae6513d645ed57a5cada572bf7431b" kind="function"><name>update_variables</name></member>
+    <member refid="namespacego__to__desired__pos_1a3a19b30cb006c7de5f1a8eb231606246" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="namespacemy__teleop__twist__keyboard" kind="namespace"><name>my_teleop_twist_keyboard</name>
+    <member refid="namespacemy__teleop__twist__keyboard_1abbc3765e4a6dcda2e2a3e78cb7715d50" kind="variable"><name>msg</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a7c579f87cb79a96719d3c18c2d54e615" kind="variable"><name>moveBindings</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a6f218b85ef57f9d907f413379a993e04" kind="variable"><name>speedBindings</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a4b1b2295429759f0e17fcb6f563a7aa0" kind="variable"><name>settings</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1adaa3566f185d1c9b55ae1f86ecc3459d" kind="variable"><name>active_</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1aafe6cc06d82f9f4b3405b695c9b99c13" kind="variable"><name>flag</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1ad55422a58ec7cb72322d5600d899b1fc" kind="variable"><name>speed</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a16764d4a3d31c4ccc68e219f9b1a4da9" kind="variable"><name>turn</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a968a1f0e856a42973588d6d9915823cc" kind="variable"><name>repeat</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a18e9daf2f658ac775b20dcdbf7d4f3b7" kind="variable"><name>key_timeout</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a253a21a772943acdf6d7e9e3cd6dbf1a" kind="variable"><name>pub_thread</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1ae74e9e753a08b1c96335a8d3b14be741" kind="variable"><name>x</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1ab0c1f38f065004a56641e85c34254375" kind="variable"><name>y</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a4f27349327e7f6e43f54afa6155077f7" kind="variable"><name>z</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1ac9517f3649b45ac34a99ebce1262ff8a" kind="variable"><name>th</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a82ff106c63d6474cc76c7f7c26655eeb" kind="variable"><name>status</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a4daa72e49db6ab676dcd9d8079858bd6" kind="variable"><name>key</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1abc5b33a8b498134ec0ae3f3538eb565a" kind="function"><name>getKey</name></member>
+    <member refid="namespacemy__teleop__twist__keyboard_1a3bc29fafdd88f1ec6323407b3b9d6a9e" kind="function"><name>vels</name></member>
+  </compound>
+  <compound refid="namespacestd__srvs_1_1srv" kind="namespace"><name>std_srvs::srv</name>
+  </compound>
+  <compound refid="namespaceteleop__avoid" kind="namespace"><name>teleop_avoid</name>
+    <member refid="namespaceteleop__avoid_1a72c00f05811492f6c41512d498042d3f" kind="variable"><name>msg</name></member>
+    <member refid="namespaceteleop__avoid_1a91891811e0623815f4a47644d267f1da" kind="variable"><name>ok_left</name></member>
+    <member refid="namespaceteleop__avoid_1ae6e11ca462c28bc78ae1fe357cea97e6" kind="variable"><name>ok_right</name></member>
+    <member refid="namespaceteleop__avoid_1a623ae3ab2eeb592150cf27a5e19b4def" kind="variable"><name>ok_straight</name></member>
+    <member refid="namespaceteleop__avoid_1aa4b593015d9c416d27df92a9448582f5" kind="variable"><name>moveBindings</name></member>
+    <member refid="namespaceteleop__avoid_1a749620507f44129f27c71be762af4dc3" kind="variable"><name>speedBindings</name></member>
+    <member refid="namespaceteleop__avoid_1a2139d96ed863735620b08e5afcb68d00" kind="variable"><name>settings_old</name></member>
+    <member refid="namespaceteleop__avoid_1a49d77017db7d8ee2144227973c31d45f" kind="variable"><name>settings_new</name></member>
+    <member refid="namespaceteleop__avoid_1a2495bf8f5647e9e1a3cb9db53179f099" kind="variable"><name>active_</name></member>
+    <member refid="namespaceteleop__avoid_1a644523bec7ea5ac5a9c1f4640388fd4d" kind="variable"><name>flag</name></member>
+    <member refid="namespaceteleop__avoid_1a3fdefd446f3b3ca328ded38533cbc90a" kind="variable"><name>speed</name></member>
+    <member refid="namespaceteleop__avoid_1ab91cce988c32249a27ffe1d4e3422c32" kind="variable"><name>turn</name></member>
+    <member refid="namespaceteleop__avoid_1abbf41b123b096423af917b0d16c500fa" kind="variable"><name>repeat</name></member>
+    <member refid="namespaceteleop__avoid_1a149d15f442027584f74c19bf8626b68a" kind="variable"><name>key_timeout</name></member>
+    <member refid="namespaceteleop__avoid_1a92671c6e9353b05e67191d38d94510b9" kind="variable"><name>sub</name></member>
+    <member refid="namespaceteleop__avoid_1ae72237d49bdb8a00083e0c50ae825ee9" kind="variable"><name>pub_thread</name></member>
+    <member refid="namespaceteleop__avoid_1aae55e382297cb84a0adb5ff251566e19" kind="variable"><name>x</name></member>
+    <member refid="namespaceteleop__avoid_1adab041e8e129efc118e4b8177351ac8b" kind="variable"><name>y</name></member>
+    <member refid="namespaceteleop__avoid_1a1d53ebb4c1646b6ebf84c619d416d4b0" kind="variable"><name>z</name></member>
+    <member refid="namespaceteleop__avoid_1a8ff5b24d3af9ccd2c0a65956bf4a0ae9" kind="variable"><name>th</name></member>
+    <member refid="namespaceteleop__avoid_1a5f8b5db04c055ced915b969b0a77c52b" kind="variable"><name>status</name></member>
+    <member refid="namespaceteleop__avoid_1abe9d5d5f97de1789be733f00fa105560" kind="variable"><name>rate</name></member>
+    <member refid="namespaceteleop__avoid_1aacc2f933d75a5d2846df6b9e96e41003" kind="variable"><name>moveBindings_temp</name></member>
+    <member refid="namespaceteleop__avoid_1aa827f9fc5e3946a0f210e8c2ec64c820" kind="variable"><name>key</name></member>
+    <member refid="namespaceteleop__avoid_1ae8346548ca971192cb148f53370b059f" kind="function"><name>getKey</name></member>
+    <member refid="namespaceteleop__avoid_1ad848ff43d066e30b9f9262e020ab2d87" kind="function"><name>clbk_laser</name></member>
+    <member refid="namespaceteleop__avoid_1a580cbf1dac188a7b7c099b3de9e09d84" kind="function"><name>pop_dict</name></member>
+    <member refid="namespaceteleop__avoid_1a3ef8e3109c71bab27b9cc6b42b3ac833" kind="function"><name>vels</name></member>
+  </compound>
+  <compound refid="namespace_u_i" kind="namespace"><name>UI</name>
+    <member refid="namespace_u_i_1a2b95e4f76933689526512fc2cae3e327" kind="variable"><name>ascii_art_message</name></member>
+    <member refid="namespace_u_i_1a25a43db0b31fde4f22293fc0488ec958" kind="variable"><name>intro</name></member>
+    <member refid="namespace_u_i_1af2f986ba9434ec038f186de31f10bc60" kind="variable"><name>menu_msg</name></member>
+    <member refid="namespace_u_i_1a572242129b77c703404402ae131516e5" kind="variable"><name>flag</name></member>
+    <member refid="namespace_u_i_1a8203d885551ea8a7112cd175f5998a8c" kind="function"><name>interpreter</name></member>
+    <member refid="namespace_u_i_1a4570e2a9d5f1ddf4f326ca5f62269e4e" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="index_8rst_8txt" kind="file"><name>index.rst.txt</name>
+    <member refid="index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" kind="variable"><name>file</name></member>
+    <member refid="index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" kind="variable"><name>Mar</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="conf_8py" kind="file"><name>conf.py</name>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="go__to__desired__pos_8py" kind="file"><name>go_to_desired_pos.py</name>
+  </compound>
+  <compound refid="my__teleop__twist__keyboard_8py" kind="file"><name>my_teleop_twist_keyboard.py</name>
+  </compound>
+  <compound refid="teleop__avoid_8py" kind="file"><name>teleop_avoid.py</name>
+  </compound>
+  <compound refid="_u_i_8py" kind="file"><name>UI.py</name>
+  </compound>
+  <compound refid="md__r_e_a_d_m_e" kind="page"><name>md_README</name>
+  </compound>
+  <compound refid="dir_45b9293d3daaa82c00b5908f14ebb805" kind="dir"><name>_build</name>
+  </compound>
+  <compound refid="dir_02bdb4005edb5055ba0ef39c3e2b4a3d" kind="dir"><name>_build/html/_sources</name>
+  </compound>
+  <compound refid="dir_63358181ce567149a79d24bdd45b3e93" kind="dir"><name>_build/html</name>
+  </compound>
+  <compound refid="dir_53e6fa9553ac22a5646d2a2b2d7b97a1" kind="dir"><name>scripts</name>
+  </compound>
+</doxygenindex>

@@ -1,5 +1,21 @@
 #!/usr/bin/python3
 
+"""
+.. module:: UI
+	:platform: Unix
+	:synopsis: Python module for the User Interface
+.. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
+
+This module implements an user interface that allows the user to switch among the three modalities.
+ROS parameter are used in order to activate / deactivate the chosen modality. 
+
+ROS parameters: 
+	1.	"active": (type: int) parameter for activate the desired control modality 
+	2.	"des_pos_x": (type: double) parameter for the desired X coordinate 
+	3.	"des_pos_y": (type: double) parameter for the desired Y coordinate 
+
+"""
+
 # IMPORTS
 import rospy
 import os
@@ -7,6 +23,9 @@ import signal
 
 # COLORS
 class bcolors:
+	"""
+	This class is used for  printing colors on the terminal
+	"""
 	HEADER = '\033[95m'
 	OKBLUE = '\033[94m'
 	OKCYAN = '\033[96m'
@@ -46,11 +65,29 @@ menu_msg = """
 [4] """ + bcolors.UNDERLINE + bcolors.FAIL + """Quit the simulaiton
 """
 
-flag = False # Bool for knowing if the prevoius modality was the first one so that a goal can be canceled online
+
+
+flag = False 
+"""
+Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled online
+"""
 
 def interpreter():
-	#Function that receives inputs and sets all the ROS parameters
+	"""
+	This function gets the keyboard user input and changes the ROS parameter active depending on which modality was chosen.
 
+	- '1' keyboard key is used for choosing the autonomously reaching modality;
+
+	- '2' keyboard key is used for the free keyboard driving modality;
+
+	- '3' keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;
+
+	- '4' keyboard key is used for quitting the application and terminates all nodes.
+
+		No Args. 
+
+		No Returns. 
+	"""
 	global flag 
 	print(menu_msg)
 
@@ -108,10 +145,14 @@ def interpreter():
 
 
 def main():
+	"""
+	In the main() function the ``interpreter()`` function is looped and some introductory messages are printed on the terminal. "
+	"""
 	print(ascii_art_message)
 	print(intro)
 	while not rospy.is_shutdown():
 		interpreter()
 
-main()
+if __name__ == '__main__':
+    main()
 

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>actionlib.simple_action_client &mdash; Research Track I Final Assignment 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Research Track I Final Assignment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Research Track I Final Assignment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>actionlib.simple_action_client</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for actionlib.simple_action_client</h1><div class="highlight"><pre>
+<span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># Copyright (c) 2009, Willow Garage, Inc.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions are met:</span>
+<span class="c1">#</span>
+<span class="c1">#     * Redistributions of source code must retain the above copyright</span>
+<span class="c1">#       notice, this list of conditions and the following disclaimer.</span>
+<span class="c1">#     * Redistributions in binary form must reproduce the above copyright</span>
+<span class="c1">#       notice, this list of conditions and the following disclaimer in the</span>
+<span class="c1">#       documentation and/or other materials provided with the distribution.</span>
+<span class="c1">#     * Neither the name of the Willow Garage, Inc. nor the names of its</span>
+<span class="c1">#       contributors may be used to endorse or promote products derived from</span>
+<span class="c1">#       this software without specific prior written permission.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span class="c1"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="c1"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="c1"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE</span>
+<span class="c1"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
+<span class="c1"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
+<span class="c1"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
+<span class="c1"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
+<span class="c1"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
+<span class="c1"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span class="c1"># POSSIBILITY OF SUCH DAMAGE.</span>
+
+<span class="c1"># Author: Stuart Glaser</span>
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">from</span> <span class="nn">actionlib_msgs.msg</span> <span class="kn">import</span> <span class="n">GoalStatus</span>
+<span class="kn">from</span> <span class="nn">actionlib.action_client</span> <span class="kn">import</span> <span class="n">ActionClient</span><span class="p">,</span> <span class="n">CommState</span><span class="p">,</span> <span class="n">get_name_of_constant</span>
+
+
+<span class="k">class</span> <span class="nc">SimpleGoalState</span><span class="p">:</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ACTIVE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">DONE</span> <span class="o">=</span> <span class="mi">2</span>
+
+
+<span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">to_string</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="n">get_name_of_constant</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SimpleActionClient</span><span class="p">:</span>
+    <span class="c1">## @brief Constructs a SimpleActionClient and opens connections to an ActionServer.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param ns The namespace in which to access the action.  For</span>
+    <span class="c1">## example, the &quot;goal&quot; topic should occur under ns/goal</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param ActionSpec The *Action message type.  The SimpleActionClient</span>
+    <span class="c1">## will grab the other message types from this type.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">ActionSpec</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">ActionSpec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">=</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gh</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_condition</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">()</span>
+
+    <span class="c1">## @brief Blocks until the action server connects to this client</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param timeout Max time to block before returning. A zero</span>
+    <span class="c1">## timeout is interpreted as an infinite timeout.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @return True if the server connected in the allocated time. False on timeout</span>
+    <span class="k">def</span> <span class="nf">wait_for_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">()):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="c1">## @brief Sends a goal to the ActionServer, and also registers callbacks</span>
+    <span class="c1">##</span>
+    <span class="c1">## If a previous goal is already active when this is called. We simply forget</span>
+    <span class="c1">## about that goal and start tracking the new goal. No cancel requests are made.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param done_cb Callback that gets called on transitions to</span>
+    <span class="c1">## Done.  The callback should take two parameters: the terminal</span>
+    <span class="c1">## state (as an integer from actionlib_msgs/GoalStatus) and the</span>
+    <span class="c1">## result.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param active_cb   No-parameter callback that gets called on transitions to Active.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param feedback_cb Callback that gets called whenever feedback</span>
+    <span class="c1">## for this goal is received.  Takes one parameter: the feedback.</span>
+    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal</span><span class="p">,</span> <span class="n">done_cb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">active_cb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feedback_cb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># destroys the old goal handle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_tracking_goal</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_cb</span> <span class="o">=</span> <span class="n">done_cb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_cb</span> <span class="o">=</span> <span class="n">active_cb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feedback_cb</span> <span class="o">=</span> <span class="n">feedback_cb</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">=</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">PENDING</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_transition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_feedback</span><span class="p">)</span>
+
+    <span class="c1">## @brief Sends a goal to the ActionServer, waits for the goal to complete, and preempts goal is necessary</span>
+    <span class="c1">##</span>
+    <span class="c1">## If a previous goal is already active when this is called. We simply forget</span>
+    <span class="c1">## about that goal and start tracking the new goal. No cancel requests are made.</span>
+    <span class="c1">##</span>
+    <span class="c1">## If the goal does not complete within the execute_timeout, the goal gets preempted</span>
+    <span class="c1">##</span>
+    <span class="c1">## If preemption of the goal does not complete withing the preempt_timeout, this</span>
+    <span class="c1">## method simply returns</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param execute_timeout The time to wait for the goal to complete</span>
+    <span class="c1">##</span>
+    <span class="c1">## @param preempt_timeout The time to wait for preemption to complete</span>
+    <span class="c1">##</span>
+    <span class="c1">## @return The goal&#39;s state.</span>
+    <span class="k">def</span> <span class="nf">send_goal_and_wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal</span><span class="p">,</span> <span class="n">execute_timeout</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(),</span> <span class="n">preempt_timeout</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">()):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_result</span><span class="p">(</span><span class="n">execute_timeout</span><span class="p">):</span>
+            <span class="c1"># preempt action</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logdebug</span><span class="p">(</span><span class="s2">&quot;Canceling goal&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cancel_goal</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_result</span><span class="p">(</span><span class="n">preempt_timeout</span><span class="p">):</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logdebug</span><span class="p">(</span><span class="s2">&quot;Preempt finished within specified preempt_timeout [</span><span class="si">%.2f</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">preempt_timeout</span><span class="o">.</span><span class="n">to_sec</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logdebug</span><span class="p">(</span><span class="s2">&quot;Preempt didn&#39;t finish specified preempt_timeout [</span><span class="si">%.2f</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">preempt_timeout</span><span class="o">.</span><span class="n">to_sec</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+
+    <span class="c1">## @brief Blocks until this goal transitions to done</span>
+    <span class="c1">## @param timeout Max time to block before returning. A zero timeout is interpreted as an infinite timeout.</span>
+    <span class="c1">## @return True if the goal finished. False if the goal didn&#39;t finish within the allocated timeout</span>
+    <span class="k">def</span> <span class="nf">wait_for_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&quot;Called wait_for_result when no goal exists&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">timeout_time</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_rostime</span><span class="p">()</span> <span class="o">+</span> <span class="n">timeout</span>
+        <span class="n">loop_period</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_condition</span><span class="p">:</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
+                <span class="n">time_left</span> <span class="o">=</span> <span class="n">timeout_time</span> <span class="o">-</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_rostime</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">time_left</span> <span class="o">&lt;=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mf">0.0</span><span class="p">):</span>
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">time_left</span> <span class="o">&gt;</span> <span class="n">loop_period</span> <span class="ow">or</span> <span class="n">timeout</span> <span class="o">==</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">():</span>
+                    <span class="n">time_left</span> <span class="o">=</span> <span class="n">loop_period</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">done_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">time_left</span><span class="o">.</span><span class="n">to_sec</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span>
+
+    <span class="c1">## @brief Gets the Result of the current goal</span>
+    <span class="k">def</span> <span class="nf">get_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&quot;Called get_result when no goal is running&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
+
+    <span class="c1">## @brief Get the state information for this goal</span>
+    <span class="c1">##</span>
+    <span class="c1">## Possible States Are: PENDING, ACTIVE, RECALLED, REJECTED,</span>
+    <span class="c1">## PREEMPTED, ABORTED, SUCCEEDED, LOST.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @return The goal&#39;s state. Returns LOST if this</span>
+    <span class="c1">## SimpleActionClient isn&#39;t tracking a goal.</span>
+    <span class="k">def</span> <span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">GoalStatus</span><span class="o">.</span><span class="n">LOST</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">get_goal_status</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">GoalStatus</span><span class="o">.</span><span class="n">RECALLING</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">GoalStatus</span><span class="o">.</span><span class="n">PENDING</span>
+        <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="n">GoalStatus</span><span class="o">.</span><span class="n">PREEMPTING</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">GoalStatus</span><span class="o">.</span><span class="n">ACTIVE</span>
+
+        <span class="k">return</span> <span class="n">status</span>
+
+    <span class="c1">## @brief Returns the current status text of the goal.</span>
+    <span class="c1">##</span>
+    <span class="c1">## The text is sent by the action server. It is designed to</span>
+    <span class="c1">## help debugging issues on the server side.</span>
+    <span class="c1">##</span>
+    <span class="c1">## @return The current status text of the goal.</span>
+    <span class="k">def</span> <span class="nf">get_goal_status_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&quot;Called get_goal_status_text when no goal is running&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;ERROR: Called get_goal_status_text when no goal is running&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">get_goal_status_text</span><span class="p">()</span>
+
+    <span class="c1">## @brief Cancels all goals currently running on the action server</span>
+    <span class="c1">##</span>
+    <span class="c1">## This preempts all goals running on the action server at the point that</span>
+    <span class="c1">## this message is serviced by the ActionServer.</span>
+    <span class="k">def</span> <span class="nf">cancel_all_goals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_client</span><span class="o">.</span><span class="n">cancel_all_goals</span><span class="p">()</span>
+
+    <span class="c1">## @brief Cancels all goals prior to a given timestamp</span>
+    <span class="c1">##</span>
+    <span class="c1">## This preempts all goals running on the action server for which the</span>
+    <span class="c1">## time stamp is earlier than the specified time stamp</span>
+    <span class="c1">## this message is serviced by the ActionServer.</span>
+    <span class="k">def</span> <span class="nf">cancel_goals_at_and_before_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_client</span><span class="o">.</span><span class="n">cancel_goals_at_and_before_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+    <span class="c1">## @brief Cancels the goal that we are currently pursuing</span>
+    <span class="k">def</span> <span class="nf">cancel_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+    <span class="c1">## @brief Stops tracking the state of the current goal. Unregisters this goal&#39;s callbacks</span>
+    <span class="c1">##</span>
+    <span class="c1">## This is useful if we want to make sure we stop calling our callbacks before sending a new goal.</span>
+    <span class="c1">## Note that this does not cancel the goal, it simply stops looking for status info about this goal.</span>
+    <span class="k">def</span> <span class="nf">stop_tracking_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gh</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_handle_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gh</span><span class="p">):</span>
+        <span class="n">comm_state</span> <span class="o">=</span> <span class="n">gh</span><span class="o">.</span><span class="n">get_comm_state</span><span class="p">()</span>
+
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;Received comm state </span><span class="si">%s</span><span class="s2"> when in simple state </span><span class="si">%s</span><span class="s2"> with SimpleActionClient in NS </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="n">CommState</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">comm_state</span><span class="p">),</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span><span class="p">),</span> <span class="n">rospy</span><span class="o">.</span><span class="n">resolve_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_client</span><span class="o">.</span><span class="n">ns</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">comm_state</span> <span class="o">==</span> <span class="n">CommState</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">PENDING</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_simple_state</span><span class="p">(</span><span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_cb</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">active_cb</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">comm_state</span> <span class="o">==</span> <span class="n">CommState</span><span class="o">.</span><span class="n">RECALLING</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">!=</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">PENDING</span><span class="p">:</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">comm_state</span> <span class="o">==</span> <span class="n">CommState</span><span class="o">.</span><span class="n">PREEMPTING</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">PENDING</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_simple_state</span><span class="p">(</span><span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_cb</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">active_cb</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">comm_state</span> <span class="o">==</span> <span class="n">CommState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="ow">in</span> <span class="p">[</span><span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">PENDING</span><span class="p">,</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_simple_state</span><span class="p">(</span><span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_cb</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">done_cb</span><span class="p">(</span><span class="n">gh</span><span class="o">.</span><span class="n">get_goal_status</span><span class="p">(),</span> <span class="n">gh</span><span class="o">.</span><span class="n">get_result</span><span class="p">())</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_condition</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">done_condition</span><span class="o">.</span><span class="n">notifyAll</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">==</span> <span class="n">SimpleGoalState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+                <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&quot;SimpleActionClient received DONE twice&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_feedback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gh</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="c1"># this is not actually an error - there can be a small window in which old feedback</span>
+            <span class="c1"># can be received between the time this variable is reset and a new goal is</span>
+            <span class="c1"># sent and confirmed</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">gh</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="p">:</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&quot;Got a feedback callback on a goal handle that we&#39;re not tracking. </span><span class="si">%s</span><span class="s2"> vs </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">comm_state_machine</span><span class="o">.</span><span class="n">action_goal</span><span class="o">.</span><span class="n">goal_id</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">gh</span><span class="o">.</span><span class="n">comm_state_machine</span><span class="o">.</span><span class="n">action_goal</span><span class="o">.</span><span class="n">goal_id</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">feedback_cb</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">feedback_cb</span><span class="p">(</span><span class="n">feedback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_simple_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simple_state</span> <span class="o">=</span> <span class="n">state</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Francesco Pagano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespaceteleop__avoid" kind="namespace" language="Python">
+    <compoundname>teleop_avoid</compoundname>
+    <innerclass refid="classteleop__avoid_1_1bcolors" prot="public">teleop_avoid::bcolors</innerclass>
+    <innerclass refid="classteleop__avoid_1_1_publish_thread" prot="public">teleop_avoid::PublishThread</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a72c00f05811492f6c41512d498042d3f" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string teleop_avoid.msg</definition>
+        <argsstring></argsstring>
+        <name>msg</name>
+        <initializer>=  &quot;&quot;&quot;
+&quot;&quot;&quot; + bcolors.BOLD +&quot;&quot;&quot;
+Reading from the keyboard and Publishing to Twist!
+---------------------------
+&quot;&quot;&quot; + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + &quot;&quot;&quot;
+[i] go straight    
+[j] turn left
+[l] turn right
+[k] go backwards
+
+&quot;&quot;&quot; + bcolors.HEADER + bcolors.BOLD +&quot;&quot;&quot;
+[q]/[z] : increase/decrease max speeds by 10%
+[w]/[x] : increase/decrease only linear speed by 10%
+[e]/[c] : increase/decrease only angular speed by 10%
+&quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+
+&quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="43" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a91891811e0623815f4a47644d267f1da" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_left</definition>
+        <argsstring></argsstring>
+        <name>ok_left</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="66" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1ae6e11ca462c28bc78ae1fe357cea97e6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_right</definition>
+        <argsstring></argsstring>
+        <name>ok_right</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="70" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a623ae3ab2eeb592150cf27a5e19b4def" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_straight</definition>
+        <argsstring></argsstring>
+        <name>ok_straight</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="74" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1aa4b593015d9c416d27df92a9448582f5" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary teleop_avoid.moveBindings</definition>
+        <argsstring></argsstring>
+        <name>moveBindings</name>
+        <initializer>=  {
+        &apos;i&apos;:(1,0,0,0),
+        &apos;j&apos;:(0,0,0,1),
+        &apos;l&apos;:(0,0,0,-1),
+        &apos;k&apos;:(-1,0,0,0),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="77" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a749620507f44129f27c71be762af4dc3" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary teleop_avoid.speedBindings</definition>
+        <argsstring></argsstring>
+        <name>speedBindings</name>
+        <initializer>= {
+        &apos;q&apos;:(1.1,1.1),
+        &apos;z&apos;:(.9,.9),
+        &apos;w&apos;:(1.1,1),
+        &apos;x&apos;:(.9,1),
+        &apos;e&apos;:(1,1.1),
+        &apos;c&apos;:(1,.9),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="85" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a2139d96ed863735620b08e5afcb68d00" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.settings_old</definition>
+        <argsstring></argsstring>
+        <name>settings_old</name>
+        <initializer>=  termios.tcgetattr(sys.stdin)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="279" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a49d77017db7d8ee2144227973c31d45f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.settings_new</definition>
+        <argsstring></argsstring>
+        <name>settings_new</name>
+        <initializer>=  settings_old</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="280" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a2495bf8f5647e9e1a3cb9db53179f099" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.active_</definition>
+        <argsstring></argsstring>
+        <name>active_</name>
+        <initializer>= rospy.get_param(&quot;/active&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="285" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a644523bec7ea5ac5a9c1f4640388fd4d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int teleop_avoid::flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="286" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a3fdefd446f3b3ca328ded38533cbc90a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dictionary teleop_avoid::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <initializer>=  rospy.get_param(&quot;~speed&quot;, 0.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="288" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1ab91cce988c32249a27ffe1d4e3422c32" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dictionary teleop_avoid::turn</definition>
+        <argsstring></argsstring>
+        <name>turn</name>
+        <initializer>=  rospy.get_param(&quot;~turn&quot;, 1.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="289" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1abbf41b123b096423af917b0d16c500fa" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.repeat</definition>
+        <argsstring></argsstring>
+        <name>repeat</name>
+        <initializer>=  rospy.get_param(&quot;~repeat_rate&quot;, 0.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="290" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a149d15f442027584f74c19bf8626b68a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.key_timeout</definition>
+        <argsstring></argsstring>
+        <name>key_timeout</name>
+        <initializer>=  rospy.get_param(&quot;~key_timeout&quot;, 0.1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="291" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a92671c6e9353b05e67191d38d94510b9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.sub</definition>
+        <argsstring></argsstring>
+        <name>sub</name>
+        <initializer>=  rospy.Subscriber(&apos;/scan&apos;, LaserScan, clbk_laser)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="292" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1ae72237d49bdb8a00083e0c50ae825ee9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.pub_thread</definition>
+        <argsstring></argsstring>
+        <name>pub_thread</name>
+        <initializer>=  <ref refid="classteleop__avoid_1_1_publish_thread" kindref="compound">PublishThread</ref>(repeat)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="296" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1aae55e382297cb84a0adb5ff251566e19" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int teleop_avoid::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="298" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1adab041e8e129efc118e4b8177351ac8b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int teleop_avoid::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="299" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a1d53ebb4c1646b6ebf84c619d416d4b0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int teleop_avoid::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="300" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a8ff5b24d3af9ccd2c0a65956bf4a0ae9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int teleop_avoid::th</definition>
+        <argsstring></argsstring>
+        <name>th</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="301" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a5f8b5db04c055ced915b969b0a77c52b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>tuple teleop_avoid::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="302" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1abe9d5d5f97de1789be733f00fa105560" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.rate</definition>
+        <argsstring></argsstring>
+        <name>rate</name>
+        <initializer>=  rospy.Rate(5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="304" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1aacc2f933d75a5d2846df6b9e96e41003" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary teleop_avoid::moveBindings_temp</definition>
+        <argsstring></argsstring>
+        <name>moveBindings_temp</name>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="307" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1aa827f9fc5e3946a0f210e8c2ec64c820" prot="public" static="no" mutable="no">
+        <type>def</type>
+        <definition>def teleop_avoid.key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <initializer>=  getKey(key_timeout)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="314" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceteleop__avoid_1ae8346548ca971192cb148f53370b059f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.getKey</definition>
+        <argsstring>(key_timeout)</argsstring>
+        <name>getKey</name>
+        <param>
+          <type>key_timeout</type>
+          <defname>key_timeout</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="189" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="189" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1ad848ff43d066e30b9f9262e020ab2d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.clbk_laser</definition>
+        <argsstring>(msg)</argsstring>
+        <name>clbk_laser</name>
+        <param>
+          <type>msg</type>
+          <defname>msg</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="201" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="201" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1a580cbf1dac188a7b7c099b3de9e09d84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.pop_dict</definition>
+        <argsstring>(dictionary)</argsstring>
+        <name>pop_dict</name>
+        <param>
+          <type>dictionary</type>
+          <defname>dictionary</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="229" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="229" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1a3ef8e3109c71bab27b9cc6b42b3ac833" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.vels</definition>
+        <argsstring>(speed, turn)</argsstring>
+        <name>vels</name>
+        <param>
+          <type>speed</type>
+          <defname>speed</defname>
+        </param>
+        <param>
+          <type>turn</type>
+          <defname>turn</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="scripts/teleop_avoid.py" line="273" column="1" bodyfile="scripts/teleop_avoid.py" bodystart="273" bodyend="275"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>.. module:: teleop_avoid
+    :platform: Unix
+    :synopsis: Python module for controlling the robot using the keyboard assisted by an obstacle avoidance algorithm
+.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;
+
+This node implements the third modality for controlling the robot. </verbatim> </para>
+    </detaileddescription>
+    <location file="scripts/teleop_avoid.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

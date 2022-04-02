@@ -1,5 +1,17 @@
 #! /usr/bin/env python3
 
+"""
+.. module:: go_to_desired_pos
+	:platform: Unix
+	:synopsis: Python module for controlling the robot bby providing a desired point. 
+.. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
+
+This node makes the robot autonomously reach a x,y position inserted by the user. 
+The robot can reach the user's x,y coordinates thanks to the 'move_base' action server. 
+The robot is going to plan the path through the Dijkstra's algorithm.
+The desired x, y coordinates are ROS parameters too and they are set by the :mod:`UI` node. 
+"""
+
 # IMPORTS
 import rospy
 import actionlib
@@ -9,6 +21,10 @@ from std_srvs.srv import *
 
 #COLORS 
 class bcolors:
+	"""
+	This class is used for printing colors on the temrinal
+	"""
+
 	HEADER = '\033[95m'
 	OKBLUE = '\033[94m'
 	OKCYAN = '\033[96m'
@@ -30,20 +46,59 @@ The robot is going to plan the path through the Dijkstra's algorithm.
 """ +bcolors.ENDC + """
 """
 
-goal_msg=MoveBaseGoal()	# Action message
 
-active_ = rospy.get_param('active')					# ROS poarameter to block/unlock the modality 
-desired_position_x = rospy.get_param('des_pos_x')	# X desired coordinate 
-desired_position_y = rospy.get_param('des_pos_y')	# Y desired coordinate 
+goal_msg=MoveBaseGoal()
+"""
+Global action message
+"""	
+
+"""
+Global ROS poarameter to block/unlock the modality 
+"""
+#active_ = rospy.get_param('/active')		
+"""
+Global X desired coordinate 
+"""			
+#desired_position_x = rospy.get_param('/des_pos_x')	
+"""
+Global Y desired coordinate 
+"""
+#desired_position_y = rospy.get_param('/des_pos_y')	
+
 
 client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)	# Action client
+"""
+Global action client. 
+"""
 
-achieved = False	# Variable for defining if a goal was achieved or not
-goal_cont = 1		# Goal counter
-cont = 1			# Feedback index
+
+achieved = False
+"""
+Global bool for defining if a goal was achieved or not. Useful in order to differentiate the case in which a goal was achieved 
+(in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server), 
+and the case in which the user decides to send a cancel request before the goal achievement (in this case we must send a cancel request to the server).
+"""
+
+
+goal_cont = 1	
+"""
+Global Goal counter. Takes into account the number of requests. 
+"""	
+
+cont = 1			
+"""
+Feedback index. Takes into account the number of feedback for each request. 
+"""	
 
 def action_client():
-	# Sets some parameters of the action message
+	"""
+	This function is called for both wait until we are connected to the action server and 
+	to set some parameters of the action message.
+
+		No Args. 
+
+		No Returns. 
+	"""
 
 	global goal_msg
 	global client
@@ -57,7 +112,19 @@ def action_client():
 
 
 def done_cb(status, result):
-	# Function called after goal was processed. It is used to notify the client on the current status of every goal in the system.
+	"""
+	This is a callback function called after the execution of the action server. It gives the client information about the termination of the goal process. 
+	In particular, this callback function puts a value that into the argument ``status``. 
+	Depending on the value of this variable the client knows the status of the goal processing after the execution. 
+
+    Args:
+        status: terminal state (as an integer from actionlib_msgs/GoalStatus)
+        result: result of the goal processing. 
+
+    No Returns. 
+
+		
+	"""
 	global client
 	global achieved
 	global goal_cont
@@ -92,17 +159,38 @@ def done_cb(status, result):
 
 
 def active_cb():
-	# Function called before goal processing
+	"""
+	Callback that gets called on transitions to Active.
+
+	No Args.
+
+	No Returns. 
+	"""
 	print(bcolors.OKBLUE + bcolors.BOLD +"Goal number "+ str(goal_cont) + " is being processed..."  + bcolors.ENDC)
 
 def feedback_cb(feedback):
-	# Function called for sending client feedback, that are some auxiliary information
+	"""
+	Callback that gets called whenever feedback for this goal is received. 
+
+	Args: 
+		feedback: information about the robot status during the the action server execution.
+
+	No Returns.  
+	"""
 	global cont
 	cont += 1	# Increment index
 	print(str(cont) + ")\tFeedback from goal number " + str(goal_cont) + " received!")
 
 def set_goal(x, y):
-	# Creates a goal and sends it to the action server. 
+	"""
+	This function fills the x, y fields of the goal message and sends a goal request to the action server.
+
+	Args:
+		x: x coordinate of the position that we want the robot to reach.  
+		y: y coordinate of the position that we want the robot to reach.
+
+	No Returns
+	"""
 	global goal_msg
 	global client
 	goal_msg.target_pose.pose.position.x = x
@@ -110,7 +198,13 @@ def set_goal(x, y):
 	client.send_goal(goal_msg, done_cb, active_cb, feedback_cb)
 
 def update_variables():
-	# Function for updating the ROS parameters
+	"""
+	Function for updating the ROS parameters: active, des_pos_x, des_pos_y. 
+
+	No Args
+
+	No Returns
+	"""
 
 	global desired_position_x, desired_position_y, active_
 	active_ = rospy.get_param('active')
@@ -118,7 +212,11 @@ def update_variables():
 	desired_position_y = rospy.get_param('des_pos_y')
 
 def main():
-
+	"""
+	In the main funciton some goals parameters of the goal message are set, updated variables and if the current modality 
+	is chosen, then the ``set_goal()`` function is called. Finally, the the case in which a goal was achieved and the one in which the user 
+	decides to send a cancel request before the goal achievement is managed. 
+	"""
 	global client
 	global achieved
 

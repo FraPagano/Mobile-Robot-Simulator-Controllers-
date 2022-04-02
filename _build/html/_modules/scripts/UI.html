@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.UI &mdash; Research Track I Final Assignment 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Research Track I Final Assignment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Research Track I Final Assignment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scripts.UI</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.UI</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: UI</span>
+<span class="sd">	:platform: Unix</span>
+<span class="sd">	:synopsis: Python module for the User Interface</span>
+<span class="sd">.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;</span>
+
+<span class="sd">This module implements an user interface that allows the user to switch among the three modalities.</span>
+<span class="sd">ROS parameter are used in order to activate / deactivate the chosen modality. </span>
+
+<span class="sd">ROS parameters: </span>
+<span class="sd">	1.	&quot;active&quot;: (type: int) parameter for activate the desired control modality </span>
+<span class="sd">	2.	&quot;des_pos_x&quot;: (type: double) parameter for the desired X coordinate </span>
+<span class="sd">	3.	&quot;des_pos_y&quot;: (type: double) parameter for the desired Y coordinate </span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># IMPORTS</span>
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+
+<span class="c1"># COLORS</span>
+<div class="viewcode-block" id="bcolors"><a class="viewcode-back" href="../../index.html#scripts.UI.bcolors">[docs]</a><span class="k">class</span> <span class="nc">bcolors</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This class is used for  printing colors on the terminal</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[95m&#39;</span>
+	<span class="n">OKBLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m&#39;</span>
+	<span class="n">OKCYAN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[96m&#39;</span>
+	<span class="n">OKGREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span>
+	<span class="n">WARNING</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span>
+	<span class="n">FAIL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span>
+	<span class="n">ENDC</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>
+	<span class="n">BOLD</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span>
+	<span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[4m&#39;</span>
+	<span class="n">ORANGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[33m&#39;</span> 
+	<span class="n">PURPLE</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[35m&#39;</span> </div>
+
+<span class="n">ascii_art_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">				 _________</span>
+<span class="s2">			|\     /|\ _   __/</span>
+<span class="s2">			| )   ( |   ) (   </span>
+<span class="s2">			| |   | |   | |   </span>
+<span class="s2">			| |   | |   | |   </span>
+<span class="s2">			| |   | |   | |   </span>
+<span class="s2">			| (___) |___) (___</span>
+<span class="s2">			(_______)\_______/</span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span><span class="s2">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+
+<span class="c1"># Intro message</span>
+<span class="n">intro</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Hi! This is your User Interface &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You can move the robot through three different modalities:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="c1"># Menu message showing the three modalities</span>
+<span class="n">menu_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">----------------------------------------------------------------</span>
+<span class="s2">[1] &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;Insert your desired position &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[2] &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;Free Drive the robot with your keyboard &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[3] &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;Free Drive the robot with your keyboard assisted by an obstacle avoidance algorithm &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[4] &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;Quit the simulaiton</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+
+<span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span> 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled online</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="interpreter"><a class="viewcode-back" href="../../index.html#scripts.UI.interpreter">[docs]</a><span class="k">def</span> <span class="nf">interpreter</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This function gets the keyboard user input and changes the ROS parameter active depending on which modality was chosen.</span>
+
+<span class="sd">	- &#39;1&#39; keyboard key is used for choosing the autonomously reaching modality;</span>
+
+<span class="sd">	- &#39;2&#39; keyboard key is used for the free keyboard driving modality;</span>
+
+<span class="sd">	- &#39;3&#39; keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;</span>
+
+<span class="sd">	- &#39;4&#39; keyboard key is used for quitting the application and terminates all nodes.</span>
+
+<span class="sd">		No Args. </span>
+
+<span class="sd">		No Returns. </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">global</span> <span class="n">flag</span> 
+	<span class="nb">print</span><span class="p">(</span><span class="n">menu_msg</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Press [0] for canceling the goal&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+	<span class="n">command</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+</span> <span class="s1">&#39;Choose a modality: </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span> <span class="c1"># Stores the input key</span>
+
+
+	<span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>	<span class="c1"># if the active parameter is 0 the current goal is canceled</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="s2">&quot;No modality is active, please choose one for controlling the robot&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span> <span class="c1"># Sysytem in idle state</span>
+		<span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>
+
+	<span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="c1"># Modality one chosen</span>
+
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Useful for changing goal </span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;Modality 1 is active.&quot;</span><span class="p">)</span>
+		<span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKBLUE</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Where do you want the robot to go?&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+
+		<span class="c1"># Receive the desired cooridnates as input</span>
+		<span class="n">des_x_input</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKBLUE</span> <span class="o">+</span><span class="s2">&quot;Insert the desired x position: &quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">))</span>
+		<span class="n">des_y_input</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKBLUE</span> <span class="o">+</span><span class="s2">&quot;Insert the desired y position: &quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">))</span>
+
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;Okay, let&#39;s reach the psotion x= &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">des_x_input</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; y= &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">des_y_input</span><span class="p">)</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The robot is moving towards your desired target&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>	
+
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;des_pos_x&#39;</span><span class="p">,</span> <span class="n">des_x_input</span><span class="p">)</span> <span class="c1"># Update the desired X coordinate</span>
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;des_pos_y&#39;</span><span class="p">,</span> <span class="n">des_y_input</span><span class="p">)</span> <span class="c1"># Update the desired Y coordinate</span>
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Modality 1 active</span>
+
+		<span class="n">flag</span><span class="o">=</span><span class="kc">True</span>
+
+	<span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="c1"># Modality two chosen</span>
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># Modality two active</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;Modality 2 is active.&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+</span> <span class="s2">&quot;Use the &#39;my_teleop_twist_keyboard&#39; xterm terminal to control the robot&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>
+		
+	<span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="c1"># Modality three chosen</span>
+		<span class="n">rospy</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># # Modality three active</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">UNDERLINE</span> <span class="o">+</span> <span class="s2">&quot;Modality 3 is active.&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKBLUE</span> <span class="o">+</span> <span class="s2">&quot;Use the &#39;teleop_avoid&#39; xterm terminal to control the robot&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>
+
+	<span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="c1"># Exit command</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">WARNING</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Exiting...&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">)</span> <span class="c1"># Kill the current process</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Wrong key! Use the shown commands &quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#scripts.UI.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	In the main() function the ``interpreter()`` function is looped and some introductory messages are printed on the terminal. &quot;</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">ascii_art_message</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">intro</span><span class="p">)</span>
+	<span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
+		<span class="n">interpreter</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Francesco Pagano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

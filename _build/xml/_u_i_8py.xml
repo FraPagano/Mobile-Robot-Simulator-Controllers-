@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_u_i_8py" kind="file" language="Python">
+    <compoundname>UI.py</compoundname>
+    <innerclass refid="class_u_i_1_1bcolors" prot="public">UI::bcolors</innerclass>
+    <innernamespace refid="namespace_u_i">UI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespace_u_i" refkind="compound"><highlight class="comment">#!/usr/bin/python3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">..<sp/>module::<sp/>UI</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:platform:<sp/>Unix</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:synopsis:<sp/>Python<sp/>module<sp/>for<sp/>the<sp/>User<sp/>Interface</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral">..<sp/>moduleauthor::<sp/>Francesco<sp/>Pagano<sp/>&lt;francescopagano1999@outlook.it&gt;</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">This<sp/>module<sp/>implements<sp/>an<sp/>user<sp/>interface<sp/>that<sp/>allows<sp/>the<sp/>user<sp/>to<sp/>switch<sp/>among<sp/>the<sp/>three<sp/>modalities.</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">ROS<sp/>parameter<sp/>are<sp/>used<sp/>in<sp/>order<sp/>to<sp/>activate<sp/>/<sp/>deactivate<sp/>the<sp/>chosen<sp/>modality.<sp/></highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">ROS<sp/>parameters:<sp/></highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>1.<sp/><sp/>&quot;active&quot;:<sp/>(type:<sp/>int)<sp/>parameter<sp/>for<sp/>activate<sp/>the<sp/>desired<sp/>control<sp/>modality<sp/></highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>2.<sp/><sp/>&quot;des_pos_x&quot;:<sp/>(type:<sp/>double)<sp/>parameter<sp/>for<sp/>the<sp/>desired<sp/>X<sp/>coordinate<sp/></highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>3.<sp/><sp/>&quot;des_pos_y&quot;:<sp/>(type:<sp/>double)<sp/>parameter<sp/>for<sp/>the<sp/>desired<sp/>Y<sp/>coordinate<sp/></highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">#<sp/>IMPORTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>rospy</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>signal</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">#<sp/>COLORS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="class_u_i_1_1bcolors" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_u_i_1_1bcolors" kindref="compound">bcolors</ref>:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>This<sp/>class<sp/>is<sp/>used<sp/>for<sp/><sp/>printing<sp/>colors<sp/>on<sp/>the<sp/>terminal</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>HEADER<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[95m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>OKBLUE<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[94m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>OKCYAN<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[96m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>OKGREEN<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[92m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>WARNING<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[93m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>FAIL<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[91m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>ENDC<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[0m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>BOLD<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[1m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>UNDERLINE<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[4m&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>ORANGE<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[33m&apos;</highlight><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>PURPLE<sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&apos;\033[35m&apos;</highlight><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">ascii_art_message<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>bcolors.HEADER<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_________</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|\<sp/><sp/><sp/><sp/><sp/>/|\<sp/>_<sp/><sp/><sp/>__/</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>)<sp/><sp/><sp/>(<sp/>|<sp/><sp/><sp/>)<sp/>(<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(___)<sp/>|___)<sp/>(___</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(_______)\_______/</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+</highlight><highlight class="stringliteral">&quot;&quot;&quot;<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Intro<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">intro<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.HEADER<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral">Hi!<sp/>This<sp/>is<sp/>your<sp/>User<sp/>Interface<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral">You<sp/>can<sp/>move<sp/>the<sp/>robot<sp/>through<sp/>three<sp/>different<sp/>modalities:</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Menu<sp/>message<sp/>showing<sp/>the<sp/>three<sp/>modalities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">menu_msg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral">----------------------------------------------------------------</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral">[1]<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Insert<sp/>your<sp/>desired<sp/>position<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral">[2]<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Free<sp/>Drive<sp/>the<sp/>robot<sp/>with<sp/>your<sp/>keyboard<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+</highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral">[3]<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Free<sp/>Drive<sp/>the<sp/>robot<sp/>with<sp/>your<sp/>keyboard<sp/>assisted<sp/>by<sp/>an<sp/>obstacle<sp/>avoidance<sp/>algorithm<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral">[4]<sp/>&quot;&quot;&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/>bcolors.FAIL<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Quit<sp/>the<sp/>simulaiton</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">flag<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral">Global<sp/>bool<sp/>for<sp/>knowing<sp/>if<sp/>the<sp/>prevoius<sp/>modality<sp/>was<sp/>the<sp/>first<sp/>one<sp/>so<sp/>that<sp/>a<sp/>goal<sp/>can<sp/>be<sp/>canceled<sp/>online</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespace_u_i_1a8203d885551ea8a7112cd175f5998a8c" kindref="member">interpreter</ref>():</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>This<sp/>function<sp/>gets<sp/>the<sp/>keyboard<sp/>user<sp/>input<sp/>and<sp/>changes<sp/>the<sp/>ROS<sp/>parameter<sp/>active<sp/>depending<sp/>on<sp/>which<sp/>modality<sp/>was<sp/>chosen.</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>&apos;1&apos;<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>choosing<sp/>the<sp/>autonomously<sp/>reaching<sp/>modality;</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>&apos;2&apos;<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>the<sp/>free<sp/>keyboard<sp/>driving<sp/>modality;</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>&apos;3&apos;<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>the<sp/>free<sp/>keyboard<sp/>driving<sp/>modality<sp/>with<sp/>a<sp/>collision<sp/>avoidance<sp/>algorithm;</highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>&apos;4&apos;<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>quitting<sp/>the<sp/>application<sp/>and<sp/>terminates<sp/>all<sp/>nodes.</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/>Args.<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/>Returns.<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">global</highlight><highlight class="normal"><sp/>flag<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>print(menu_msg)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>flag<sp/>==<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Press<sp/>[0]<sp/>for<sp/>canceling<sp/>the<sp/>goal&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>command<sp/>=<sp/>input(bcolors.HEADER<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;Choose<sp/>a<sp/>modality:<sp/>\n&apos;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)<sp/></highlight><highlight class="comment">#<sp/>Stores<sp/>the<sp/>input<sp/>key</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>command<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;0&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;active&apos;</highlight><highlight class="normal">,<sp/>0)<sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>if<sp/>the<sp/>active<sp/>parameter<sp/>is<sp/>0<sp/>the<sp/>current<sp/>goal<sp/>is<sp/>canceled</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>modality<sp/>is<sp/>active,<sp/>please<sp/>choose<sp/>one<sp/>for<sp/>controlling<sp/>the<sp/>robot&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)<sp/></highlight><highlight class="comment">#<sp/>Sysytem<sp/>in<sp/>idle<sp/>state</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>command<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;1&quot;</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">#<sp/>Modality<sp/>one<sp/>chosen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;active&apos;</highlight><highlight class="normal">,<sp/>0)<sp/></highlight><highlight class="comment">#<sp/>Useful<sp/>for<sp/>changing<sp/>goal<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Modality<sp/>1<sp/>is<sp/>active.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKBLUE<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Where<sp/>do<sp/>you<sp/>want<sp/>the<sp/>robot<sp/>to<sp/>go?&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Receive<sp/>the<sp/>desired<sp/>cooridnates<sp/>as<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_x_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+</highlight><highlight class="stringliteral">&quot;Insert<sp/>the<sp/>desired<sp/>x<sp/>position:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_y_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+</highlight><highlight class="stringliteral">&quot;Insert<sp/>the<sp/>desired<sp/>y<sp/>position:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Okay,<sp/>let&apos;s<sp/>reach<sp/>the<sp/>psotion<sp/>x=<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>str(des_x_input)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>y=<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>str(des_y_input)<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\nThe<sp/>robot<sp/>is<sp/>moving<sp/>towards<sp/>your<sp/>desired<sp/>target&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;des_pos_x&apos;</highlight><highlight class="normal">,<sp/>des_x_input)<sp/></highlight><highlight class="comment">#<sp/>Update<sp/>the<sp/>desired<sp/>X<sp/>coordinate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;des_pos_y&apos;</highlight><highlight class="normal">,<sp/>des_y_input)<sp/></highlight><highlight class="comment">#<sp/>Update<sp/>the<sp/>desired<sp/>Y<sp/>coordinate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;active&apos;</highlight><highlight class="normal">,<sp/>1)<sp/></highlight><highlight class="comment">#<sp/>Modality<sp/>1<sp/>active</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag=</highlight><highlight class="keyword">True</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>command<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;2&quot;</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">#<sp/>Modality<sp/>two<sp/>chosen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;active&apos;</highlight><highlight class="normal">,<sp/>2)<sp/></highlight><highlight class="comment">#<sp/>Modality<sp/>two<sp/>active</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Modality<sp/>2<sp/>is<sp/>active.&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.BOLD<sp/>+<sp/>bcolors.HEADER<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Use<sp/>the<sp/>&apos;my_teleop_twist_keyboard&apos;<sp/>xterm<sp/>terminal<sp/>to<sp/>control<sp/>the<sp/>robot&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>command<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;3&quot;</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">#<sp/>Modality<sp/>three<sp/>chosen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(</highlight><highlight class="stringliteral">&apos;active&apos;</highlight><highlight class="normal">,<sp/>3)<sp/></highlight><highlight class="comment">#<sp/>#<sp/>Modality<sp/>three<sp/>active</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Modality<sp/>3<sp/>is<sp/>active.&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.BOLD<sp/>+<sp/>bcolors.OKBLUE<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Use<sp/>the<sp/>&apos;teleop_avoid&apos;<sp/>xterm<sp/>terminal<sp/>to<sp/>control<sp/>the<sp/>robot&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>command<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;4&quot;</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">#<sp/>Exit<sp/>command</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.WARNING<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Exiting...&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os.kill(os.getpid(),<sp/>signal.SIGKILL)<sp/></highlight><highlight class="comment">#<sp/>Kill<sp/>the<sp/>current<sp/>process</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Wrong<sp/>key!<sp/>Use<sp/>the<sp/>shown<sp/>commands<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespace_u_i_1a4570e2a9d5f1ddf4f326ca5f62269e4e" kindref="member">main</ref>():</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="149"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>In<sp/>the<sp/>main()<sp/>function<sp/>the<sp/>``interpreter()``<sp/>function<sp/>is<sp/>looped<sp/>and<sp/>some<sp/>introductory<sp/>messages<sp/>are<sp/>printed<sp/>on<sp/>the<sp/>terminal.<sp/>&quot;</highlight></codeline>
+<codeline lineno="150"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>print(ascii_art_message)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>print(intro)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>rospy.is_shutdown():</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_u_i_1a8203d885551ea8a7112cd175f5998a8c" kindref="member">interpreter</ref>()</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;__main__&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespace_u_i_1a4570e2a9d5f1ddf4f326ca5f62269e4e" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="scripts/UI.py"/>
+  </compounddef>
+</doxygen>

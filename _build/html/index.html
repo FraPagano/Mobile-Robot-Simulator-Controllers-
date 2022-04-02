@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Research Track I Final Assignment’s documentation! &mdash; Research Track I Final Assignment 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Research Track I Final Assignment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Research Track I Final Assignment’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#module-scripts.UI">User Interface Module</a></li>
+<li><a class="reference internal" href="#module-scripts.go_to_desired_pos">First Modality Module</a></li>
+<li><a class="reference internal" href="#module-scripts.my_teleop_twist_keyboard">Second Modality Module</a></li>
+<li><a class="reference internal" href="#module-scripts.teleop_avoid">Third Modality Module</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Research Track I Final Assignment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to Research Track I Final Assignment’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="welcome-to-research-track-i-final-assignment-s-documentation">
+<h1>Welcome to Research Track I Final Assignment’s documentation!<a class="headerlink" href="#welcome-to-research-track-i-final-assignment-s-documentation" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="module-scripts.UI">
+<span id="user-interface-module"></span><h1>User Interface Module<a class="headerlink" href="#module-scripts.UI" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-UI"></span><p>This module implements an user interface that allows the user to switch among the three modalities.
+ROS parameter are used in order to activate / deactivate the chosen modality.</p>
+<dl class="simple">
+<dt>ROS parameters:</dt><dd><ol class="arabic simple">
+<li><p>“active”: (type: int) parameter for activate the desired control modality</p></li>
+<li><p>“des_pos_x”: (type: double) parameter for the desired X coordinate</p></li>
+<li><p>“des_pos_y”: (type: double) parameter for the desired Y coordinate</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.UI.bcolors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.UI.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="reference internal" href="_modules/scripts/UI.html#bcolors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.UI.bcolors" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used for  printing colors on the terminal</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.UI.flag">
+<span class="sig-prename descclassname"><span class="pre">scripts.UI.</span></span><span class="sig-name descname"><span class="pre">flag</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#scripts.UI.flag" title="Permalink to this definition"></a></dt>
+<dd><p>Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled online</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.UI.interpreter">
+<span class="sig-prename descclassname"><span class="pre">scripts.UI.</span></span><span class="sig-name descname"><span class="pre">interpreter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/UI.html#interpreter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.UI.interpreter" title="Permalink to this definition"></a></dt>
+<dd><p>This function gets the keyboard user input and changes the ROS parameter active depending on which modality was chosen.</p>
+<ul>
+<li><p>‘1’ keyboard key is used for choosing the autonomously reaching modality;</p></li>
+<li><p>‘2’ keyboard key is used for the free keyboard driving modality;</p></li>
+<li><p>‘3’ keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;</p></li>
+<li><p>‘4’ keyboard key is used for quitting the application and terminates all nodes.</p>
+<blockquote>
+<div><p>No Args.</p>
+<p>No Returns.</p>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.UI.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.UI.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/UI.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.UI.main" title="Permalink to this definition"></a></dt>
+<dd><p>In the main() function the <code class="docutils literal notranslate"><span class="pre">interpreter()</span></code> function is looped and some introductory messages are printed on the terminal. “</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.go_to_desired_pos">
+<span id="first-modality-module"></span><h1>First Modality Module<a class="headerlink" href="#module-scripts.go_to_desired_pos" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-go_to_desired_pos"></span><p>This node makes the robot autonomously reach a x,y position inserted by the user.
+The robot can reach the user’s x,y coordinates thanks to the ‘move_base’ action server.
+The robot is going to plan the path through the Dijkstra’s algorithm.
+The desired x, y coordinates are ROS parameters too and they are set by the <a class="reference internal" href="#module-UI" title="UI: Python module for the User Interface (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">UI</span></code></a> node.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.bcolors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#bcolors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.bcolors" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used for printing colors on the temrinal</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.goal_msg">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">goal_msg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">target_pose:</span>&#160;&#160;&#160; <span class="pre">header:</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">seq:</span> <span class="pre">0</span>&#160;&#160;&#160;&#160; <span class="pre">stamp:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">secs:</span> <span class="pre">0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">nsecs:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160;&#160;&#160;&#160; <span class="pre">frame_id:</span> <span class="pre">''</span>&#160;&#160; <span class="pre">pose:</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">position:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160; <span class="pre">orientation:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">w:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.goal_msg" title="Permalink to this definition"></a></dt>
+<dd><p>Global action message</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.client">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">client</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;actionlib.simple_action_client.SimpleActionClient</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.client" title="Permalink to this definition"></a></dt>
+<dd><p>Global action client.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.achieved">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">achieved</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.achieved" title="Permalink to this definition"></a></dt>
+<dd><p>Global bool for defining if a goal was achieved or not. Useful in order to differentiate the case in which a goal was achieved
+(in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server),
+and the case in which the user decides to send a cancel request before the goal achievement (in this case we must send a cancel request to the server).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.goal_cont">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">goal_cont</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.goal_cont" title="Permalink to this definition"></a></dt>
+<dd><p>Global Goal counter. Takes into account the number of requests.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.cont">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">cont</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.cont" title="Permalink to this definition"></a></dt>
+<dd><p>Feedback index. Takes into account the number of feedback for each request.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.action_client">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">action_client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#action_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.action_client" title="Permalink to this definition"></a></dt>
+<dd><p>This function is called for both wait until we are connected to the action server and
+to set some parameters of the action message.</p>
+<blockquote>
+<div><p>No Args.</p>
+<p>No Returns.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.done_cb">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">done_cb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#done_cb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.done_cb" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>This is a callback function called after the execution of the action server. It gives the client information about the termination of the goal process.
+In particular, this callback function puts a value that into the argument <code class="docutils literal notranslate"><span class="pre">status</span></code>.
+Depending on the value of this variable the client knows the status of the goal processing after the execution.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>status</strong> – terminal state (as an integer from actionlib_msgs/GoalStatus)</p></li>
+<li><p><strong>result</strong> – result of the goal processing.</p></li>
+</ul>
+</dd>
+</dl>
+<p>No Returns.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.active_cb">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">active_cb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#active_cb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.active_cb" title="Permalink to this definition"></a></dt>
+<dd><p>Callback that gets called on transitions to Active.</p>
+<p>No Args.</p>
+<p>No Returns.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.feedback_cb">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">feedback_cb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feedback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#feedback_cb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.feedback_cb" title="Permalink to this definition"></a></dt>
+<dd><p>Callback that gets called whenever feedback for this goal is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feedback</strong> – information about the robot status during the the action server execution.</p>
+</dd>
+</dl>
+<p>No Returns.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.set_goal">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#set_goal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.set_goal" title="Permalink to this definition"></a></dt>
+<dd><p>This function fills the x, y fields of the goal message and sends a goal request to the action server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – x coordinate of the position that we want the robot to reach.</p></li>
+<li><p><strong>y</strong> – y coordinate of the position that we want the robot to reach.</p></li>
+</ul>
+</dd>
+</dl>
+<p>No Returns</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.update_variables">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">update_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#update_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.update_variables" title="Permalink to this definition"></a></dt>
+<dd><p>Function for updating the ROS parameters: active, des_pos_x, des_pos_y.</p>
+<p>No Args</p>
+<p>No Returns</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.main" title="Permalink to this definition"></a></dt>
+<dd><p>In the main funciton some goals parameters of the goal message are set, updated variables and if the current modality
+is chosen, then the <code class="docutils literal notranslate"><span class="pre">set_goal()</span></code> function is called. Finally, the the case in which a goal was achieved and the one in which the user
+decides to send a cancel request before the goal achievement is managed.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.my_teleop_twist_keyboard">
+<span id="second-modality-module"></span><h1>Second Modality Module<a class="headerlink" href="#module-scripts.my_teleop_twist_keyboard" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-my_teleop_twist_keyboard"></span><p>This node implements the second modality for controlling the robot.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.my_teleop_twist_keyboard.bcolors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.my_teleop_twist_keyboard.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="reference internal" href="_modules/scripts/my_teleop_twist_keyboard.html#bcolors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.my_teleop_twist_keyboard.bcolors" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used for printing colors</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.my_teleop_twist_keyboard.PublishThread">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.my_teleop_twist_keyboard.</span></span><span class="sig-name descname"><span class="pre">PublishThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/my_teleop_twist_keyboard.html#PublishThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.my_teleop_twist_keyboard.PublishThread" title="Permalink to this definition"></a></dt>
+<dd><p>class publish thread</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.my_teleop_twist_keyboard.PublishThread.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/my_teleop_twist_keyboard.html#PublishThread.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.my_teleop_twist_keyboard.PublishThread.run" title="Permalink to this definition"></a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.teleop_avoid">
+<span id="third-modality-module"></span><h1>Third Modality Module<a class="headerlink" href="#module-scripts.teleop_avoid" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-teleop_avoid"></span><p>This node implements the third modality for controlling the robot.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.bcolors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.teleop_avoid.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="reference internal" href="_modules/scripts/teleop_avoid.html#bcolors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.teleop_avoid.bcolors" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used for printing colors</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.msg">
+<span class="sig-prename descclassname"><span class="pre">scripts.teleop_avoid.</span></span><span class="sig-name descname"><span class="pre">msg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\n\x1b[1m\nReading</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">keyboard</span> <span class="pre">and</span> <span class="pre">Publishing</span> <span class="pre">to</span> <span class="pre">Twist!\n---------------------------\n\x1b[0m\x1b[94m\x1b[1m\n[i]</span> <span class="pre">go</span> <span class="pre">straight</span>&#160;&#160;&#160; <span class="pre">\n[j]</span> <span class="pre">turn</span> <span class="pre">left\n[l]</span> <span class="pre">turn</span> <span class="pre">right\n[k]</span> <span class="pre">go</span> <span class="pre">backwards\n\n\x1b[95m\x1b[1m\n[q]/[z]</span> <span class="pre">:</span> <span class="pre">increase/decrease</span> <span class="pre">max</span> <span class="pre">speeds</span> <span class="pre">by</span> <span class="pre">10%\n[w]/[x]</span> <span class="pre">:</span> <span class="pre">increase/decrease</span> <span class="pre">only</span> <span class="pre">linear</span> <span class="pre">speed</span> <span class="pre">by</span> <span class="pre">10%\n[e]/[c]</span> <span class="pre">:</span> <span class="pre">increase/decrease</span> <span class="pre">only</span> <span class="pre">angular</span> <span class="pre">speed</span> <span class="pre">by</span> <span class="pre">10%\n\x1b[0m\n\n'</span></em><a class="headerlink" href="#scripts.teleop_avoid.msg" title="Permalink to this definition"></a></dt>
+<dd><p>When there’s no wall on the left of the robot this variable is True, otherwise is False</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.ok_left">
+<span class="sig-prename descclassname"><span class="pre">scripts.teleop_avoid.</span></span><span class="sig-name descname"><span class="pre">ok_left</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#scripts.teleop_avoid.ok_left" title="Permalink to this definition"></a></dt>
+<dd><p># When there’s no wall on the right of the robot this variable is True, otherwise is False</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.ok_right">
+<span class="sig-prename descclassname"><span class="pre">scripts.teleop_avoid.</span></span><span class="sig-name descname"><span class="pre">ok_right</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#scripts.teleop_avoid.ok_right" title="Permalink to this definition"></a></dt>
+<dd><p>When there’s no wall in front of the robot this variable is True, otherwise is False</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.PublishThread">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.teleop_avoid.</span></span><span class="sig-name descname"><span class="pre">PublishThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/teleop_avoid.html#PublishThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.teleop_avoid.PublishThread" title="Permalink to this definition"></a></dt>
+<dd><p>class publish thread</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.teleop_avoid.PublishThread.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/teleop_avoid.html#PublishThread.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.teleop_avoid.PublishThread.run" title="Permalink to this definition"></a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Francesco Pagano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
