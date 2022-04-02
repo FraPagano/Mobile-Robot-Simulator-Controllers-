@@ -6,6 +6,7 @@
 	:synopsis: Python module for controlling the robot bby providing a desired point. 
 .. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
 
+This is the First Controlling Modality.
 This node makes the robot autonomously reach a x,y position inserted by the user. 
 The robot can reach the user's x,y coordinates thanks to the 'move_base' action server. 
 The robot is going to plan the path through the Dijkstra's algorithm.

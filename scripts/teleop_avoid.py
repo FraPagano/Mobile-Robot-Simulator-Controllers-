@@ -6,7 +6,17 @@
     :synopsis: Python module for controlling the robot using the keyboard assisted by an obstacle avoidance algorithm
 .. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
 
-This node implements the third modality for controlling the robot. 
+Subscribes to:
+    /scan
+
+Publishes to:
+    /cmd_vel
+
+This is the Third Controlling Modality.
+This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
+Messages of type Twist() are published to the '/cmd_vel' topic. 
+
+The functionality is quite similar to the teleop_twist_keyboad's one. 
 
 """
 
@@ -25,7 +35,7 @@ import sys, select, termios, tty
 # COLORS
 class bcolors:
     """
-    This class is used for printing colors
+    This class is used for printing colors on the terminal. 
     """
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -60,18 +70,21 @@ Reading from the keyboard and Publishing to Twist!
 
 # Bool variables for taking into account where obstacles are
 
-"""
-When there's no wall on the left of the robot this variable is True, otherwise is False
-"""
+
 ok_left = True 
 """
-# When there's no wall on the right of the robot this variable is True, otherwise is False
-"""     
+Bool global variable that is True when there's no wall on the left of the robot, otherwise is False
+"""
+ 
 ok_right = True
 """
-When there's no wall in front of the robot this variable is True, otherwise is False
-"""     
+Bool global variable that is True when there's no wall on the right of the robot, otherwise is False
+"""  
+    
 ok_straight = True  
+"""
+Bool global variable that is True when there's no wall in front of the robot, otherwise is False
+""" 
 
 # Dictionary for movement commands
 moveBindings = {
@@ -80,6 +93,11 @@ moveBindings = {
         'l':(0,0,0,-1),
         'k':(-1,0,0,0),
     }
+""" 
+Dictionary for allowed movement commands. The values in the key/value pair represents the direction in which the robot 
+should move.
+"""
+
 
 # Dictionary for velocities
 speedBindings={
@@ -90,10 +108,13 @@ speedBindings={
         'e':(1,1.1),
         'c':(1,.9),
     }
+""" 
+Dictionary for velocities commands. The values in the key/value pair represents the linear and angular 
+velocity combinations that the robot should assume after that an input occurrs.
+"""
 
 class PublishThread(threading.Thread):
     """
-    class publish thread
     """
     def __init__(self, rate):
         super(PublishThread, self).__init__()
@@ -200,7 +221,19 @@ def getKey(key_timeout): # Get input key
 
 def clbk_laser(msg):
 
-# Callback for detecting obstacles from laser scan
+    """
+    This callback function is for detecting the obstacles from laser scan information. 
+    This subscription allowed me to detect the obstacles in the simulation environment but also their position with 
+    respect to the robot by slicing the LaserScan array in three parts: front, left and right direction. 
+
+    * If no obstacles are detected on the right of the robot the variable ``ok_right`` is set to True, otherwise to False.
+    * If no obstacles are detected on the left of the robot the variable ``ok_left`` is set to True, otherwise to False.
+    * If no obstacles are detected in front of the robot the variable ``ok_straight`` is set to True, otherwise to False.
+
+    Args:
+        msg: sensor_msgs/LaserScan.msg, scan from a planar laser range-finder. 
+    No Returns. 
+    """
 
     global ok_left
     global ok_right
@@ -227,9 +260,21 @@ def clbk_laser(msg):
 
 
 def pop_dict(dictionary):
+    """
+    The obstacle avoidance algorithm is based on the modification of the Dictionary for the allowed movements.
+    Such collision avoidance algorithm just uses the ``.pop(key)`` method that removes and returns the element idexed by key of the dictionary. 
+    When an obstacle is detected, thanks to the ``/scan`` subscription we also know its direction with respect to the robot, and
+    this function just pops the index of such direction from the dictionary. In this way the obsatcle
+    direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. 
+    The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. 
+    Args:
+        dictionary (dictionary): allowed movements dictionary
 
-# Function that removes commands from the dictionary when an obstacle is detected. In this way, when an obstacle is detected,
-# the movement in that direction is disabled
+    No Returns
+
+
+    """
+
     global ok_left
     global ok_right
     global ok_straight
@@ -273,7 +318,16 @@ def pop_dict(dictionary):
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
-if __name__=="__main__":
+
+def main():
+
+    """
+    In the ``main()`` function I made some other changes from the ``teleop_twist_keyboard`` code, that are:
+
+        * Insertion of an if(active == 3) statement in order to block the code when another modality is running.
+        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop
+        * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``
+    """
 
     # Settings for avoid printing commands on terminal
     settings_old = termios.tcgetattr(sys.stdin) 
@@ -353,4 +407,11 @@ if __name__=="__main__":
 
         rate.sleep()
 
+
+
+
+if __name__=="__main__":
+    main()
+
+    
 

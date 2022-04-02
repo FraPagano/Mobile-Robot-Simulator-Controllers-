@@ -7,12 +7,17 @@
     :synopsis: Python module for controlling the robot using the keyboard
 .. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
 
-This node implements the second modality for controlling the robot. 
+Publishes to:
+    /cmd_vel
+    
+This is the Second Controlling Modality.
+This node reads inputs from the keyboard and makes the robot freely navigate in the environment.
+Messages of type Twist() are published to the '/cmd_vel' topic. 
+
+The functionality is quite similar to the teleop_twist_keyboad's one. 
+
 
 """
-
-
-
 
 # IMPORTS
 from __future__ import print_function
@@ -25,7 +30,7 @@ import sys, select, termios, tty
  # COLORS
 class bcolors:
     """
-    This class is used for printing colors
+    This class is used for printing colors on the terminal.
     """
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -70,7 +75,8 @@ e/c : increase/decrease only angular speed by 10%
 """+ bcolors.ENDC +""" 
 
 """
-# Dictionary for movement commands
+
+
 moveBindings = {
         'i':(1,0,0,0),
         'o':(1,0,0,-1),
@@ -91,8 +97,13 @@ moveBindings = {
         't':(0,0,1,0),
         'b':(0,0,-1,0),
     }
-# Dictionary for velocities
+""" 
+Dictionary for movement commands. The values in the key/value pair represents the direction in which the robot 
+should move.
+"""
+
 speedBindings={
+
         'q':(1.1,1.1),
         'z':(.9,.9),
         'w':(1.1,1),
@@ -100,12 +111,13 @@ speedBindings={
         'e':(1,1.1),
         'c':(1,.9),
     }
-
+""" 
+Dictionary for velocities commands. The values in the key/value pair represents the linear and angular 
+velocity combinations that the robot should assume after that an input occurrs.
+"""
 
 class PublishThread(threading.Thread):
-    """
-    class publish thread
-    """
+
     def __init__(self, rate):
         super(PublishThread, self).__init__()
         self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1) #Publisher on the 'cmd_vel' topic
@@ -198,7 +210,7 @@ class PublishThread(threading.Thread):
         self.publisher.publish(twist) # Publishes the twist message 
 
 
-def getKey(key_timeout): # Get input key
+def getKey(key_timeout): 
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
@@ -212,8 +224,15 @@ def getKey(key_timeout): # Get input key
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
-if __name__=="__main__":
 
+def main():
+    """
+    In the ``main()`` function I made the most important changes from ``teleop_twist_keyboard`` code, that are:
+
+        * Insertion of an if(active == 2) statement in order to block the code when another modality is running.
+        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop.
+
+    """
     settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
 
     rospy.init_node('my_teleop_twist_kb')   # Init node
@@ -284,6 +303,13 @@ if __name__=="__main__":
                 pub_thread.my_stop() 
                 print(bcolors.OKGREEN + bcolors.BOLD + "Modality 2 is currently in idle state\n" + bcolors.ENDC)
             flag = 0
+
+
+
+if __name__=="__main__":
+    main()
+
+
             
 
 

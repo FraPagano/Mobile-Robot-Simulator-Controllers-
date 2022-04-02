@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespace_u_i" kind="namespace" language="Python">
+    <compoundname>UI</compoundname>
+    <innerclass refid="class_u_i_1_1bcolors" prot="public">UI::bcolors</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespace_u_i_1a2b95e4f76933689526512fc2cae3e327" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string UI.ascii_art_message</definition>
+        <argsstring></argsstring>
+        <name>ascii_art_message</name>
+        <initializer>=  &quot;&quot;&quot; &quot;&quot;&quot; + bcolors.BOLD + bcolors.HEADER + &quot;&quot;&quot;
+				 _________
+			|\     /|\ _   __/
+			| )   ( |   ) (   
+			| |   | |   | |   
+			| |   | |   | |   
+			| |   | |   | |   
+			| (___) |___) (___
+			(_______)\_______/
+&quot;&quot;&quot; + bcolors.ENDC +&quot;&quot;&quot; &quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="41" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespace_u_i_1a25a43db0b31fde4f22293fc0488ec958" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string UI.intro</definition>
+        <argsstring></argsstring>
+        <name>intro</name>
+        <initializer>=  &quot;&quot;&quot; 
+&quot;&quot;&quot; + bcolors.HEADER + bcolors.BOLD + &quot;&quot;&quot;
+Hi! This is your User Interface &quot;&quot;&quot; + bcolors.ENDC + bcolors.UNDERLINE + &quot;&quot;&quot;
+You can move the robot through three different modalities:
+&quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="53" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespace_u_i_1af2f986ba9434ec038f186de31f10bc60" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string UI.menu_msg</definition>
+        <argsstring></argsstring>
+        <name>menu_msg</name>
+        <initializer>=  &quot;&quot;&quot;
+&quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+----------------------------------------------------------------
+[1] &quot;&quot;&quot; + bcolors.UNDERLINE + &quot;&quot;&quot;Insert your desired position &quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+[2] &quot;&quot;&quot; + bcolors.UNDERLINE + &quot;&quot;&quot;Free Drive the robot with your keyboard &quot;&quot;&quot; + bcolors.ENDC +&quot;&quot;&quot;
+[3] &quot;&quot;&quot; + bcolors.UNDERLINE + &quot;&quot;&quot;Free Drive the robot with your keyboard assisted by an obstacle avoidance algorithm &quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+[4] &quot;&quot;&quot; + bcolors.UNDERLINE + bcolors.FAIL + &quot;&quot;&quot;Quit the simulaiton
+&quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="59" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespace_u_i_1a572242129b77c703404402ae131516e5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UI.flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="70" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_u_i_1a8203d885551ea8a7112cd175f5998a8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def UI.interpreter</definition>
+        <argsstring>()</argsstring>
+        <name>interpreter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>This function gets the keyboard user input and changes the ROS parameter active depending on which modality was chosen.
+
+- &apos;1&apos; keyboard key is used for choosing the autonomously reaching modality;
+
+- &apos;2&apos; keyboard key is used for the free keyboard driving modality;
+
+- &apos;3&apos; keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;
+
+- &apos;4&apos; keyboard key is used for quitting the application and terminates all nodes.
+
+    No Args. 
+
+    No Returns. 
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="75" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="75" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_u_i_1a4570e2a9d5f1ddf4f326ca5f62269e4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def UI.main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>In the main() function the ``interpreter()`` function is looped and some introductory messages are printed on the terminal. &quot;
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="147" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="147" bodyend="155"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>.. module:: UI
+    :platform: Unix
+    :synopsis: Python module for the User Interface
+.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;
+
+This module implements an user interface that allows the user to switch among the three modalities.
+ROS parameter are used in order to activate / deactivate the chosen modality. 
+
+ROS parameters: 
+    1.  &quot;active&quot;: (type: int) parameter for activate the desired control modality 
+    2.  &quot;des_pos_x&quot;: (type: double) parameter for the desired X coordinate 
+    3.  &quot;des_pos_y&quot;: (type: double) parameter for the desired Y coordinate </verbatim> </para>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

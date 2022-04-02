@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e" kind="page">
+    <compoundname>md__root_my_ros_ws_src_final_assignment_README</compoundname>
+    <title>Research Track 1, final assignment</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><hruler/>
+</para>
+<sect3 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md2">
+<title>Introduction</title>
+<para><hruler/>
+</para>
+<para>The final assignment of the <ulink url="https://unige.it/en/off.f/2021/ins/51201.html?codcla=10635">Research Track 1</ulink> class is about a mobile robot simulator using the ROS framework. The last course lectures were about the software architecture for the control of a mobile robot and this assignment is about the development of such software architecture. The software will rely on the move_base and gmapping packages for localizing the robot and plan the motion. The software architecture must control the robot in three different ways:</para>
+<para><orderedlist>
+<listitem><para>Autonomously reach a x,y coordinate inserted by the user;</para>
+</listitem><listitem><para>Let the user drive the robot with the keyboard;</para>
+</listitem><listitem><para>Let the user drive the robot with the keyboard assisting them to avoid collisions.</para>
+</listitem></orderedlist>
+</para>
+<para>In order to accomplish such task I wrote four nodes in python:</para>
+<para><orderedlist>
+<listitem><para><bold>UI.py</bold></para>
+</listitem><listitem><para><bold>go_to_desired_pos.py</bold></para>
+</listitem><listitem><para><bold>my_teleop_twist_keyboard.py</bold></para>
+</listitem><listitem><para><bold><ref refid="namespaceteleop__avoid" kindref="compound">teleop_avoid</ref></bold></para>
+</listitem></orderedlist>
+</para>
+<para>Here&apos;s a picture that shows the simulation enviroment provided us by profesor <ulink url="https://github.com/CarmineD8">Carmine Recchiuto</ulink>: </para>
+<para><image type="html" name="Simulation_Env.JPG" inline="yes"></image>
+ </para>
+<para>The structure is quite simple: The UI.py node is the user interface that the user should use when he wants to change the controlling modality or cancel a goal. The other three nodes represent the three robot controlling modalities. The activation of a nodes rather than the deactivation the other two is made through a ROS parameter called: <emphasis><bold>active</bold></emphasis>. This parameter is set to three different values, each of them represent a m=controlling modality:</para>
+<para><orderedlist>
+<listitem><para><emphasis><bold>active == 1</bold></emphasis>, for activating the first modality;</para>
+</listitem><listitem><para><emphasis><bold>active == 2</bold></emphasis>, for activating the second modality;</para>
+</listitem><listitem><para><emphasis><bold>active == 3</bold></emphasis>, for activating the third modality;</para>
+</listitem></orderedlist>
+</para>
+<para>So that when the user chooses one modality through the user interface node, the <emphasis><bold>active</bold></emphasis> parameter is set to one these three values and the other two modalities will be blocked. Moreover, to set an idle state of the whole system, the <emphasis><bold>active</bold></emphasis> parameter can be set to 0.</para>
+<para><programlisting filename=".python"><codeline><highlight class="normal">#PSEUDOCODE</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">input<sp/>=<sp/>get_input()</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>1<sp/><sp/>#<sp/>activates<sp/>the<sp/>first<sp/>modality</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>2</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>2<sp/><sp/>#<sp/>activates<sp/>the<sp/>second<sp/>modality</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>3<sp/><sp/>#<sp/>activates<sp/>the<sp/>third<sp/>modality</highlight></codeline>
+</programlisting></para>
+<para><image type="html" name="scheme.jpg" inline="yes"></image>
+ </para>
+<para>The greatest issues that I faced with during the implementation of the project were:</para>
+<para><itemizedlist>
+<listitem><para>Become familiar with ROS parameter usage;</para>
+</listitem><listitem><para>Become familiar with the simulation environment (Gazebo, RVIZ).</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md4">
+<title>### Code description</title>
+<sect4 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md5">
+<title>User Interface Node</title>
+<para>The User Interface node handles the user keyboard inputs. Here&apos;s a legend of the allowed commands:</para>
+<para><orderedlist>
+<listitem><para>*&apos;1&apos;* keyboard key is used for choosing the autonomously reaching modality;</para>
+</listitem><listitem><para>*&apos;2&apos;* keyboard key is used for the free keyboard driving modality;</para>
+</listitem><listitem><para>*&apos;3&apos;* keyboard key is used for the free keyboard driving modality with a collision avoidance algorithm;</para>
+</listitem><listitem><para>*&apos;4&apos;* keyboard key is used for quitting the application and terminates all nodes; This node is very simply designed. Essentially, a function called <computeroutput>interpreter()</computeroutput> is looped inside a <computeroutput>while not rospy.is_shutdown():</computeroutput> loop. This function gets the keyboard user input and changes the ROS parameter <emphasis><bold>active</bold></emphasis> depending on which modality was chosen. Here&apos;s the <computeroutput>interpreter()</computeroutput> code: <programlisting><codeline><highlight class="normal">def<sp/>interpreter():</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>#Function<sp/>that<sp/>receives<sp/>inputs<sp/>and<sp/>sets<sp/>all<sp/>the<sp/>ROS<sp/>parameters</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>command<sp/>=<sp/>input(bcolors.HEADER<sp/>+<sp/>&apos;Choose<sp/>a<sp/>modality:<sp/>\n&apos;<sp/>+<sp/>bcolors.ENDC)<sp/>#<sp/>Stores<sp/>the<sp/>input<sp/>key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>command<sp/>==<sp/>&quot;0&quot;:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>0)<sp/>#<sp/>if<sp/>the<sp/>active<sp/>parameter<sp/>is<sp/>0<sp/>the<sp/>current<sp/>goal<sp/>is<sp/>canceled</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>&quot;No<sp/>modality<sp/>is<sp/>active,<sp/>please<sp/>choose<sp/>one<sp/>for<sp/>controlling<sp/>the<sp/>robot&quot;<sp/>+<sp/>bcolors.ENDC)<sp/>#<sp/>Sysytem<sp/>in<sp/>idle<sp/>state</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;1&quot;:<sp/>#<sp/>Modality<sp/>one<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>0)<sp/>#<sp/>Useful<sp/>for<sp/>changing<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Receive<sp/>the<sp/>desired<sp/>cooridnates<sp/>as<sp/>input</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_x_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+&quot;Insert<sp/>the<sp/>desired<sp/>x<sp/>position:<sp/>&quot;<sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_y_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+&quot;Insert<sp/>the<sp/>desired<sp/>y<sp/>position:<sp/>&quot;<sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;des_pos_x&apos;,<sp/>des_x_input)<sp/>#<sp/>Update<sp/>the<sp/>desired<sp/>X<sp/>coordinate</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;des_pos_y&apos;,<sp/>des_y_input)<sp/>#<sp/>Update<sp/>the<sp/>desired<sp/>Y<sp/>coordinate</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>1)<sp/>#<sp/>Modality<sp/>1<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;2&quot;:<sp/>#<sp/>Modality<sp/>two<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>2)<sp/>#<sp/>Modality<sp/>two<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/>&quot;Modality<sp/>2<sp/>is<sp/>active.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.BOLD<sp/>+<sp/>bcolors.HEADER<sp/>+<sp/>&quot;Use<sp/>the<sp/>&apos;my_teleop_twist_keyboard&apos;<sp/>xterm<sp/>terminal<sp/>to<sp/>control<sp/>the<sp/>robot&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;3&quot;:<sp/>#<sp/>Modality<sp/>three<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>3)<sp/>#<sp/>#<sp/>Modality<sp/>three<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;4&quot;:<sp/>#<sp/>Exit<sp/>command</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.WARNING<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Exiting...&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os.kill(os.getpid(),<sp/>signal.SIGKILL)<sp/>#<sp/>Kill<sp/>the<sp/>current<sp/>process</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Wrong<sp/>key!<sp/>Use<sp/>the<sp/>shown<sp/>commands<sp/>&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+</programlisting></para>
+</listitem></orderedlist>
+</para>
+</sect4>
+<sect4 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md6">
+<title>Autonomously reaching node (First Modality)</title>
+<para>This node makes the robot autonomously reach a x,y position inserted by the user. The robot can reach the user&apos;s x,y coordinates thanks to the **&apos;move_base&apos; action server**. The robot is going to plan the path through the Dijkstra&apos;s algorithm. When the first modality is selected, the UI.py node sets the active ROS parameter to 1 letting the first modality&apos;s loop to run all the necessary code for sending the desired goal. The desired x, y coordinates are ROS parameters too and they are set by the UI.py node.</para>
+<para>When the first modality is running and a goal is received, this node uses the <computeroutput>send_goal(goal_msg, done_cb(), active_cb(), feedback_cb())</computeroutput> function for asking the action server to compute the path planning for the desired goal.</para>
+<para><orderedlist>
+<listitem><para><emphasis><bold>goal_msg</bold></emphasis> is a MoveBaseGoal() action message containing all the information about the desired goal (i.e. x, y coordinates, referencing frame, etc... )</para>
+</listitem><listitem><para><emphasis><bold>done_cb(status, result)</bold></emphasis> is a callback function called after the execution of the action server. It gives the client information about the termination of the goal process. In particular, this callback function returns a value that is stored in am <computeroutput>int</computeroutput> variable that I called <emphasis>status</emphasis>. Depending on the value of this variable the client knows the status of the goal processing.</para>
+</listitem><listitem><para><emphasis><bold>active_cb()</bold></emphasis> is a callback funtion called before the execution of the action server. I used this callback funtion in order to take into account the number of processed goals.</para>
+</listitem><listitem><para><emphasis><bold>feedback_cb(feedback)</bold></emphasis> is a callback funtion called durning the execution of the action server. It returns feedbacks about the goal processing.</para>
+</listitem></orderedlist>
+</para>
+<para>Here&apos;s a picture that clarifies this concept:</para>
+<para><image type="html" name="Action_server.JPG" inline="yes"></image>
+ </para>
+<para>Thanks to the <emphasis><bold>done_cb(status, result)</bold></emphasis> function I could manage the result of the goal achievement. Here&apos;s the <emphasis><bold>done_cb(status, result)</bold></emphasis> code:</para>
+<para><programlisting filename=".python"><codeline><highlight class="normal">def<sp/>done_cb(status,<sp/>result):</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Function<sp/>called<sp/>after<sp/>goal<sp/>was<sp/>processed.<sp/>It<sp/>is<sp/>used<sp/>to<sp/>notify<sp/>the<sp/>client<sp/>on<sp/>the<sp/>current<sp/>status<sp/>of<sp/>every<sp/>goal<sp/>in<sp/>the<sp/>system.</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>client</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>achieved</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>goal_cont</highlight></codeline>
+<codeline><highlight class="normal">goal_cont<sp/>+=<sp/>1<sp/>#<sp/>Increment<sp/>goal<sp/>counter</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>2:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>after<sp/>it<sp/>started<sp/>executing.<sp/>Execution<sp/>terminated.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>3:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Goal<sp/>successfully<sp/>achieved&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>achieved<sp/>=<sp/>True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>4:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;Timeout<sp/>expired,<sp/>the<sp/>desired<sp/>poition<sp/>is<sp/>not<sp/>reachable.<sp/>Goal<sp/>aborted.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>5:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>was<sp/>rejected&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>6:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>after<sp/>it<sp/>started<sp/>executing<sp/>and<sp/>has<sp/>not<sp/>yet<sp/>completed<sp/>execution&quot;+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>8:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>before<sp/>it<sp/>started<sp/>executing<sp/>and<sp/>was<sp/>successfully<sp/>cancelled.&quot;+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+</programlisting></para>
+<para>A concept that I want to point out is the that the achievement of the goal implies a cancel of such goal. So, I had to use a flag (<computeroutput>bool achieved</computeroutput>) to differentiate the case in which a goal was achieved (in this case the cacel request of an already canceled goal may cause an error, so I avoided to send the cancel request to the action server) and the case in which the user decides to send a cancel request before the goal achievement (in this case we must send a cancel request to the server).</para>
+<para>This is a piece of code about the differentiation that I just pointed out: <linebreak/>
+ <programlisting filename=".python"><codeline><highlight class="normal">if<sp/>flag<sp/>==<sp/>0<sp/>and<sp/>achieved<sp/>==<sp/>False:<sp/>#<sp/>If<sp/>we<sp/>are<sp/>in<sp/>Idle<sp/>state<sp/>but<sp/>a<sp/>goal<sp/>was<sp/>not<sp/>achieved<sp/>we<sp/>need<sp/>to<sp/>cancel<sp/>the<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(&quot;Modality<sp/>1<sp/>is<sp/>currently<sp/>in<sp/>idle<sp/>state\n&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>client.cancel_goal()<sp/>#<sp/>Send<sp/>a<sp/>cancel<sp/>request</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1<sp/>#<sp/>Ready<sp/>to<sp/>set<sp/>a<sp/>new<sp/>goal<sp/>if<sp/>this<sp/>modality<sp/>is<sp/>unlocked</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>achieved<sp/>==<sp/>True:<sp/>#<sp/>If<sp/>a<sp/>goal<sp/>was<sp/>achieved<sp/>there&apos;s<sp/>no<sp/>need<sp/>to<sp/>cancel<sp/>the<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>achieved<sp/>=<sp/>False</highlight></codeline>
+</programlisting></para>
+</sect4>
+<sect4 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md7">
+<title>Free drive with keyboard node  (Second Modality)</title>
+<para>This node reads inputs from the keyboar and publishes a Twist() message to the <computeroutput>cmd_vel</computeroutput> topic. Basically I relied on the <emphasis><bold>teleop_twist_keyboard</bold></emphasis> code. So, the functionality is the same: <programlisting><codeline><highlight class="normal">#<sp/>Instructions</highlight></codeline>
+<codeline><highlight class="normal">Moving<sp/>around:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u<sp/>i<sp/>o</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j<sp/>k<sp/>l</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m<sp/>,<sp/>.</highlight></codeline>
+<codeline><highlight class="normal">For<sp/>Holonomic<sp/>mode<sp/>(strafing),<sp/>hold<sp/>down<sp/>the<sp/>shift<sp/>key:</highlight></codeline>
+<codeline><highlight class="normal">---------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>U<sp/>I<sp/>O</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>J<sp/>K<sp/>L</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M<sp/>&lt;<sp/>&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">t<sp/>:<sp/>up<sp/>(+z)</highlight></codeline>
+<codeline><highlight class="normal">b<sp/>:<sp/>down<sp/>(-z)</highlight></codeline>
+<codeline><highlight class="normal">anything<sp/>else<sp/>:<sp/>stop</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">q/z<sp/>:<sp/>increase/decrease<sp/>max<sp/>speeds<sp/>by<sp/>10%</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">w/x<sp/>:<sp/>increase/decrease<sp/>only<sp/>linear<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">e/c<sp/>:<sp/>increase/decrease<sp/>only<sp/>angular<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+</programlisting></para>
+<para>I modified some lines of code in order to adapt the process on my needs. This modality is a total free driving algorithm, that means that the robot can obviously bump into the obstacles. The main changes I&apos;ve made from the <emphasis><bold>teleop_twist_keyboard</bold></emphasis> node are:</para>
+<para><orderedlist>
+<listitem><para>Insertion of an <computeroutput>if(active == 2)</computeroutput> statement in order to block the code when another modality is running.</para>
+</listitem><listitem><para>The keys now must be kept pressed in order to move the robot. I did this by setting the <computeroutput>key_timeout</computeroutput> variable to 0.1. Such variable was the <computeroutput>select()</computeroutput> timeout. That means that the <computeroutput>select()</computeroutput> function waits 0.1 seconds for new inputs at every loop.</para>
+</listitem></orderedlist>
+</para>
+</sect4>
+<sect4 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md8">
+<title>Free drive with keyboard and collision avoidance algorithm node  (Third Modality)</title>
+<para>This node reads inputs from the keyboard and publishes a Twist() message to the <computeroutput>/cmd_vel</computeroutput> topic. Basically I relied on the <emphasis><bold>teleop_twist_keyboard</bold></emphasis> code and therefore the functionality is quite the same: <programlisting><codeline><highlight class="normal">#<sp/>Instructions</highlight></codeline>
+<codeline><highlight class="normal">Reading<sp/>from<sp/>the<sp/>keyboard<sp/>and<sp/>Publishing<sp/>to<sp/>Twist!</highlight></codeline>
+<codeline><highlight class="normal">---------------------------</highlight></codeline>
+<codeline><highlight class="normal">[i]<sp/>go<sp/>straight</highlight></codeline>
+<codeline><highlight class="normal">[j]<sp/>turn<sp/>left</highlight></codeline>
+<codeline><highlight class="normal">[l]<sp/>turn<sp/>right</highlight></codeline>
+<codeline><highlight class="normal">[k]<sp/>go<sp/>backwards</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[q]/[z]<sp/>:<sp/>increase/decrease<sp/>max<sp/>speeds<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">[w]/[x]<sp/>:<sp/>increase/decrease<sp/>only<sp/>linear<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">[e]/[c]<sp/>:<sp/>increase/decrease<sp/>only<sp/>angular<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+</programlisting></para>
+<para>I modified some lines of code in order to adapt the process on my needs. This modality has also a collision avoidance algorithm that I implemented with my colleagues: <ulink url="https://github.com/PerriAlessandro">Alessandro Perri</ulink>, <ulink url="https://github.com/MatteoCarlone">Matteo Carlone</ulink>, <ulink url="https://github.com/LucaPredieri">Luca Predieri</ulink> and <ulink url="https://github.com/Fabioconti99">Fabio Conti</ulink>. This algorithm is based on the modification of a Dictionary. Dictionary is adata type similar to a list and it contains a collection of objects. These objects are idexed with the key/value pair. In this case the contained value are the linear and angular velocity combinations that the robot should assume after that an input occurrs. Such collision avoidance algorithm just uses the&lt;tt&gt;.pop(key) method that removes and returns the element idexed by <emphasis>key</emphasis> of the dictionary. In this way, when the distance between the robot and the obstacle is less than a threshold value, a command is disabled just by popping such index from the dictionary. Moreover, by this way the robot cannot move in the direction in which the obstacle is detected. For implementing such algorithm, I needed the subscription to the <computeroutput>/scan</computeroutput> topic. This subscription allowed me to detect the obstacles in the simulation environment but also their position with respect to the robot by slicing the LaserScan array in three parts: front, left and right direction:</para>
+<para>Here&apos;s a picture that represent how I sliced the laser scan span:</para>
+<para><image type="html" name="laser_scan.jpg" inline="yes"></image>
+ </para>
+<para><programlisting filename=".python"><codeline><highlight class="normal">def<sp/>clbk_laser(msg):</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Callback<sp/>for<sp/>detecting<sp/>obstacles<sp/>from<sp/>laser<sp/>scan</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_left<sp/><sp/><sp/><sp/><sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_right<sp/><sp/><sp/><sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_straight<sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>right<sp/>=<sp/>min(min(msg.ranges[0:143]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>front<sp/>=<sp/>min(min(msg.ranges[288:431]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>left<sp/>=<sp/>min(min(msg.ranges[576:719]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>right<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>on<sp/>the<sp/>right<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_right<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_right<sp/>=True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>front<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>in<sp/>the<sp/>front<sp/>direction<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_straight<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_straight<sp/>=True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>left<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>on<sp/>the<sp/>left<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_left<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_left<sp/>=True</highlight></codeline>
+</programlisting></para>
+<para>Then, I considered all the eight combination that the robot could face:</para>
+<para><image type="html" name="8_combinations.jpg" inline="yes"></image>
+ </para>
+<para>and finally I popped the dictionary indexes that would have moved the robot towards the detected obstacle: <programlisting filename=".python"><codeline><highlight class="normal">def<sp/>pop_dict(dictionary):</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Function<sp/>that<sp/>removes<sp/>commands<sp/>from<sp/>the<sp/>dictionary<sp/>when<sp/>an<sp/>obstacle<sp/>is<sp/>detected.<sp/></highlight></codeline>
+<codeline><highlight class="normal">#In<sp/>this<sp/>way,<sp/>when<sp/>an<sp/>obstacle<sp/>is<sp/>detected,<sp/>the<sp/>movement<sp/>in<sp/>that<sp/>direction<sp/>is<sp/>disabled</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_left</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_right</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_straight</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>All<sp/>the<sp/>cases<sp/>the<sp/>robot<sp/>could<sp/>face</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>not<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right<sp/>and<sp/>not<sp/>ok_left:<sp/>#<sp/>Obstacles<sp/>in<sp/>every<sp/>direction</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Disable<sp/>all<sp/>the<sp/>three<sp/>commands</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>left<sp/>and<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>right<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>right<sp/>and<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>left<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>right<sp/>and<sp/>on<sp/>the<sp/>left,<sp/>so<sp/>the<sp/>front<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>the<sp/>left<sp/>and<sp/>right<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>left<sp/>direction,<sp/>so<sp/>the<sp/>front<sp/>and<sp/>right<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>right<sp/>direction,<sp/>so<sp/>the<sp/>front<sp/>and<sp/>left<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+</programlisting></para>
+</sect4>
+</sect2>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md9">
+<title>###  Installing and running</title>
+<para>Here&apos;s some useful informations regarding how to the nodes and the simulation environment. First of all, <ulink url="https://it.wikipedia.org/wiki/Xterm">xterm</ulink>, a standard terminal emulator, is needed. You can install xterm by entering the following commands in the terminal: <programlisting><codeline><highlight class="normal">sudo<sp/>apt<sp/>update</highlight></codeline>
+<codeline><highlight class="normal">sudo<sp/>apt-get<sp/>install<sp/>xterm</highlight></codeline>
+</programlisting></para>
+<para>I created a launch file in the launch directory that executes all the necessary nodes and the simulation environment. You can run the programs by entering the following command:</para>
+<para><programlisting><codeline><highlight class="normal">roslaunch<sp/>final_assignment<sp/>launchAll.launch<sp/></highlight></codeline>
+</programlisting></para>
+<para>The three modalities and the <ref refid="namespace_u_i" kindref="compound">UI</ref> nodes will run on different xterm terminals. You can control the robot with the three different modalities by reerring to each xterm terminal that will appear after the launch file execution.</para>
+<para>If any of the three node terminates, the launch file will terminates all the nodes.</para>
+</sect2>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md10">
+<title>### Rqt Graph</title>
+<para>In order to have a GUI plugin for visualizing the ROS computation graph, here&apos;s a <emphasis>rqt_graph</emphasis> about the project:</para>
+<para><image type="html" name="rqt_graph.JPG" inline="yes"></image>
+ </para>
+</sect2>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md11">
+<title>### Flowcharts</title>
+<para>For a more precise description of what the four nodes do you can consult the following flowcharts, created with <ulink url="https://www.lucidchart.com/pages/it/landing?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=_chart_it_allcountries_mixed_search_brand_bmm_&amp;km_CPC_CampaignId=9589672283&amp;km_CPC_AdGroupID=99331286392&amp;km_CPC_Keyword=%2Blucidcharts&amp;km_CPC_MatchType=b&amp;km_CPC_ExtensionID=&amp;km_CPC_Network=g&amp;km_CPC_AdPosition=&amp;km_CPC_Creative=424699413299&amp;km_CPC_TargetID=kwd-334618660008&amp;km_CPC_Country=1008337&amp;km_CPC_Device=c&amp;km_CPC_placement=&amp;km_CPC_target=&amp;mkwid=sKwFuAgHb_pcrid_424699413299_pkw_%2Blucidcharts_pmt_b_pdv_c_slid__pgrid_99331286392_ptaid_kwd-334618660008_&amp;gclid=CjwKCAjw5c6LBhBdEiwAP9ejG86DblinG5ivYRvMmKSvI8Dl7as9i2oINlmgqIDoj0gpLX6WfnCenRoCxxQQAvD_BwE">Lucidchart</ulink>:</para>
+<para>This is the UI.py node&apos;s flowchart: </para>
+<para><image type="html" name="UI_flowchart.jpeg" inline="yes"></image>
+ </para>
+<para>This is the go_to_desired_pos.py node&apos;s flowchart: </para>
+<para><image type="html" name="go_to_desire_pos_flowchart.jpeg" inline="yes"></image>
+ </para>
+<para>This is the my_teleop_twist_keyboard.py node&apos;s flowchart:</para>
+<para><image type="html" name="my_teleop_twist_keyboard_flowchart.jpeg" inline="yes"></image>
+ </para>
+<para>This is the teleop_avoid.py node&apos;s flowchart:</para>
+<para><image type="html" name="teleop_avoid_flowchart.jpeg" inline="yes"></image>
+ </para>
+</sect2>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md12">
+<title>### Results</title>
+<para>The final result is that the robot correctly runs around the simulation environment switching among the three modalities.</para>
+</sect2>
+<sect2 id="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e_1autotoc_md13">
+<title>### Possible Improvements</title>
+<para>A possible improvement that could be done is the usage of an algorithm such that the robot could map the entire environment from the beginning of the simulation and so that it can immediately detect all the x, y coordinates that cannot be reached. </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

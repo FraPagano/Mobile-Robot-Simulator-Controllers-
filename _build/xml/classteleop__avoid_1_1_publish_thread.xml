@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classteleop__avoid_1_1_publish_thread" kind="class" language="Python" prot="public">
+    <compoundname>teleop_avoid::PublishThread</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Thread</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1adce9f8330ad073614ca5306635a27447" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::publisher</definition>
+        <argsstring></argsstring>
+        <name>publisher</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="121" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1a96ae4b40448a4aea9b7a9deff2af2d11" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="122" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1ae8a9c3c106e29bcbe6ff28fc780aee60" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="123" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1a99006d95a88abc0dd3fb6531994c8299" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="124" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1aa7427ad22036faa34cb14d925bdbb98b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::th</definition>
+        <argsstring></argsstring>
+        <name>th</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="125" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1ae3c0c36419cd312f146b9878d8ffe6c0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="126" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1afd4d7551e6eb576ceed1dc41a9ca2e1c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::turn</definition>
+        <argsstring></argsstring>
+        <name>turn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="127" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1a67f561fdab8535c8d9c3e86d10a98424" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::condition</definition>
+        <argsstring></argsstring>
+        <name>condition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="128" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1aa14e6318b0317203e2cffad681307a13" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::done</definition>
+        <argsstring></argsstring>
+        <name>done</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="129" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classteleop__avoid_1_1_publish_thread_1af59e49ad834b3c4aba4883983c85e3ac" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>teleop_avoid.PublishThread::timeout</definition>
+        <argsstring></argsstring>
+        <name>timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="134" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1aeea6ca7a73a293f502446631ecdbf625" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.__init__</definition>
+        <argsstring>(self, rate)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>rate</type>
+          <defname>rate</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="119" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="119" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1a493316df8974a1060a95b291346ec606" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.wait_for_subscribers</definition>
+        <argsstring>(self)</argsstring>
+        <name>wait_for_subscribers</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="140" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="140" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1a55fb1ed47bca2fb8b060319bfa8e89e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.update</definition>
+        <argsstring>(self, x, y, z, th, speed, turn)</argsstring>
+        <name>update</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <param>
+          <type>z</type>
+          <defname>z</defname>
+        </param>
+        <param>
+          <type>th</type>
+          <defname>th</defname>
+        </param>
+        <param>
+          <type>speed</type>
+          <defname>speed</defname>
+        </param>
+        <param>
+          <type>turn</type>
+          <defname>turn</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="151" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="151" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1ac0bc5e2a87d31f8c95d7aac8404e89e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.stop</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="163" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="163" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1ac6923beb90347986dd67697109591b2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.my_stop</definition>
+        <argsstring>(self)</argsstring>
+        <name>my_stop</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="168" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="168" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classteleop__avoid_1_1_publish_thread_1a8b644ef2a17ba7e15a8aeef408ec709c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.PublishThread.run</definition>
+        <argsstring>(self)</argsstring>
+        <name>run</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="180" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="180" bodyend="209"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim></verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>teleop_avoid.PublishThread</label>
+        <link refid="classteleop__avoid_1_1_publish_thread"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>threading::Thread</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>teleop_avoid.PublishThread</label>
+        <link refid="classteleop__avoid_1_1_publish_thread"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>threading::Thread</label>
+      </node>
+    </collaborationgraph>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="116" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="116" bodyend="210"/>
+    <listofallmembers>
+      <member refid="classteleop__avoid_1_1_publish_thread_1aeea6ca7a73a293f502446631ecdbf625" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>__init__</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a67f561fdab8535c8d9c3e86d10a98424" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>condition</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1aa14e6318b0317203e2cffad681307a13" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>done</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1ac6923beb90347986dd67697109591b2d" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>my_stop</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1adce9f8330ad073614ca5306635a27447" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>publisher</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a8b644ef2a17ba7e15a8aeef408ec709c" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>run</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1ae3c0c36419cd312f146b9878d8ffe6c0" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>speed</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1ac0bc5e2a87d31f8c95d7aac8404e89e6" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>stop</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1aa7427ad22036faa34cb14d925bdbb98b" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>th</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1af59e49ad834b3c4aba4883983c85e3ac" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>timeout</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1afd4d7551e6eb576ceed1dc41a9ca2e1c" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>turn</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a55fb1ed47bca2fb8b060319bfa8e89e8" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>update</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a493316df8974a1060a95b291346ec606" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>wait_for_subscribers</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a96ae4b40448a4aea9b7a9deff2af2d11" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>x</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1ae8a9c3c106e29bcbe6ff28fc780aee60" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>y</name></member>
+      <member refid="classteleop__avoid_1_1_publish_thread_1a99006d95a88abc0dd3fb6531994c8299" prot="public" virt="non-virtual"><scope>teleop_avoid::PublishThread</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

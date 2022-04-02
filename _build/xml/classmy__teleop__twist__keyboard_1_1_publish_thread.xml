@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classmy__teleop__twist__keyboard_1_1_publish_thread" kind="class" language="Python" prot="public">
+    <compoundname>my_teleop_twist_keyboard::PublishThread</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Thread</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1aec35dcce150b30a9b19e92ed8986ce19" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::publisher</definition>
+        <argsstring></argsstring>
+        <name>publisher</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="123" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a574f97fd3f35b3db86afa22e53a32e04" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="124" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1af9ed521ee9facff87f33564f4eef3e2a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="125" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a2b3810775c6b67c8a28a29f3c81f7038" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="126" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1adcf6630a4d601c26cfe9061f2b7f03fd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::th</definition>
+        <argsstring></argsstring>
+        <name>th</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="127" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1ac2ecdbf0fe2d4d31bd2f813850ee0bbb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="128" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55e836ff327763c452768d87c55d0176" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::turn</definition>
+        <argsstring></argsstring>
+        <name>turn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="129" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a39eaa3a49d374bea6ca00138f764074f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::condition</definition>
+        <argsstring></argsstring>
+        <name>condition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="130" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a287e23c5cf1abb621d17bfb69d50705f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::done</definition>
+        <argsstring></argsstring>
+        <name>done</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="131" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a61edcea412dbacc9087a28517a2975ce" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>my_teleop_twist_keyboard.PublishThread::timeout</definition>
+        <argsstring></argsstring>
+        <name>timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="136" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a19a8ca2d3407c75799e41dde2ce11885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.__init__</definition>
+        <argsstring>(self, rate)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>rate</type>
+          <defname>rate</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="121" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="121" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55b1fb277c2401beb6fb18ecf24e6aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.wait_for_subscribers</definition>
+        <argsstring>(self)</argsstring>
+        <name>wait_for_subscribers</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="142" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="142" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1ae46b48e4ba0f93fc2e615764b68b5155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.update</definition>
+        <argsstring>(self, x, y, z, th, speed, turn)</argsstring>
+        <name>update</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <param>
+          <type>z</type>
+          <defname>z</defname>
+        </param>
+        <param>
+          <type>th</type>
+          <defname>th</defname>
+        </param>
+        <param>
+          <type>speed</type>
+          <defname>speed</defname>
+        </param>
+        <param>
+          <type>turn</type>
+          <defname>turn</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="153" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="153" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a7429b55e6c9ff20e0329d5ec150ec596" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.stop</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="165" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="165" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a388a7a6eb413bb4fcfa891f7144cf365" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.my_stop</definition>
+        <argsstring>(self)</argsstring>
+        <name>my_stop</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="171" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="171" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classmy__teleop__twist__keyboard_1_1_publish_thread_1a93b860e2c01e5b015dc49463736c110b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def my_teleop_twist_keyboard.PublishThread.run</definition>
+        <argsstring>(self)</argsstring>
+        <name>run</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="183" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="183" bodyend="212"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Thread</label>
+      </node>
+      <node id="1">
+        <label>my_teleop_twist_keyboard.PublishThread</label>
+        <link refid="classmy__teleop__twist__keyboard_1_1_publish_thread"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Thread</label>
+      </node>
+      <node id="1">
+        <label>my_teleop_twist_keyboard.PublishThread</label>
+        <link refid="classmy__teleop__twist__keyboard_1_1_publish_thread"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="119" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="119" bodyend="213"/>
+    <listofallmembers>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a19a8ca2d3407c75799e41dde2ce11885" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>__init__</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a39eaa3a49d374bea6ca00138f764074f" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>condition</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a287e23c5cf1abb621d17bfb69d50705f" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>done</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a388a7a6eb413bb4fcfa891f7144cf365" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>my_stop</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1aec35dcce150b30a9b19e92ed8986ce19" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>publisher</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a93b860e2c01e5b015dc49463736c110b" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>run</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1ac2ecdbf0fe2d4d31bd2f813850ee0bbb" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>speed</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a7429b55e6c9ff20e0329d5ec150ec596" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>stop</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1adcf6630a4d601c26cfe9061f2b7f03fd" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>th</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a61edcea412dbacc9087a28517a2975ce" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>timeout</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55e836ff327763c452768d87c55d0176" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>turn</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1ae46b48e4ba0f93fc2e615764b68b5155" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>update</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a55b1fb277c2401beb6fb18ecf24e6aaf" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>wait_for_subscribers</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a574f97fd3f35b3db86afa22e53a32e04" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>x</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1af9ed521ee9facff87f33564f4eef3e2a" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>y</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1_publish_thread_1a2b3810775c6b67c8a28a29f3c81f7038" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::PublishThread</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

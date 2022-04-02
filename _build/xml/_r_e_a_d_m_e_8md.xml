@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">##<sp/>Research<sp/>Track<sp/>1,<sp/>final<sp/>assignment</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">================================</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Introduction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">--------------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>final<sp/>assignment<sp/>of<sp/>the<sp/>[Research<sp/>Track<sp/>1](https://unige.it/en/off.f/2021/ins/51201.html?codcla=10635)<sp/>class<sp/>is<sp/>about<sp/>a<sp/>mobile<sp/>robot<sp/>simulator<sp/>using<sp/>the<sp/>ROS<sp/>framework.<sp/><sp/>The<sp/>last<sp/>course<sp/>lectures<sp/>were<sp/>about<sp/>the<sp/>software<sp/>architecture<sp/>for<sp/>the<sp/>control<sp/>of<sp/>a<sp/>mobile<sp/>robot<sp/>and<sp/>this<sp/>assignment<sp/>is<sp/>about<sp/>the<sp/>development<sp/>of<sp/>such<sp/>software<sp/>architecture.<sp/>The<sp/>software<sp/>will<sp/>rely<sp/>on<sp/>the<sp/>move_base<sp/><sp/>and<sp/>gmapping<sp/>packages<sp/>for<sp/>localizing<sp/>the<sp/>robot<sp/>and<sp/>plan<sp/>the<sp/>motion.<sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>software<sp/>architecture<sp/>must<sp/>control<sp/>the<sp/>robot<sp/>in<sp/>three<sp/>different<sp/>ways:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>Autonomously<sp/>reach<sp/>a<sp/>x,y<sp/>coordinate<sp/>inserted<sp/>by<sp/>the<sp/>user;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>Let<sp/>the<sp/>user<sp/>drive<sp/>the<sp/>robot<sp/>with<sp/>the<sp/>keyboard;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>3.<sp/>Let<sp/>the<sp/>user<sp/>drive<sp/>the<sp/>robot<sp/>with<sp/>the<sp/>keyboard<sp/>assisting<sp/>them<sp/>to<sp/>avoid<sp/>collisions.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>order<sp/>to<sp/>accomplish<sp/>such<sp/>task<sp/>I<sp/>wrote<sp/>four<sp/>nodes<sp/>in<sp/>python:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>**UI.py**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>**go_to_desired_pos.py**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>3.<sp/>**my_teleop_twist_keyboard.py**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>4.<sp/>**teleop_avoid**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>a<sp/>picture<sp/>that<sp/>shows<sp/>the<sp/>simulation<sp/>enviroment<sp/>provided<sp/>us<sp/>by<sp/>profesor<sp/>[Carmine<sp/>Recchiuto](https://github.com/CarmineD8):</highlight></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/Simulation_Env.JPG&quot;<sp/>height=320<sp/>width=500&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>structure<sp/>is<sp/>quite<sp/>simple:<sp/>The<sp/>UI.py<sp/>node<sp/>is<sp/>the<sp/>user<sp/>interface<sp/>that<sp/>the<sp/>user<sp/>should<sp/>use<sp/>when<sp/>he<sp/>wants<sp/>to<sp/>change<sp/>the<sp/>controlling<sp/>modality<sp/>or<sp/>cancel<sp/>a<sp/>goal.<sp/>The<sp/>other<sp/>three<sp/>nodes<sp/>represent<sp/>the<sp/>three<sp/>robot<sp/>controlling<sp/>modalities.<sp/>The<sp/>activation<sp/>of<sp/>a<sp/>nodes<sp/>rather<sp/>than<sp/>the<sp/>deactivation<sp/>the<sp/>other<sp/>two<sp/>is<sp/>made<sp/>through<sp/>a<sp/>ROS<sp/>parameter<sp/>called:<sp/>***active***.<sp/></highlight></codeline>
+<codeline><highlight class="normal">This<sp/>parameter<sp/>is<sp/>set<sp/>to<sp/>three<sp/>different<sp/>values,<sp/>each<sp/>of<sp/>them<sp/>represent<sp/>a<sp/>m=controlling<sp/>modality:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>***active<sp/>==<sp/>1***,<sp/>for<sp/>activating<sp/>the<sp/>first<sp/>modality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>***active<sp/>==<sp/>2***,<sp/>for<sp/>activating<sp/>the<sp/>second<sp/>modality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>3.<sp/>***active<sp/>==<sp/>3***,<sp/>for<sp/>activating<sp/>the<sp/>third<sp/>modality;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">So<sp/>that<sp/>when<sp/>the<sp/>user<sp/>chooses<sp/>one<sp/>modality<sp/>through<sp/>the<sp/>user<sp/>interface<sp/>node,<sp/>the<sp/>***active***<sp/>parameter<sp/>is<sp/>set<sp/>to<sp/>one<sp/>these<sp/>three<sp/>values<sp/>and<sp/>the<sp/>other<sp/>two<sp/>modalities<sp/>will<sp/>be<sp/>blocked.<sp/>Moreover,<sp/>to<sp/>set<sp/>an<sp/>idle<sp/>state<sp/>of<sp/>the<sp/>whole<sp/>system,<sp/>the<sp/>***active***<sp/>parameter<sp/>can<sp/>be<sp/>set<sp/>to<sp/>0.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```python</highlight></codeline>
+<codeline><highlight class="normal">#PSEUDOCODE</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">input<sp/>=<sp/>get_input()</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>1<sp/><sp/>#<sp/>activates<sp/>the<sp/>first<sp/>modality</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>2</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>2<sp/><sp/>#<sp/>activates<sp/>the<sp/>second<sp/>modality</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>input<sp/>==<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>active<sp/>=<sp/>3<sp/><sp/>#<sp/>activates<sp/>the<sp/>third<sp/>modality</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/scheme.jpg&quot;<sp/>height=350<sp/>width=450&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>greatest<sp/>issues<sp/>that<sp/>I<sp/>faced<sp/>with<sp/>during<sp/>the<sp/>implementation<sp/>of<sp/>the<sp/>project<sp/>were:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Become<sp/>familiar<sp/>with<sp/>ROS<sp/>parameter<sp/>usage;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Become<sp/>familiar<sp/>with<sp/>the<sp/>simulation<sp/>environment<sp/>(Gazebo,<sp/>RVIZ).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Code<sp/>description</highlight></codeline>
+<codeline><highlight class="normal">---------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>User<sp/>Interface<sp/>Node</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>User<sp/>Interface<sp/>node<sp/>handles<sp/>the<sp/>user<sp/>keyboard<sp/>inputs.<sp/>Here&apos;s<sp/>a<sp/>legend<sp/>of<sp/>the<sp/>allowed<sp/>commands:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>*&apos;1&apos;*<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>choosing<sp/>the<sp/><sp/>autonomously<sp/>reaching<sp/>modality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>*&apos;2&apos;*<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>the<sp/>free<sp/>keyboard<sp/>driving<sp/>modality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>3.<sp/>*&apos;3&apos;*<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>the<sp/>free<sp/>keyboard<sp/>driving<sp/>modality<sp/>with<sp/>a<sp/>collision<sp/>avoidance<sp/>algorithm;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>4.<sp/>*&apos;4&apos;*<sp/>keyboard<sp/>key<sp/>is<sp/>used<sp/>for<sp/>quitting<sp/>the<sp/>application<sp/>and<sp/>terminates<sp/>all<sp/>nodes;</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>node<sp/>is<sp/>very<sp/>simply<sp/>designed.<sp/>Essentially,<sp/>a<sp/>function<sp/>called<sp/>`interpreter()`<sp/>is<sp/>looped<sp/>inside<sp/>a<sp/>`while<sp/>not<sp/>rospy.is_shutdown():`<sp/>loop.<sp/>This<sp/>function<sp/>gets<sp/>the<sp/>keyboard<sp/>user<sp/>input<sp/>and<sp/>changes<sp/>the<sp/>ROS<sp/>parameter<sp/>***active***<sp/>depending<sp/>on<sp/>which<sp/>modality<sp/>was<sp/>chosen.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>the<sp/>`interpreter()`<sp/>code:</highlight></codeline>
+<codeline><highlight class="normal">```<sp/>python</highlight></codeline>
+<codeline><highlight class="normal">def<sp/>interpreter():</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>#Function<sp/>that<sp/>receives<sp/>inputs<sp/>and<sp/>sets<sp/>all<sp/>the<sp/>ROS<sp/>parameters</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>command<sp/>=<sp/>input(bcolors.HEADER<sp/>+<sp/>&apos;Choose<sp/>a<sp/>modality:<sp/>\n&apos;<sp/>+<sp/>bcolors.ENDC)<sp/>#<sp/>Stores<sp/>the<sp/>input<sp/>key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>command<sp/>==<sp/>&quot;0&quot;:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>0)<sp/>#<sp/>if<sp/>the<sp/>active<sp/>parameter<sp/>is<sp/>0<sp/>the<sp/>current<sp/>goal<sp/>is<sp/>canceled</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>&quot;No<sp/>modality<sp/>is<sp/>active,<sp/>please<sp/>choose<sp/>one<sp/>for<sp/>controlling<sp/>the<sp/>robot&quot;<sp/>+<sp/>bcolors.ENDC)<sp/>#<sp/>Sysytem<sp/>in<sp/>idle<sp/>state</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;1&quot;:<sp/>#<sp/>Modality<sp/>one<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>0)<sp/>#<sp/>Useful<sp/>for<sp/>changing<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Receive<sp/>the<sp/>desired<sp/>cooridnates<sp/>as<sp/>input</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_x_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+&quot;Insert<sp/>the<sp/>desired<sp/>x<sp/>position:<sp/>&quot;<sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des_y_input<sp/>=<sp/>float(input(bcolors.UNDERLINE<sp/>+<sp/>bcolors.OKBLUE<sp/>+&quot;Insert<sp/>the<sp/>desired<sp/>y<sp/>position:<sp/>&quot;<sp/>+<sp/>bcolors.ENDC))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;des_pos_x&apos;,<sp/>des_x_input)<sp/>#<sp/>Update<sp/>the<sp/>desired<sp/>X<sp/>coordinate</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;des_pos_y&apos;,<sp/>des_y_input)<sp/>#<sp/>Update<sp/>the<sp/>desired<sp/>Y<sp/>coordinate</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>1)<sp/>#<sp/>Modality<sp/>1<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;2&quot;:<sp/>#<sp/>Modality<sp/>two<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>2)<sp/>#<sp/>Modality<sp/>two<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/>&quot;Modality<sp/>2<sp/>is<sp/>active.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.BOLD<sp/>+<sp/>bcolors.HEADER<sp/>+<sp/>&quot;Use<sp/>the<sp/>&apos;my_teleop_twist_keyboard&apos;<sp/>xterm<sp/>terminal<sp/>to<sp/>control<sp/>the<sp/>robot&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;3&quot;:<sp/>#<sp/>Modality<sp/>three<sp/>chosen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rospy.set_param(&apos;active&apos;,<sp/>3)<sp/>#<sp/>#<sp/>Modality<sp/>three<sp/>active</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(&quot;/active&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elif<sp/>command<sp/>==<sp/>&quot;4&quot;:<sp/>#<sp/>Exit<sp/>command</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.WARNING<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Exiting...&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os.kill(os.getpid(),<sp/>signal.SIGKILL)<sp/>#<sp/>Kill<sp/>the<sp/>current<sp/>process</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Wrong<sp/>key!<sp/>Use<sp/>the<sp/>shown<sp/>commands<sp/>&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">####<sp/><sp/>Autonomously<sp/>reaching<sp/>node<sp/>(First<sp/>Modality)</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>node<sp/>makes<sp/>the<sp/>robot<sp/>autonomously<sp/>reach<sp/>a<sp/>x,y<sp/>position<sp/>inserted<sp/>by<sp/>the<sp/>user.<sp/>The<sp/>robot<sp/>can<sp/>reach<sp/>the<sp/>user&apos;s<sp/>x,y<sp/>coordinates<sp/>thanks<sp/>to<sp/>the<sp/>**&apos;move_base&apos;<sp/>action<sp/>server**.</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>robot<sp/>is<sp/>going<sp/>to<sp/>plan<sp/>the<sp/>path<sp/>through<sp/>the<sp/>Dijkstra&apos;s<sp/>algorithm.</highlight></codeline>
+<codeline><highlight class="normal">When<sp/>the<sp/>first<sp/>modality<sp/>is<sp/>selected,<sp/>the<sp/>UI.py<sp/>node<sp/>sets<sp/>the<sp/>active<sp/>ROS<sp/>parameter<sp/>to<sp/>1<sp/>letting<sp/>the<sp/>first<sp/>modality&apos;s<sp/>loop<sp/>to<sp/>run<sp/>all<sp/>the<sp/>necessary<sp/>code<sp/>for<sp/>sending<sp/>the<sp/>desired<sp/>goal.<sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>desired<sp/>x,<sp/>y<sp/>coordinates<sp/>are<sp/>ROS<sp/>parameters<sp/>too<sp/>and<sp/>they<sp/>are<sp/>set<sp/>by<sp/>the<sp/>UI.py<sp/>node.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>the<sp/>first<sp/>modality<sp/>is<sp/>running<sp/>and<sp/>a<sp/>goal<sp/>is<sp/>received,<sp/>this<sp/>node<sp/>uses<sp/>the<sp/>`send_goal(goal_msg,<sp/>done_cb(),<sp/>active_cb(),<sp/>feedback_cb())`<sp/>function<sp/>for<sp/>asking<sp/>the<sp/>action<sp/>server<sp/>to<sp/>compute<sp/>the<sp/>path<sp/>planning<sp/>for<sp/>the<sp/>desired<sp/>goal.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/><sp/>***goal_msg***<sp/>is<sp/>a<sp/><sp/>MoveBaseGoal()<sp/>action<sp/>message<sp/>containing<sp/>all<sp/>the<sp/>information<sp/>about<sp/>the<sp/>desired<sp/>goal<sp/>(i.e.<sp/>x,<sp/>y<sp/>coordinates,<sp/>referencing<sp/>frame,<sp/>etc...<sp/>)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>***done_cb(status,<sp/>result)***<sp/>is<sp/>a<sp/>callback<sp/>function<sp/>called<sp/>after<sp/>the<sp/>execution<sp/>of<sp/>the<sp/>action<sp/>server.<sp/>It<sp/>gives<sp/>the<sp/>client<sp/>information<sp/>about<sp/>the<sp/>termination<sp/>of<sp/>the<sp/>goal<sp/>process.<sp/>In<sp/>particular,<sp/>this<sp/>callback<sp/>function<sp/>returns<sp/>a<sp/>value<sp/>that<sp/>is<sp/>stored<sp/>in<sp/>am<sp/>`int`<sp/>variable<sp/>that<sp/>I<sp/>called<sp/>*status*.<sp/>Depending<sp/>on<sp/>the<sp/>value<sp/>of<sp/>this<sp/>variable<sp/>the<sp/>client<sp/>knows<sp/>the<sp/>status<sp/>of<sp/>the<sp/>goal<sp/>processing.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/>3.<sp/>***active_cb()***<sp/>is<sp/>a<sp/>callback<sp/>funtion<sp/>called<sp/>before<sp/>the<sp/>execution<sp/>of<sp/>the<sp/>action<sp/>server.<sp/>I<sp/>used<sp/>this<sp/>callback<sp/>funtion<sp/>in<sp/>order<sp/>to<sp/>take<sp/>into<sp/>account<sp/>the<sp/>number<sp/>of<sp/>processed<sp/>goals.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>4.<sp/>***feedback_cb(feedback)***<sp/>is<sp/>a<sp/>callback<sp/>funtion<sp/>called<sp/>durning<sp/>the<sp/>execution<sp/>of<sp/>the<sp/>action<sp/>server.<sp/>It<sp/>returns<sp/>feedbacks<sp/>about<sp/>the<sp/>goal<sp/>processing.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>a<sp/>picture<sp/>that<sp/>clarifies<sp/>this<sp/>concept:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/Action_server.JPG&quot;<sp/>height=250<sp/>width=480&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Thanks<sp/>to<sp/>the<sp/>***done_cb(status,<sp/>result)***<sp/>function<sp/>I<sp/>could<sp/>manage<sp/>the<sp/>result<sp/>of<sp/>the<sp/>goal<sp/>achievement.</highlight></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>the<sp/>***done_cb(status,<sp/>result)***<sp/>code:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```python</highlight></codeline>
+<codeline><highlight class="normal">def<sp/>done_cb(status,<sp/>result):</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Function<sp/>called<sp/>after<sp/>goal<sp/>was<sp/>processed.<sp/>It<sp/>is<sp/>used<sp/>to<sp/>notify<sp/>the<sp/>client<sp/>on<sp/>the<sp/>current<sp/>status<sp/>of<sp/>every<sp/>goal<sp/>in<sp/>the<sp/>system.</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>client</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>achieved</highlight></codeline>
+<codeline><highlight class="normal">global<sp/>goal_cont</highlight></codeline>
+<codeline><highlight class="normal">goal_cont<sp/>+=<sp/>1<sp/>#<sp/>Increment<sp/>goal<sp/>counter</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>2:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>after<sp/>it<sp/>started<sp/>executing.<sp/>Execution<sp/>terminated.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>3:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.UNDERLINE<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/>&quot;Goal<sp/>successfully<sp/>achieved&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>achieved<sp/>=<sp/>True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>4:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;Timeout<sp/>expired,<sp/>the<sp/>desired<sp/>poition<sp/>is<sp/>not<sp/>reachable.<sp/>Goal<sp/>aborted.&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>5:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>was<sp/>rejected&quot;<sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>6:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>after<sp/>it<sp/>started<sp/>executing<sp/>and<sp/>has<sp/>not<sp/>yet<sp/>completed<sp/>execution&quot;+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>status<sp/>==<sp/>8:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.FAIL<sp/>+<sp/>&quot;The<sp/>goal<sp/>received<sp/>a<sp/>cancel<sp/>request<sp/>before<sp/>it<sp/>started<sp/>executing<sp/>and<sp/>was<sp/>successfully<sp/>cancelled.&quot;+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cont<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>concept<sp/>that<sp/>I<sp/>want<sp/>to<sp/>point<sp/>out<sp/>is<sp/>the<sp/>that<sp/>the<sp/>achievement<sp/>of<sp/>the<sp/>goal<sp/>implies<sp/>a<sp/>cancel<sp/>of<sp/>such<sp/>goal.<sp/>So,<sp/>I<sp/>had<sp/>to<sp/>use<sp/>a<sp/>flag<sp/>(`bool<sp/>achieved`)<sp/>to<sp/>differentiate<sp/>the<sp/>case<sp/>in<sp/>which<sp/>a<sp/>goal<sp/>was<sp/>achieved<sp/>(in<sp/>this<sp/>case<sp/>the<sp/>cacel<sp/>request<sp/>of<sp/>an<sp/>already<sp/>canceled<sp/>goal<sp/>may<sp/>cause<sp/>an<sp/>error,<sp/>so<sp/>I<sp/>avoided<sp/>to<sp/>send<sp/>the<sp/>cancel<sp/>request<sp/>to<sp/>the<sp/>action<sp/>server)<sp/>and<sp/>the<sp/>case<sp/>in<sp/>which<sp/>the<sp/>user<sp/>decides<sp/>to<sp/>send<sp/>a<sp/>cancel<sp/>request<sp/>before<sp/>the<sp/>goal<sp/>achievement<sp/>(in<sp/>this<sp/>case<sp/>we<sp/>must<sp/>send<sp/>a<sp/>cancel<sp/>request<sp/>to<sp/>the<sp/>server).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>piece<sp/>of<sp/>code<sp/>about<sp/>the<sp/>differentiation<sp/>that<sp/>I<sp/>just<sp/>pointed<sp/>out:<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">```python</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>flag<sp/>==<sp/>0<sp/>and<sp/>achieved<sp/>==<sp/>False:<sp/>#<sp/>If<sp/>we<sp/>are<sp/>in<sp/>Idle<sp/>state<sp/>but<sp/>a<sp/>goal<sp/>was<sp/>not<sp/>achieved<sp/>we<sp/>need<sp/>to<sp/>cancel<sp/>the<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(&quot;Modality<sp/>1<sp/>is<sp/>currently<sp/>in<sp/>idle<sp/>state\n&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>client.cancel_goal()<sp/>#<sp/>Send<sp/>a<sp/>cancel<sp/>request</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1<sp/>#<sp/>Ready<sp/>to<sp/>set<sp/>a<sp/>new<sp/>goal<sp/>if<sp/>this<sp/>modality<sp/>is<sp/>unlocked</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>achieved<sp/>==<sp/>True:<sp/>#<sp/>If<sp/>a<sp/>goal<sp/>was<sp/>achieved<sp/>there&apos;s<sp/>no<sp/>need<sp/>to<sp/>cancel<sp/>the<sp/>goal</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>achieved<sp/>=<sp/>False</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal">####<sp/><sp/>Free<sp/>drive<sp/>with<sp/>keyboard<sp/>node<sp/><sp/>(Second<sp/>Modality)</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>node<sp/>reads<sp/>inputs<sp/>from<sp/>the<sp/>keyboar<sp/>and<sp/>publishes<sp/>a<sp/>Twist()<sp/>message<sp/>to<sp/>the<sp/>`cmd_vel`<sp/>topic.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Basically<sp/>I<sp/>relied<sp/>on<sp/>the<sp/>***teleop_twist_keyboard***<sp/><sp/>code.<sp/>So,<sp/>the<sp/>functionality<sp/>is<sp/>the<sp/>same:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Instructions</highlight></codeline>
+<codeline><highlight class="normal">Moving<sp/>around:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u<sp/>i<sp/>o</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j<sp/>k<sp/>l</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m<sp/>,<sp/>.</highlight></codeline>
+<codeline><highlight class="normal">For<sp/>Holonomic<sp/>mode<sp/>(strafing),<sp/>hold<sp/>down<sp/>the<sp/>shift<sp/>key:</highlight></codeline>
+<codeline><highlight class="normal">---------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>U<sp/>I<sp/>O</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>J<sp/>K<sp/>L</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M<sp/>&lt;<sp/>&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">t<sp/>:<sp/>up<sp/>(+z)</highlight></codeline>
+<codeline><highlight class="normal">b<sp/>:<sp/>down<sp/>(-z)</highlight></codeline>
+<codeline><highlight class="normal">anything<sp/>else<sp/>:<sp/>stop</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">q/z<sp/>:<sp/>increase/decrease<sp/>max<sp/>speeds<sp/>by<sp/>10%</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">w/x<sp/>:<sp/>increase/decrease<sp/>only<sp/>linear<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">e/c<sp/>:<sp/>increase/decrease<sp/>only<sp/>angular<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">I<sp/>modified<sp/>some<sp/>lines<sp/>of<sp/>code<sp/>in<sp/>order<sp/>to<sp/>adapt<sp/>the<sp/>process<sp/>on<sp/>my<sp/>needs.<sp/>This<sp/>modality<sp/>is<sp/>a<sp/>total<sp/>free<sp/>driving<sp/>algorithm,<sp/>that<sp/>means<sp/>that<sp/>the<sp/>robot<sp/>can<sp/>obviously<sp/>bump<sp/>into<sp/>the<sp/>obstacles.<sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>main<sp/>changes<sp/>I&apos;ve<sp/>made<sp/>from<sp/>the<sp/>***teleop_twist_keyboard***<sp/>node<sp/>are:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>Insertion<sp/>of<sp/>an<sp/>`if(active<sp/>==<sp/>2)`<sp/>statement<sp/>in<sp/>order<sp/>to<sp/>block<sp/>the<sp/>code<sp/>when<sp/>another<sp/>modality<sp/>is<sp/>running.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>The<sp/>keys<sp/>now<sp/>must<sp/>be<sp/>kept<sp/>pressed<sp/>in<sp/>order<sp/>to<sp/>move<sp/>the<sp/>robot.<sp/>I<sp/>did<sp/>this<sp/>by<sp/>setting<sp/>the<sp/>`key_timeout`<sp/>variable<sp/><sp/>to<sp/>0.1.<sp/>Such<sp/>variable<sp/>was<sp/>the<sp/>`select()`<sp/>timeout.<sp/>That<sp/>means<sp/>that<sp/>the<sp/>`select()`<sp/>function<sp/>waits<sp/>0.1<sp/>seconds<sp/>for<sp/>new<sp/>inputs<sp/>at<sp/>every<sp/>loop.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/><sp/>Free<sp/>drive<sp/>with<sp/>keyboard<sp/>and<sp/>collision<sp/>avoidance<sp/>algorithm<sp/>node<sp/><sp/>(Third<sp/>Modality)</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>node<sp/>reads<sp/>inputs<sp/>from<sp/>the<sp/>keyboard<sp/>and<sp/>publishes<sp/>a<sp/>Twist()<sp/>message<sp/>to<sp/>the<sp/>`/cmd_vel`<sp/>topic.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Basically<sp/>I<sp/>relied<sp/>on<sp/>the<sp/>***teleop_twist_keyboard***<sp/><sp/>code<sp/>and<sp/>therefore<sp/>the<sp/>functionality<sp/>is<sp/>quite<sp/>the<sp/>same:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Instructions</highlight></codeline>
+<codeline><highlight class="normal">Reading<sp/>from<sp/>the<sp/>keyboard<sp/>and<sp/>Publishing<sp/>to<sp/>Twist!</highlight></codeline>
+<codeline><highlight class="normal">---------------------------</highlight></codeline>
+<codeline><highlight class="normal">[i]<sp/>go<sp/>straight</highlight></codeline>
+<codeline><highlight class="normal">[j]<sp/>turn<sp/>left</highlight></codeline>
+<codeline><highlight class="normal">[l]<sp/>turn<sp/>right</highlight></codeline>
+<codeline><highlight class="normal">[k]<sp/>go<sp/>backwards</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[q]/[z]<sp/>:<sp/>increase/decrease<sp/>max<sp/>speeds<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">[w]/[x]<sp/>:<sp/>increase/decrease<sp/>only<sp/>linear<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">[e]/[c]<sp/>:<sp/>increase/decrease<sp/>only<sp/>angular<sp/>speed<sp/>by<sp/>10%</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">I<sp/>modified<sp/>some<sp/>lines<sp/>of<sp/>code<sp/>in<sp/>order<sp/>to<sp/>adapt<sp/>the<sp/>process<sp/>on<sp/>my<sp/>needs.<sp/>This<sp/>modality<sp/>has<sp/>also<sp/>a<sp/>collision<sp/>avoidance<sp/>algorithm<sp/>that<sp/>I<sp/>implemented<sp/>with<sp/>my<sp/>colleagues:<sp/>[Alessandro<sp/>Perri](https://github.com/PerriAlessandro),<sp/>[Matteo<sp/>Carlone](https://github.com/MatteoCarlone),<sp/>[Luca<sp/>Predieri](https://github.com/LucaPredieri)<sp/>and<sp/>[Fabio<sp/>Conti](https://github.com/Fabioconti99).<sp/></highlight></codeline>
+<codeline><highlight class="normal">This<sp/>algorithm<sp/>is<sp/>based<sp/>on<sp/>the<sp/>modification<sp/>of<sp/>a<sp/>Dictionary.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Dictionary<sp/>is<sp/>adata<sp/>type<sp/>similar<sp/>to<sp/>a<sp/>list<sp/>and<sp/>it<sp/>contains<sp/>a<sp/>collection<sp/>of<sp/>objects.<sp/>These<sp/>objects<sp/>are<sp/>idexed<sp/>with<sp/>the<sp/>key/value<sp/>pair.<sp/>In<sp/>this<sp/>case<sp/>the<sp/>contained<sp/>value<sp/>are<sp/><sp/>the<sp/>linear<sp/>and<sp/>angular<sp/>velocity<sp/>combinations<sp/>that<sp/>the<sp/>robot<sp/>should<sp/>assume<sp/>after<sp/>that<sp/>an<sp/>input<sp/>occurrs.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Such<sp/>collision<sp/>avoidance<sp/>algorithm<sp/>just<sp/>uses<sp/>the`.pop(key)`<sp/>method<sp/>that<sp/>removes<sp/>and<sp/>returns<sp/>the<sp/>element<sp/>idexed<sp/>by<sp/>*key*<sp/>of<sp/><sp/>the<sp/>dictionary.<sp/>In<sp/>this<sp/>way,<sp/>when<sp/>the<sp/>distance<sp/>between<sp/>the<sp/>robot<sp/>and<sp/>the<sp/>obstacle<sp/>is<sp/>less<sp/>than<sp/>a<sp/>threshold<sp/>value,<sp/>a<sp/>command<sp/>is<sp/>disabled<sp/>just<sp/>by<sp/>popping<sp/>such<sp/>index<sp/>from<sp/>the<sp/>dictionary.<sp/>Moreover,<sp/>by<sp/>this<sp/>way<sp/>the<sp/>robot<sp/>cannot<sp/>move<sp/>in<sp/>the<sp/>direction<sp/>in<sp/>which<sp/>the<sp/>obstacle<sp/>is<sp/>detected.<sp/></highlight></codeline>
+<codeline><highlight class="normal">For<sp/>implementing<sp/>such<sp/>algorithm,<sp/>I<sp/>needed<sp/>the<sp/>subscription<sp/>to<sp/>the<sp/>`/scan`<sp/>topic.<sp/>This<sp/>subscription<sp/>allowed<sp/>me<sp/>to<sp/>detect<sp/>the<sp/>obstacles<sp/>in<sp/>the<sp/>simulation<sp/>environment<sp/>but<sp/>also<sp/>their<sp/>position<sp/>with<sp/>respect<sp/>to<sp/>the<sp/>robot<sp/>by<sp/>slicing<sp/>the<sp/>LaserScan<sp/>array<sp/>in<sp/>three<sp/>parts:<sp/>front,<sp/>left<sp/>and<sp/>right<sp/>direction:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>a<sp/>picture<sp/>that<sp/>represent<sp/>how<sp/>I<sp/>sliced<sp/>the<sp/>laser<sp/>scan<sp/>span:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/laser_scan.jpg&quot;<sp/>height=380<sp/>width=450&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```python</highlight></codeline>
+<codeline><highlight class="normal">def<sp/>clbk_laser(msg):</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Callback<sp/>for<sp/>detecting<sp/>obstacles<sp/>from<sp/>laser<sp/>scan</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_left<sp/><sp/><sp/><sp/><sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_right<sp/><sp/><sp/><sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_straight<sp/><sp/>#This<sp/>variable<sp/>is<sp/>set<sp/>to<sp/>True<sp/>when<sp/>there<sp/>are<sp/>no<sp/>obstacles<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>right<sp/>=<sp/>min(min(msg.ranges[0:143]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>front<sp/>=<sp/>min(min(msg.ranges[288:431]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>left<sp/>=<sp/>min(min(msg.ranges[576:719]),<sp/>1)<sp/>#<sp/>Detects<sp/>obstacles<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>right<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>on<sp/>the<sp/>right<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_right<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>on<sp/>the<sp/>right<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_right<sp/>=True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>front<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>in<sp/>the<sp/>front<sp/>direction<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_straight<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>in<sp/>front<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_straight<sp/>=True</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>left<sp/>!=<sp/>1.0:<sp/>#<sp/>No<sp/>obstacles<sp/>detected<sp/>on<sp/>the<sp/>left<sp/>at<sp/>a<sp/>distance<sp/>less<sp/>than<sp/>1<sp/>meter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_left<sp/>=False</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else:<sp/>#<sp/>Obstacle<sp/>detected<sp/>on<sp/>the<sp/>left<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ok_left<sp/>=True</highlight></codeline>
+<codeline><highlight class="normal">```<sp/></highlight></codeline>
+<codeline><highlight class="normal">Then,<sp/>I<sp/>considered<sp/>all<sp/>the<sp/>eight<sp/>combination<sp/>that<sp/>the<sp/>robot<sp/>could<sp/>face:</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/8_combinations.jpg&quot;<sp/>height=380<sp/>width=400&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">and<sp/>finally<sp/>I<sp/>popped<sp/>the<sp/>dictionary<sp/>indexes<sp/>that<sp/>would<sp/>have<sp/>moved<sp/>the<sp/>robot<sp/>towards<sp/>the<sp/>detected<sp/>obstacle:</highlight></codeline>
+<codeline><highlight class="normal">```python</highlight></codeline>
+<codeline><highlight class="normal">def<sp/>pop_dict(dictionary):</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Function<sp/>that<sp/>removes<sp/>commands<sp/>from<sp/>the<sp/>dictionary<sp/>when<sp/>an<sp/>obstacle<sp/>is<sp/>detected.<sp/></highlight></codeline>
+<codeline><highlight class="normal">#In<sp/>this<sp/>way,<sp/>when<sp/>an<sp/>obstacle<sp/>is<sp/>detected,<sp/>the<sp/>movement<sp/>in<sp/>that<sp/>direction<sp/>is<sp/>disabled</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_left</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_right</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global<sp/>ok_straight</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>All<sp/>the<sp/>cases<sp/>the<sp/>robot<sp/>could<sp/>face</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>not<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right<sp/>and<sp/>not<sp/>ok_left:<sp/>#<sp/>Obstacles<sp/>in<sp/>every<sp/>direction</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Disable<sp/>all<sp/>the<sp/>three<sp/>commands</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>left<sp/>and<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>right<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>right<sp/>and<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>left<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>on<sp/>the<sp/>right<sp/>and<sp/>on<sp/>the<sp/>left,<sp/>so<sp/>the<sp/>front<sp/>direction<sp/>is<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>not<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>front<sp/>direction,<sp/>so<sp/>the<sp/>left<sp/>and<sp/>right<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;i&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>front<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>not<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>left<sp/>direction,<sp/>so<sp/>the<sp/>front<sp/>and<sp/>right<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;j&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>left<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elif<sp/>ok_left<sp/>and<sp/>ok_straight<sp/>and<sp/>not<sp/>ok_right:<sp/>#<sp/>Obstacles<sp/>only<sp/>in<sp/>the<sp/>right<sp/>direction,<sp/>so<sp/>the<sp/>front<sp/>and<sp/>left<sp/>directions<sp/>are<sp/>free</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dictionary.pop(&apos;l&apos;)<sp/>#<sp/>Disable<sp/>the<sp/>right<sp/>turn<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/><sp/>Installing<sp/>and<sp/>running<sp/></highlight></codeline>
+<codeline><highlight class="normal">----------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here&apos;s<sp/>some<sp/>useful<sp/>informations<sp/>regarding<sp/>how<sp/>to<sp/>the<sp/>nodes<sp/>and<sp/>the<sp/>simulation<sp/>environment.</highlight></codeline>
+<codeline><highlight class="normal">First<sp/>of<sp/>all,<sp/>[xterm](https://it.wikipedia.org/wiki/Xterm),<sp/>a<sp/>standard<sp/>terminal<sp/>emulator,<sp/>is<sp/>needed.<sp/>You<sp/>can<sp/>install<sp/>xterm<sp/>by<sp/>entering<sp/>the<sp/>following<sp/>commands<sp/>in<sp/>the<sp/>terminal:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">sudo<sp/>apt<sp/>update</highlight></codeline>
+<codeline><highlight class="normal">sudo<sp/>apt-get<sp/>install<sp/>xterm</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">I<sp/>created<sp/>a<sp/>launch<sp/>file<sp/>in<sp/>the<sp/>launch<sp/>directory<sp/>that<sp/>executes<sp/>all<sp/>the<sp/>necessary<sp/>nodes<sp/>and<sp/>the<sp/>simulation<sp/>environment.<sp/>You<sp/>can<sp/>run<sp/>the<sp/>programs<sp/>by<sp/>entering<sp/>the<sp/>following<sp/>command:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">roslaunch<sp/>final_assignment<sp/>launchAll.launch<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>three<sp/>modalities<sp/>and<sp/>the<sp/>UI<sp/>nodes<sp/>will<sp/>run<sp/>on<sp/>different<sp/>xterm<sp/>terminals.<sp/>You<sp/>can<sp/>control<sp/>the<sp/>robot<sp/>with<sp/>the<sp/>three<sp/>different<sp/>modalities<sp/>by<sp/>reerring<sp/>to<sp/>each<sp/>xterm<sp/>terminal<sp/>that<sp/>will<sp/>appear<sp/>after<sp/>the<sp/>launch<sp/>file<sp/>execution.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>any<sp/>of<sp/>the<sp/>three<sp/>node<sp/>terminates,<sp/>the<sp/>launch<sp/>file<sp/>will<sp/>terminates<sp/>all<sp/>the<sp/>nodes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Rqt<sp/>Graph</highlight></codeline>
+<codeline><highlight class="normal">--------------------------------</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>order<sp/>to<sp/>have<sp/>a<sp/>GUI<sp/>plugin<sp/>for<sp/>visualizing<sp/>the<sp/>ROS<sp/>computation<sp/>graph,<sp/>here&apos;s<sp/>a<sp/>*rqt_graph*<sp/>about<sp/>the<sp/>project:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/rqt_graph.JPG&quot;<sp/>height=380<sp/>width=750&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Flowcharts</highlight></codeline>
+<codeline><highlight class="normal">--------------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>a<sp/>more<sp/>precise<sp/>description<sp/>of<sp/>what<sp/>the<sp/>four<sp/>nodes<sp/>do<sp/>you<sp/>can<sp/>consult<sp/>the<sp/>following<sp/>flowcharts,<sp/>created<sp/>with<sp/>[Lucidchart](https://www.lucidchart.com/pages/it/landing?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=_chart_it_allcountries_mixed_search_brand_bmm_&amp;km_CPC_CampaignId=9589672283&amp;km_CPC_AdGroupID=99331286392&amp;km_CPC_Keyword=%2Blucidcharts&amp;km_CPC_MatchType=b&amp;km_CPC_ExtensionID=&amp;km_CPC_Network=g&amp;km_CPC_AdPosition=&amp;km_CPC_Creative=424699413299&amp;km_CPC_TargetID=kwd-334618660008&amp;km_CPC_Country=1008337&amp;km_CPC_Device=c&amp;km_CPC_placement=&amp;km_CPC_target=&amp;mkwid=sKwFuAgHb_pcrid_424699413299_pkw_%2Blucidcharts_pmt_b_pdv_c_slid__pgrid_99331286392_ptaid_kwd-334618660008_&amp;gclid=CjwKCAjw5c6LBhBdEiwAP9ejG86DblinG5ivYRvMmKSvI8Dl7as9i2oINlmgqIDoj0gpLX6WfnCenRoCxxQQAvD_BwE):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>the<sp/>UI.py<sp/>node&apos;s<sp/>flowchart:</highlight></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/UI_flowchart.jpeg&quot;<sp/>height=670<sp/>width=750&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>the<sp/>go_to_desired_pos.py<sp/>node&apos;s<sp/>flowchart:</highlight></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/go_to_desire_pos_flowchart.jpeg&quot;<sp/>height=670<sp/>width=700&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>the<sp/>my_teleop_twist_keyboard.py<sp/>node&apos;s<sp/>flowchart:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/my_teleop_twist_keyboard_flowchart.jpeg&quot;<sp/>height=670<sp/>width=750&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>the<sp/>teleop_avoid.py<sp/>node&apos;s<sp/>flowchart:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;p<sp/>align=&quot;center&quot;&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;img<sp/>src=&quot;https://github.com/FraPagano/final_assignment/blob/main/Images/teleop_avoid_flowchart.jpeg&quot;<sp/>height=760<sp/>width=710&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/p&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Results</highlight></codeline>
+<codeline><highlight class="normal">--------------------------------</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>final<sp/>result<sp/>is<sp/>that<sp/>the<sp/>robot<sp/>correctly<sp/>runs<sp/>around<sp/>the<sp/>simulation<sp/>environment<sp/>switching<sp/>among<sp/>the<sp/>three<sp/>modalities.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Possible<sp/>Improvements</highlight></codeline>
+<codeline><highlight class="normal">--------------------------------</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>possible<sp/>improvement<sp/>that<sp/>could<sp/>be<sp/>done<sp/>is<sp/>the<sp/>usage<sp/>of<sp/>an<sp/>algorithm<sp/>such<sp/>that<sp/>the<sp/>robot<sp/>could<sp/>map<sp/>the<sp/>entire<sp/>environment<sp/>from<sp/>the<sp/>beginning<sp/>of<sp/>the<sp/>simulation<sp/>and<sp/>so<sp/>that<sp/>it<sp/>can<sp/>immediately<sp/>detect<sp/>all<sp/>the<sp/>x,<sp/>y<sp/>coordinates<sp/>that<sp/>cannot<sp/>be<sp/>reached.<sp/></highlight></codeline>
+    </programlisting>
+    <location file="/root/my_ros_ws/src/final_assignment/README.md"/>
+  </compounddef>
+</doxygen>

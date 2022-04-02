@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_53e6fa9553ac22a5646d2a2b2d7b97a1" kind="dir">
+    <compoundname>/root/my_ros_ws/src/final_assignment/scripts</compoundname>
+    <innerfile refid="go__to__desired__pos_8py">go_to_desired_pos.py</innerfile>
+    <innerfile refid="my__teleop__twist__keyboard_8py">my_teleop_twist_keyboard.py</innerfile>
+    <innerfile refid="teleop__avoid_8py">teleop_avoid.py</innerfile>
+    <innerfile refid="_u_i_8py">UI.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/"/>
+  </compounddef>
+</doxygen>

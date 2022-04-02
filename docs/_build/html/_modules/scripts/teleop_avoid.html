@@ -70,7 +70,17 @@
 <span class="sd">    :synopsis: Python module for controlling the robot using the keyboard assisted by an obstacle avoidance algorithm</span>
 <span class="sd">.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;</span>
 
-<span class="sd">This node implements the third modality for controlling the robot. </span>
+<span class="sd">Subscribes to:</span>
+<span class="sd">    /scan</span>
+
+<span class="sd">Publishes to:</span>
+<span class="sd">    /cmd_vel</span>
+
+<span class="sd">This is the Third Controlling Modality.</span>
+<span class="sd">This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. </span>
+<span class="sd">Messages of type Twist() are published to the &#39;/cmd_vel&#39; topic. </span>
+
+<span class="sd">The functionality is quite similar to the teleop_twist_keyboad&#39;s one. </span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -89,7 +99,7 @@
 <span class="c1"># COLORS</span>
 <div class="viewcode-block" id="bcolors"><a class="viewcode-back" href="../../index.html#scripts.teleop_avoid.bcolors">[docs]</a><span class="k">class</span> <span class="nc">bcolors</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class is used for printing colors</span>
+<span class="sd">    This class is used for printing colors on the terminal. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[95m&#39;</span>
     <span class="n">OKBLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m&#39;</span>
@@ -124,18 +134,21 @@
 
 <span class="c1"># Bool variables for taking into account where obstacles are</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">When there&#39;s no wall on the left of the robot this variable is True, otherwise is False</span>
-<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">ok_left</span> <span class="o">=</span> <span class="kc">True</span> 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd"># When there&#39;s no wall on the right of the robot this variable is True, otherwise is False</span>
-<span class="sd">&quot;&quot;&quot;</span>     
+<span class="sd">Bool global variable that is True when there&#39;s no wall on the left of the robot, otherwise is False</span>
+<span class="sd">&quot;&quot;&quot;</span>
+ 
 <span class="n">ok_right</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">When there&#39;s no wall in front of the robot this variable is True, otherwise is False</span>
-<span class="sd">&quot;&quot;&quot;</span>     
+<span class="sd">Bool global variable that is True when there&#39;s no wall on the right of the robot, otherwise is False</span>
+<span class="sd">&quot;&quot;&quot;</span>  
+    
 <span class="n">ok_straight</span> <span class="o">=</span> <span class="kc">True</span>  
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Bool global variable that is True when there&#39;s no wall in front of the robot, otherwise is False</span>
+<span class="sd">&quot;&quot;&quot;</span> 
 
 <span class="c1"># Dictionary for movement commands</span>
 <span class="n">moveBindings</span> <span class="o">=</span> <span class="p">{</span>
@@ -144,6 +157,11 @@
         <span class="s1">&#39;l&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
         <span class="s1">&#39;k&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
     <span class="p">}</span>
+<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Dictionary for allowed movement commands. The values in the key/value pair represents the direction in which the robot </span>
+<span class="sd">should move.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 
 <span class="c1"># Dictionary for velocities</span>
 <span class="n">speedBindings</span><span class="o">=</span><span class="p">{</span>
@@ -154,10 +172,13 @@
         <span class="s1">&#39;e&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">),</span>
         <span class="s1">&#39;c&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mf">.9</span><span class="p">),</span>
     <span class="p">}</span>
+<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Dictionary for velocities commands. The values in the key/value pair represents the linear and angular </span>
+<span class="sd">velocity combinations that the robot should assume after that an input occurrs.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PublishThread"><a class="viewcode-back" href="../../index.html#scripts.teleop_avoid.PublishThread">[docs]</a><span class="k">class</span> <span class="nc">PublishThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    class publish thread</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PublishThread</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -262,9 +283,21 @@
     <span class="n">termios</span><span class="o">.</span><span class="n">tcsetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TCSADRAIN</span><span class="p">,</span> <span class="n">settings_old</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">key</span>
 
-<span class="k">def</span> <span class="nf">clbk_laser</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<div class="viewcode-block" id="clbk_laser"><a class="viewcode-back" href="../../index.html#scripts.teleop_avoid.clbk_laser">[docs]</a><span class="k">def</span> <span class="nf">clbk_laser</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
 
-<span class="c1"># Callback for detecting obstacles from laser scan</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This callback function is for detecting the obstacles from laser scan information. </span>
+<span class="sd">    This subscription allowed me to detect the obstacles in the simulation environment but also their position with </span>
+<span class="sd">    respect to the robot by slicing the LaserScan array in three parts: front, left and right direction. </span>
+
+<span class="sd">    * If no obstacles are detected on the right of the robot the variable ``ok_right`` is set to True, otherwise to False.</span>
+<span class="sd">    * If no obstacles are detected on the left of the robot the variable ``ok_left`` is set to True, otherwise to False.</span>
+<span class="sd">    * If no obstacles are detected in front of the robot the variable ``ok_straight`` is set to True, otherwise to False.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        msg: sensor_msgs/LaserScan.msg, scan from a planar laser range-finder. </span>
+<span class="sd">    No Returns. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">global</span> <span class="n">ok_left</span>
     <span class="k">global</span> <span class="n">ok_right</span>
@@ -287,13 +320,25 @@
     <span class="k">if</span> <span class="n">left</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>     <span class="c1"># No obstacles detected on the left at a distance less than 1 meter</span>
         <span class="n">ok_left</span> <span class="o">=</span><span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>               <span class="c1"># Obstacle detected on the left of the robot</span>
-        <span class="n">ok_left</span> <span class="o">=</span><span class="kc">True</span>
+        <span class="n">ok_left</span> <span class="o">=</span><span class="kc">True</span></div>
 
 
-<span class="k">def</span> <span class="nf">pop_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="pop_dict"><a class="viewcode-back" href="../../index.html#scripts.teleop_avoid.pop_dict">[docs]</a><span class="k">def</span> <span class="nf">pop_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The obstacle avoidance algorithm is based on the modification of the Dictionary for the allowed movements.</span>
+<span class="sd">    Such collision avoidance algorithm just uses the ``.pop(key)`` method that removes and returns the element idexed by key of the dictionary. </span>
+<span class="sd">    When an obstacle is detected, thanks to the ``/scan`` subscription we also know its direction with respect to the robot, and</span>
+<span class="sd">    this function just pops the index of such direction from the dictionary. In this way the obsatcle</span>
+<span class="sd">    direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. </span>
+<span class="sd">    The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. </span>
+<span class="sd">    Args:</span>
+<span class="sd">        dictionary (dictionary): allowed movements dictionary</span>
 
-<span class="c1"># Function that removes commands from the dictionary when an obstacle is detected. In this way, when an obstacle is detected,</span>
-<span class="c1"># the movement in that direction is disabled</span>
+<span class="sd">    No Returns</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">global</span> <span class="n">ok_left</span>
     <span class="k">global</span> <span class="n">ok_right</span>
     <span class="k">global</span> <span class="n">ok_straight</span>
@@ -331,13 +376,22 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="s2">&quot;Command &#39;j&#39; disabled&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">ok_left</span> <span class="ow">and</span> <span class="n">ok_straight</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ok_right</span><span class="p">:</span> <span class="c1"># Obstacles only in the right direction, so the front and left directions are free</span>
         <span class="n">popped1</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">)</span>   <span class="c1"># Disable the right turn movement </span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="s2">&quot;Command &#39;l&#39; disabled&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span> <span class="s2">&quot;Command &#39;l&#39; disabled&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">vels</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">turn</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;currently:</span><span class="se">\t</span><span class="s2">speed </span><span class="si">%s</span><span class="se">\t</span><span class="s2">turn </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="n">turn</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#scripts.teleop_avoid.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In the ``main()`` function I made some other changes from the ``teleop_twist_keyboard`` code, that are:</span>
+
+<span class="sd">        * Insertion of an if(active == 3) statement in order to block the code when another modality is running.</span>
+<span class="sd">        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop</span>
+<span class="sd">        * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Settings for avoid printing commands on terminal</span>
     <span class="n">settings_old</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> 
@@ -415,8 +469,15 @@
                 <span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Modality 3 is currently in idle state</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
             <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+        <span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span></div>
 
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+    
 
 </pre></div>
 

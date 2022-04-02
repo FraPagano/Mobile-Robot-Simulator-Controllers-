@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classmy__teleop__twist__keyboard_1_1bcolors" kind="class" language="Python" prot="public">
+    <compoundname>my_teleop_twist_keyboard::bcolors</compoundname>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1aee18c70149b781df6ab93f9f982e5d65" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::HEADER</definition>
+        <argsstring></argsstring>
+        <name>HEADER</name>
+        <initializer>=  &apos;\033[95m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="35" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1a70368eec2c9e01759af023d39bb77b83" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::OKBLUE</definition>
+        <argsstring></argsstring>
+        <name>OKBLUE</name>
+        <initializer>=  &apos;\033[94m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="36" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1a6533519e2e043a7c09b1982c1e3d0132" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::OKCYAN</definition>
+        <argsstring></argsstring>
+        <name>OKCYAN</name>
+        <initializer>=  &apos;\033[96m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="37" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1ac9209f866324b75821bfaef28a9332c0" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::OKGREEN</definition>
+        <argsstring></argsstring>
+        <name>OKGREEN</name>
+        <initializer>=  &apos;\033[92m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="38" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1aba0abe99072dc857471c45d207b61b0f" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::WARNING</definition>
+        <argsstring></argsstring>
+        <name>WARNING</name>
+        <initializer>=  &apos;\033[93m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="39" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1ab0736da480b2b07bfa517aaf5752b85d" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::FAIL</definition>
+        <argsstring></argsstring>
+        <name>FAIL</name>
+        <initializer>=  &apos;\033[91m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="40" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1a4f86e344dbca8977d43a218d7af02034" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::ENDC</definition>
+        <argsstring></argsstring>
+        <name>ENDC</name>
+        <initializer>=  &apos;\033[0m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="41" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1aced4766ac9aab1c47df32d7cd3ef22ce" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::BOLD</definition>
+        <argsstring></argsstring>
+        <name>BOLD</name>
+        <initializer>=  &apos;\033[1m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="42" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1acd4186cf758c82afb5f41d75ad1edddd" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::UNDERLINE</definition>
+        <argsstring></argsstring>
+        <name>UNDERLINE</name>
+        <initializer>=  &apos;\033[4m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="43" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1a245a5dd9fa1bf1b6fd9a67108b2e407f" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::ORANGE</definition>
+        <argsstring></argsstring>
+        <name>ORANGE</name>
+        <initializer>=  &apos;\033[33m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="44" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmy__teleop__twist__keyboard_1_1bcolors_1a364a42df368cf5ef2ad685c9f190664e" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string my_teleop_twist_keyboard.bcolors::PURPLE</definition>
+        <argsstring></argsstring>
+        <name>PURPLE</name>
+        <initializer>=  &apos;\033[35m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="45" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>This class is used for printing colors on the terminal.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="31" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="31" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aced4766ac9aab1c47df32d7cd3ef22ce" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>BOLD</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a4f86e344dbca8977d43a218d7af02034" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>ENDC</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1ab0736da480b2b07bfa517aaf5752b85d" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>FAIL</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aee18c70149b781df6ab93f9f982e5d65" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>HEADER</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a70368eec2c9e01759af023d39bb77b83" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>OKBLUE</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a6533519e2e043a7c09b1982c1e3d0132" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>OKCYAN</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1ac9209f866324b75821bfaef28a9332c0" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>OKGREEN</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a245a5dd9fa1bf1b6fd9a67108b2e407f" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>ORANGE</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1a364a42df368cf5ef2ad685c9f190664e" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>PURPLE</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1acd4186cf758c82afb5f41d75ad1edddd" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>UNDERLINE</name></member>
+      <member refid="classmy__teleop__twist__keyboard_1_1bcolors_1aba0abe99072dc857471c45d207b61b0f" prot="public" virt="non-virtual"><scope>my_teleop_twist_keyboard::bcolors</scope><name>WARNING</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

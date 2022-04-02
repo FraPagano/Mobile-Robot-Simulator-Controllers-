@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespaceteleop__avoid" kind="namespace" language="Python">
+    <compoundname>teleop_avoid</compoundname>
+    <innerclass refid="classteleop__avoid_1_1bcolors" prot="public">teleop_avoid::bcolors</innerclass>
+    <innerclass refid="classteleop__avoid_1_1_publish_thread" prot="public">teleop_avoid::PublishThread</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a72c00f05811492f6c41512d498042d3f" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string teleop_avoid.msg</definition>
+        <argsstring></argsstring>
+        <name>msg</name>
+        <initializer>=  &quot;&quot;&quot;
+&quot;&quot;&quot; + bcolors.BOLD +&quot;&quot;&quot;
+Reading from the keyboard and Publishing to Twist!
+---------------------------
+&quot;&quot;&quot; + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + &quot;&quot;&quot;
+[i] go straight    
+[j] turn left
+[l] turn right
+[k] go backwards
+
+&quot;&quot;&quot; + bcolors.HEADER + bcolors.BOLD +&quot;&quot;&quot;
+[q]/[z] : increase/decrease max speeds by 10%
+[w]/[x] : increase/decrease only linear speed by 10%
+[e]/[c] : increase/decrease only angular speed by 10%
+&quot;&quot;&quot; + bcolors.ENDC + &quot;&quot;&quot;
+
+&quot;&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="53" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a91891811e0623815f4a47644d267f1da" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_left</definition>
+        <argsstring></argsstring>
+        <name>ok_left</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="74" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1ae6e11ca462c28bc78ae1fe357cea97e6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_right</definition>
+        <argsstring></argsstring>
+        <name>ok_right</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="79" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a623ae3ab2eeb592150cf27a5e19b4def" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool teleop_avoid.ok_straight</definition>
+        <argsstring></argsstring>
+        <name>ok_straight</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="84" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1aa4b593015d9c416d27df92a9448582f5" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary teleop_avoid.moveBindings</definition>
+        <argsstring></argsstring>
+        <name>moveBindings</name>
+        <initializer>=  {
+        &apos;i&apos;:(1,0,0,0),
+        &apos;j&apos;:(0,0,0,1),
+        &apos;l&apos;:(0,0,0,-1),
+        &apos;k&apos;:(-1,0,0,0),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="90" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceteleop__avoid_1a749620507f44129f27c71be762af4dc3" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary teleop_avoid.speedBindings</definition>
+        <argsstring></argsstring>
+        <name>speedBindings</name>
+        <initializer>= {
+        &apos;q&apos;:(1.1,1.1),
+        &apos;z&apos;:(.9,.9),
+        &apos;w&apos;:(1.1,1),
+        &apos;x&apos;:(.9,1),
+        &apos;e&apos;:(1,1.1),
+        &apos;c&apos;:(1,.9),
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="103" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceteleop__avoid_1ae8346548ca971192cb148f53370b059f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.getKey</definition>
+        <argsstring>(key_timeout)</argsstring>
+        <name>getKey</name>
+        <param>
+          <type>key_timeout</type>
+          <defname>key_timeout</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="210" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="210" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1ad848ff43d066e30b9f9262e020ab2d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.clbk_laser</definition>
+        <argsstring>(msg)</argsstring>
+        <name>clbk_laser</name>
+        <param>
+          <type>msg</type>
+          <defname>msg</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>This callback function is for detecting the obstacles from laser scan information. 
+This subscription allowed me to detect the obstacles in the simulation environment but also their position with 
+respect to the robot by slicing the LaserScan array in three parts: front, left and right direction. 
+
+* If no obstacles are detected on the right of the robot the variable ``ok_right`` is set to True, otherwise to False.
+* If no obstacles are detected on the left of the robot the variable ``ok_left`` is set to True, otherwise to False.
+* If no obstacles are detected in front of the robot the variable ``ok_straight`` is set to True, otherwise to False.
+
+Args:
+    msg: sensor_msgs/LaserScan.msg, scan from a planar laser range-finder. 
+No Returns. 
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="222" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="222" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1a580cbf1dac188a7b7c099b3de9e09d84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.pop_dict</definition>
+        <argsstring>(dictionary)</argsstring>
+        <name>pop_dict</name>
+        <param>
+          <type>dictionary</type>
+          <defname>dictionary</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>The obstacle avoidance algorithm is based on the modification of the Dictionary for the allowed movements.
+Such collision avoidance algorithm just uses the ``.pop(key)`` method that removes and returns the element idexed by key of the dictionary. 
+When an obstacle is detected, thanks to the ``/scan`` subscription we also know its direction with respect to the robot, and
+this function just pops the index of such direction from the dictionary. In this way the obsatcle
+direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. 
+The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. 
+Args:
+    dictionary (dictionary): allowed movements dictionary
+
+No Returns</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="262" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="262" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1a3ef8e3109c71bab27b9cc6b42b3ac833" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.vels</definition>
+        <argsstring>(speed, turn)</argsstring>
+        <name>vels</name>
+        <param>
+          <type>speed</type>
+          <defname>speed</defname>
+        </param>
+        <param>
+          <type>turn</type>
+          <defname>turn</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="318" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="318" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceteleop__avoid_1a6fba07555c2a7d13551b4c247c9e80e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def teleop_avoid.main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>In the ``main()`` function I made some other changes from the ``teleop_twist_keyboard`` code, that are:
+
+    * Insertion of an if(active == 3) statement in order to block the code when another modality is running.
+    * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop
+    * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="322" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="322" bodyend="412"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>.. module:: teleop_avoid
+    :platform: Unix
+    :synopsis: Python module for controlling the robot using the keyboard assisted by an obstacle avoidance algorithm
+.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;
+
+Subscribes to:
+    /scan
+
+Publishes to:
+    /cmd_vel
+
+This is the Third Controlling Modality.
+This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
+Messages of type Twist() are published to the &apos;/cmd_vel&apos; topic. 
+
+The functionality is quite similar to the teleop_twist_keyboad&apos;s one. </verbatim> </para>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_u_i_1_1bcolors" kind="class" language="Python" prot="public">
+    <compoundname>UI::bcolors</compoundname>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a510dbfb28083883992dbb0f4e59ce715" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::HEADER</definition>
+        <argsstring></argsstring>
+        <name>HEADER</name>
+        <initializer>=  &apos;\033[95m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="29" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a90d3010720550ed7bdb0a7f42725d351" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::OKBLUE</definition>
+        <argsstring></argsstring>
+        <name>OKBLUE</name>
+        <initializer>=  &apos;\033[94m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="30" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a0fa85164e16b98c717d89ba6f4d0b2f0" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::OKCYAN</definition>
+        <argsstring></argsstring>
+        <name>OKCYAN</name>
+        <initializer>=  &apos;\033[96m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="31" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1acf6408f9d2f6807f758903a6dda4d578" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::OKGREEN</definition>
+        <argsstring></argsstring>
+        <name>OKGREEN</name>
+        <initializer>=  &apos;\033[92m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="32" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a3a40bb712b82cb32276d43b68809f27f" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::WARNING</definition>
+        <argsstring></argsstring>
+        <name>WARNING</name>
+        <initializer>=  &apos;\033[93m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="33" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a050f5652235119a2f3adacc5731e37a9" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::FAIL</definition>
+        <argsstring></argsstring>
+        <name>FAIL</name>
+        <initializer>=  &apos;\033[91m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="34" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a6ff31308cf483d6e9314709041e17430" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::ENDC</definition>
+        <argsstring></argsstring>
+        <name>ENDC</name>
+        <initializer>=  &apos;\033[0m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="35" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1ac7400a33c4890d8070e232b011e39ec6" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::BOLD</definition>
+        <argsstring></argsstring>
+        <name>BOLD</name>
+        <initializer>=  &apos;\033[1m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="36" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1a76379952b638e525d008ad6d8c23e04f" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::UNDERLINE</definition>
+        <argsstring></argsstring>
+        <name>UNDERLINE</name>
+        <initializer>=  &apos;\033[4m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="37" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1aa9517285242e56e54b6758042b570b57" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::ORANGE</definition>
+        <argsstring></argsstring>
+        <name>ORANGE</name>
+        <initializer>=  &apos;\033[33m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="38" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_i_1_1bcolors_1ac0e7f2f88b30df892f610f5a02d685e4" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string UI.bcolors::PURPLE</definition>
+        <argsstring></argsstring>
+        <name>PURPLE</name>
+        <initializer>=  &apos;\033[35m&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="39" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>This class is used for  printing colors on the terminal
+</verbatim> </para>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/scripts/UI.py" line="25" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/UI.py" bodystart="25" bodyend="41"/>
+    <listofallmembers>
+      <member refid="class_u_i_1_1bcolors_1ac7400a33c4890d8070e232b011e39ec6" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>BOLD</name></member>
+      <member refid="class_u_i_1_1bcolors_1a6ff31308cf483d6e9314709041e17430" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>ENDC</name></member>
+      <member refid="class_u_i_1_1bcolors_1a050f5652235119a2f3adacc5731e37a9" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>FAIL</name></member>
+      <member refid="class_u_i_1_1bcolors_1a510dbfb28083883992dbb0f4e59ce715" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>HEADER</name></member>
+      <member refid="class_u_i_1_1bcolors_1a90d3010720550ed7bdb0a7f42725d351" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>OKBLUE</name></member>
+      <member refid="class_u_i_1_1bcolors_1a0fa85164e16b98c717d89ba6f4d0b2f0" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>OKCYAN</name></member>
+      <member refid="class_u_i_1_1bcolors_1acf6408f9d2f6807f758903a6dda4d578" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>OKGREEN</name></member>
+      <member refid="class_u_i_1_1bcolors_1aa9517285242e56e54b6758042b570b57" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>ORANGE</name></member>
+      <member refid="class_u_i_1_1bcolors_1ac0e7f2f88b30df892f610f5a02d685e4" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>PURPLE</name></member>
+      <member refid="class_u_i_1_1bcolors_1a76379952b638e525d008ad6d8c23e04f" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>UNDERLINE</name></member>
+      <member refid="class_u_i_1_1bcolors_1a3a40bb712b82cb32276d43b68809f27f" prot="public" virt="non-virtual"><scope>UI::bcolors</scope><name>WARNING</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
