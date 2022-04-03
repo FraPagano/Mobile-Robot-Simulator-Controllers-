@@ -208,6 +208,9 @@ class PublishThread(threading.Thread):
 
 
 def getKey(key_timeout): # Get input key
+    settings_old = termios.tcgetattr(sys.stdin) 
+    settings_new = settings_old
+    settings_new[3] = settings_new[3] & ~termios.ECHO
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
@@ -330,9 +333,9 @@ def main():
     """
 
     # Settings for avoid printing commands on terminal
-    settings_old = termios.tcgetattr(sys.stdin) 
-    settings_new = settings_old
-    settings_new[3] = settings_new[3] & ~termios.ECHO
+    # settings_old = termios.tcgetattr(sys.stdin) 
+    # settings_new = settings_old
+    # settings_new[3] = settings_new[3] & ~termios.ECHO
 
     # Init node
     rospy.init_node('teleop_avoid') 

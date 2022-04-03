@@ -80,7 +80,7 @@
 <codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Add<sp/>any<sp/>paths<sp/>that<sp/>contain<sp/>custom<sp/>static<sp/>files<sp/>(such<sp/>as<sp/>style<sp/>sheets)<sp/>here,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">#<sp/>relative<sp/>to<sp/>this<sp/>directory.<sp/>They<sp/>are<sp/>copied<sp/>after<sp/>the<sp/>builtin<sp/>static<sp/>files,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">#<sp/>so<sp/>a<sp/>file<sp/>named<sp/>&quot;default.css&quot;<sp/>will<sp/>overwrite<sp/>the<sp/>builtin<sp/>&quot;default.css&quot;.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal">html_static_path<sp/>=<sp/>[</highlight><highlight class="stringliteral">&apos;_static&apos;</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">html_static_path<sp/>=<sp/>[]</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">#<sp/>--<sp/>Extension<sp/>configuration<sp/>-------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_7bbe39ac3dfde7b4ddf5007d470125da" kind="dir">
+    <compoundname>/root/my_ros_ws</compoundname>
+    <innerdir refid="dir_0bddbead7027061a2438a596b5f52e25">/root/my_ros_ws/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/"/>
+  </compounddef>
+</doxygen>

@@ -211,6 +211,7 @@ class PublishThread(threading.Thread):
 
 
 def getKey(key_timeout): 
+    settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
@@ -233,7 +234,7 @@ def main():
         * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop.
 
     """
-    settings = termios.tcgetattr(sys.stdin) # Settings for avoid printing commands on terminal
+    
 
     rospy.init_node('my_teleop_twist_kb')   # Init node
     active_=rospy.get_param("/active")      # We want a local variable that is equal to the ROS parameter   

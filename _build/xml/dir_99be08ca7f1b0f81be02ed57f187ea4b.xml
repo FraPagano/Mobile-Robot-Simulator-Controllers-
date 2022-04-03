@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_99be08ca7f1b0f81be02ed57f187ea4b" kind="dir">
+    <compoundname>/root/my_ros_ws/src/final_assignment/docs</compoundname>
+    <innerdir refid="dir_c68586f2185a9d6820de1d03bff7ce29">/root/my_ros_ws/src/final_assignment/docs/_build</innerdir>
+    <innerfile refid="conf_8py">conf.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/root/my_ros_ws/src/final_assignment/docs/"/>
+  </compounddef>
+</doxygen>

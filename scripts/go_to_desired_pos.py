@@ -56,15 +56,15 @@ Global action message
 """
 Global ROS poarameter to block/unlock the modality 
 """
-#active_ = rospy.get_param('/active')		
+active_ = rospy.get_param('/active')		
 """
 Global X desired coordinate 
 """			
-#desired_position_x = rospy.get_param('/des_pos_x')	
+desired_position_x = rospy.get_param('/des_pos_x')	
 """
 Global Y desired coordinate 
 """
-#desired_position_y = rospy.get_param('/des_pos_y')	
+desired_position_y = rospy.get_param('/des_pos_y')	
 
 
 client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)	# Action client
@@ -208,9 +208,9 @@ def update_variables():
 	"""
 
 	global desired_position_x, desired_position_y, active_
-	active_ = rospy.get_param('active')
-	desired_position_x = rospy.get_param('des_pos_x')
-	desired_position_y = rospy.get_param('des_pos_y')
+	active_ = rospy.get_param('/active')
+	desired_position_x = rospy.get_param('/des_pos_x')
+	desired_position_y = rospy.get_param('/des_pos_y')
 
 def main():
 	"""
