@@ -134,7 +134,7 @@ Reading from the keyboard and Publishing to Twist!
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="210" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="210" bodyend="221"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="210" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="210" bodyend="224"/>
       </memberdef>
       <memberdef kind="function" id="namespaceteleop__avoid_1ad848ff43d066e30b9f9262e020ab2d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -163,7 +163,7 @@ No Returns.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="222" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="222" bodyend="261"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="225" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="225" bodyend="264"/>
       </memberdef>
       <memberdef kind="function" id="namespaceteleop__avoid_1a580cbf1dac188a7b7c099b3de9e09d84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -183,14 +183,15 @@ When an obstacle is detected, thanks to the ``/scan`` subscription we also know 
 this function just pops the index of such direction from the dictionary. In this way the obsatcle
 direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. 
 The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. 
+
 Args:
-    dictionary (dictionary): allowed movements dictionary
+    dictionary (dict): allowed movements dictionary
 
 No Returns</verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="262" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="262" bodyend="317"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="265" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="265" bodyend="321"/>
       </memberdef>
       <memberdef kind="function" id="namespaceteleop__avoid_1a3ef8e3109c71bab27b9cc6b42b3ac833" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -211,7 +212,7 @@ No Returns</verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="318" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="318" bodyend="321"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="322" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="322" bodyend="325"/>
       </memberdef>
       <memberdef kind="function" id="namespaceteleop__avoid_1a6fba07555c2a7d13551b4c247c9e80e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -225,12 +226,12 @@ No Returns</verbatim> </para>
 
     * Insertion of an if(active == 3) statement in order to block the code when another modality is running.
     * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop
-    * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``
+    * Added the above descripted functions: ``clbk_laser`` and ``pop_dict``
 </verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="322" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="322" bodyend="412"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="326" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="326" bodyend="416"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -6,11 +6,17 @@
 	:synopsis: Python module for controlling the robot bby providing a desired point. 
 .. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
 
-This is the First Controlling Modality.
+This is the First Robot Controlling Modality.
 This node makes the robot autonomously reach a x,y position inserted by the user. 
-The robot can reach the user's x,y coordinates thanks to the 'move_base' action server. 
-The robot is going to plan the path through the Dijkstra's algorithm.
-The desired x, y coordinates are ROS parameters too and they are set by the :mod:`UI` node. 
+The robot can reach the user defined x,y coordinates thanks to the 'move_base' action server. 
+The robot is going to plan the path through the Dijkstra's algorithm. 
+
+ROS parameters: 
+	1.	"active": (type: int) parameter for activate the desired control modality 
+	2.	"des_pos_x": (type: double) parameter for the desired X coordinate 
+	3.	"des_pos_y": (type: double) parameter for the desired Y coordinate 
+
+These ROS parameters too and they are set by the :mod:`UI` node.
 """
 
 # IMPORTS
@@ -53,19 +59,21 @@ goal_msg=MoveBaseGoal()
 Global action message
 """	
 
+
+active_ = 0 
 """
 Global ROS poarameter to block/unlock the modality 
-"""
-active_ = rospy.get_param('/active')		
+"""	
+		
+desired_position_x =  0 
 """
 Global X desired coordinate 
-"""			
-desired_position_x = rospy.get_param('/des_pos_x')	
+"""		
+
+desired_position_y = 0 
 """
 Global Y desired coordinate 
-"""
-desired_position_y = rospy.get_param('/des_pos_y')	
-
+"""	
 
 client = actionlib.SimpleActionClient('/move_base', MoveBaseAction)	# Action client
 """
@@ -119,12 +127,14 @@ def done_cb(status, result):
 	Depending on the value of this variable the client knows the status of the goal processing after the execution. 
 
     Args:
-        status: terminal state (as an integer from actionlib_msgs/GoalStatus)
-        result: result of the goal processing. 
+        status (actionlib_GoalStatus): 
+        	terminal state (as an integer from actionlib_msgs/GoalStatus)
+        result (MoveBaseResult): 
+        	result of the goal processing. 
 
     No Returns. 
 
-		
+	
 	"""
 	global client
 	global achieved
@@ -174,7 +184,7 @@ def feedback_cb(feedback):
 	Callback that gets called whenever feedback for this goal is received. 
 
 	Args: 
-		feedback: information about the robot status during the the action server execution.
+		feedback (move_base_msgs/MoveBaseActionFeedback.msg): information about the robot status during the the action server execution.
 
 	No Returns.  
 	"""
@@ -187,8 +197,8 @@ def set_goal(x, y):
 	This function fills the x, y fields of the goal message and sends a goal request to the action server.
 
 	Args:
-		x: x coordinate of the position that we want the robot to reach.  
-		y: y coordinate of the position that we want the robot to reach.
+		x (double): x coordinate of the position that we want the robot to reach.  
+		y (double): y coordinate of the position that we want the robot to reach.
 
 	No Returns
 	"""
@@ -214,18 +224,23 @@ def update_variables():
 
 def main():
 	"""
-	In the main funciton some goals parameters of the goal message are set, updated variables and if the current modality 
-	is chosen, then the ``set_goal()`` function is called. Finally, the the case in which a goal was achieved and the one in which the user 
+	In the main funciton some goals parameters of the goal message are set, updated variables and, if the current modality 
+	is chosen, the ``set_goal()`` function is called. Finally, the the case in which a goal was achieved and the one in which the user 
 	decides to send a cancel request before the goal achievement is managed. 
 	"""
 	global client
 	global achieved
+	global desired_position_x
+	global desired_position_y
+	global active_
 
 	rospy.init_node('go_to_desired_pos') # Init node
 	action_client() # Setting some goals' parameter
 	flag=0 # Flag used in order to know if the previous state was Idle or not
+	desired_position_x = rospy.get_param('/des_pos_x')
+	desired_position_y = rospy.get_param('/des_pos_y')
+	active_ = rospy.get_param('/active')	
 	print(msg) 
-
 	while (1):
 		
 		update_variables() # Update Ros parameters

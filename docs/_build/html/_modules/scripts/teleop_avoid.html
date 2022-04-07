@@ -272,6 +272,9 @@
 
 
 <span class="k">def</span> <span class="nf">getKey</span><span class="p">(</span><span class="n">key_timeout</span><span class="p">):</span> <span class="c1"># Get input key</span>
+    <span class="n">settings_old</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> 
+    <span class="n">settings_new</span> <span class="o">=</span> <span class="n">settings_old</span>
+    <span class="n">settings_new</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings_new</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">termios</span><span class="o">.</span><span class="n">ECHO</span>
     <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
     <span class="n">rlist</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">key_timeout</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">rlist</span><span class="p">:</span>
@@ -331,8 +334,9 @@
 <span class="sd">    this function just pops the index of such direction from the dictionary. In this way the obsatcle</span>
 <span class="sd">    direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. </span>
 <span class="sd">    The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        dictionary (dictionary): allowed movements dictionary</span>
+<span class="sd">        dictionary (dict): allowed movements dictionary</span>
 
 <span class="sd">    No Returns</span>
 
@@ -390,13 +394,13 @@
 
 <span class="sd">        * Insertion of an if(active == 3) statement in order to block the code when another modality is running.</span>
 <span class="sd">        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop</span>
-<span class="sd">        * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``</span>
+<span class="sd">        * Added the above descripted functions: ``clbk_laser`` and ``pop_dict``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Settings for avoid printing commands on terminal</span>
-    <span class="n">settings_old</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> 
-    <span class="n">settings_new</span> <span class="o">=</span> <span class="n">settings_old</span>
-    <span class="n">settings_new</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings_new</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">termios</span><span class="o">.</span><span class="n">ECHO</span>
+    <span class="c1"># settings_old = termios.tcgetattr(sys.stdin) </span>
+    <span class="c1"># settings_new = settings_old</span>
+    <span class="c1"># settings_new[3] = settings_new[3] &amp; ~termios.ECHO</span>
 
     <span class="c1"># Init node</span>
     <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;teleop_avoid&#39;</span><span class="p">)</span> 

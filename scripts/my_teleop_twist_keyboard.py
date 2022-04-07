@@ -10,7 +10,7 @@
 Publishes to:
     /cmd_vel
     
-This is the Second Controlling Modality.
+This is the Second Robot Controlling Modality.
 This node reads inputs from the keyboard and makes the robot freely navigate in the environment.
 Messages of type Twist() are published to the '/cmd_vel' topic. 
 

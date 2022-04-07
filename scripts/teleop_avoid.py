@@ -270,8 +270,9 @@ def pop_dict(dictionary):
     this function just pops the index of such direction from the dictionary. In this way the obsatcle
     direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction. 
     The ``.pop(key)`` methos is applied by considering all the combinations that the robot could face. 
+
     Args:
-        dictionary (dictionary): allowed movements dictionary
+        dictionary (dict): allowed movements dictionary
 
     No Returns
 
@@ -329,7 +330,7 @@ def main():
 
         * Insertion of an if(active == 3) statement in order to block the code when another modality is running.
         * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop
-        * Usage of the above descripted functions: ``clbk_laser`` and ``pop_dict``
+        * Added the above descripted functions: ``clbk_laser`` and ``pop_dict``
     """
 
     # Settings for avoid printing commands on terminal

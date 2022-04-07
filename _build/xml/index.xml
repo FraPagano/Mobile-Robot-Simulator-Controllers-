@@ -109,6 +109,9 @@
   <compound refid="namespacego__to__desired__pos" kind="namespace"><name>go_to_desired_pos</name>
     <member refid="namespacego__to__desired__pos_1a80580676d20031c0e3712da4ad3fb507" kind="variable"><name>msg</name></member>
     <member refid="namespacego__to__desired__pos_1add72cc2098a501ed25cfcd55fa664d2e" kind="variable"><name>goal_msg</name></member>
+    <member refid="namespacego__to__desired__pos_1a1a1ce46ac44db4c3b255d33553566ac1" kind="variable"><name>active_</name></member>
+    <member refid="namespacego__to__desired__pos_1af0ecf7a16b1346459f60ba1cfea9d393" kind="variable"><name>desired_position_x</name></member>
+    <member refid="namespacego__to__desired__pos_1a0abad38bb84712f96d48998c2328da6f" kind="variable"><name>desired_position_y</name></member>
     <member refid="namespacego__to__desired__pos_1af39d3fc360f394ec059ac0e3709c7c5b" kind="variable"><name>client</name></member>
     <member refid="namespacego__to__desired__pos_1a1e503658605e92390edef3716fa6776c" kind="variable"><name>achieved</name></member>
     <member refid="namespacego__to__desired__pos_1a7caaaadcd3c4fcc974106343b87467e1" kind="variable"><name>goal_cont</name></member>

@@ -22,7 +22,7 @@
 <codeline lineno="10"><highlight class="stringliteral">Publishes<sp/>to:</highlight></codeline>
 <codeline lineno="11"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>/cmd_vel</highlight></codeline>
 <codeline lineno="12"><highlight class="stringliteral"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="13"><highlight class="stringliteral">This<sp/>is<sp/>the<sp/>Second<sp/>Controlling<sp/>Modality.</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">This<sp/>is<sp/>the<sp/>Second<sp/>Robot<sp/>Controlling<sp/>Modality.</highlight></codeline>
 <codeline lineno="14"><highlight class="stringliteral">This<sp/>node<sp/>reads<sp/>inputs<sp/>from<sp/>the<sp/>keyboard<sp/>and<sp/>makes<sp/>the<sp/>robot<sp/>freely<sp/>navigate<sp/>in<sp/>the<sp/>environment.</highlight></codeline>
 <codeline lineno="15"><highlight class="stringliteral">Messages<sp/>of<sp/>type<sp/>Twist()<sp/>are<sp/>published<sp/>to<sp/>the<sp/>&apos;/cmd_vel&apos;<sp/>topic.<sp/></highlight></codeline>
 <codeline lineno="16"><highlight class="stringliteral"></highlight></codeline>
@@ -223,108 +223,109 @@
 <codeline lineno="211"><highlight class="normal"></highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight></codeline>
 <codeline lineno="213"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">getKey(key_timeout):<sp/></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>tty.setraw(sys.stdin.fileno())</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>rlist,<sp/>_,<sp/>_<sp/>=<sp/>select.select([sys.stdin],<sp/>[],<sp/>[],<sp/>key_timeout)</highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rlist:</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/>sys.stdin.read(1)<sp/></highlight><highlight class="comment">#<sp/>Get<sp/>input<sp/>key<sp/>from<sp/>standard<sp/>input</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>termios.tcsetattr(sys.stdin,<sp/>termios.TCSADRAIN,<sp/>settings)</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>key</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>settings<sp/>=<sp/>termios.tcgetattr(sys.stdin)<sp/></highlight><highlight class="comment">#<sp/>Settings<sp/>for<sp/>avoid<sp/>printing<sp/>commands<sp/>on<sp/>terminal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>tty.setraw(sys.stdin.fileno())</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>rlist,<sp/>_,<sp/>_<sp/>=<sp/>select.select([sys.stdin],<sp/>[],<sp/>[],<sp/>key_timeout)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rlist:</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/>sys.stdin.read(1)<sp/></highlight><highlight class="comment">#<sp/>Get<sp/>input<sp/>key<sp/>from<sp/>standard<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>termios.tcsetattr(sys.stdin,<sp/>termios.TCSADRAIN,<sp/>settings)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>key</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">vels(speed,<sp/>turn):</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;currently:\tspeed<sp/>%s\tturn<sp/>%s<sp/>&quot;</highlight><highlight class="normal"><sp/>%<sp/>(speed,turn)</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">vels(speed,<sp/>turn):</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;currently:\tspeed<sp/>%s\tturn<sp/>%s<sp/>&quot;</highlight><highlight class="normal"><sp/>%<sp/>(speed,turn)</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacemy__teleop__twist__keyboard_1a0267717c6da3391f8580dc5fd58f8805" kindref="member">main</ref>():</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
-<codeline lineno="230"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>In<sp/>the<sp/>``main()``<sp/>function<sp/>I<sp/>made<sp/>the<sp/>most<sp/>important<sp/>changes<sp/>from<sp/>``teleop_twist_keyboard``<sp/>code,<sp/>that<sp/>are:</highlight></codeline>
-<codeline lineno="231"><highlight class="stringliteral"></highlight></codeline>
-<codeline lineno="232"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Insertion<sp/>of<sp/>an<sp/>if(active<sp/>==<sp/>2)<sp/>statement<sp/>in<sp/>order<sp/>to<sp/>block<sp/>the<sp/>code<sp/>when<sp/>another<sp/>modality<sp/>is<sp/>running.</highlight></codeline>
-<codeline lineno="233"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>keys<sp/>now<sp/>must<sp/>be<sp/>kept<sp/>pressed<sp/>in<sp/>order<sp/>to<sp/>move<sp/>the<sp/>robot.<sp/>I<sp/>did<sp/>this<sp/>by<sp/>setting<sp/>the<sp/>key_timeout<sp/>variable<sp/>to<sp/>0.1.<sp/>Such<sp/>variable<sp/>was<sp/>the<sp/>select()<sp/>timeout.<sp/>That<sp/>means<sp/>that<sp/>the<sp/>select()<sp/>function<sp/>waits<sp/>0.1<sp/>seconds<sp/>for<sp/>new<sp/>inputs<sp/>at<sp/>every<sp/>loop.</highlight></codeline>
-<codeline lineno="234"><highlight class="stringliteral"></highlight></codeline>
-<codeline lineno="235"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>settings<sp/>=<sp/>termios.tcgetattr(sys.stdin)<sp/></highlight><highlight class="comment">#<sp/>Settings<sp/>for<sp/>avoid<sp/>printing<sp/>commands<sp/>on<sp/>terminal</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"></highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/>rospy.init_node(</highlight><highlight class="stringliteral">&apos;my_teleop_twist_kb&apos;</highlight><highlight class="normal">)<sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Init<sp/>node</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>We<sp/>want<sp/>a<sp/>local<sp/>variable<sp/>that<sp/>is<sp/>equal<sp/>to<sp/>the<sp/>ROS<sp/>parameter<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Useful<sp/>flag<sp/>for<sp/>determine<sp/>an<sp/>idle<sp/>status</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>speed<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~speed&quot;</highlight><highlight class="normal">,<sp/>0.5)</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>turn<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~turn&quot;</highlight><highlight class="normal">,<sp/>1.0)</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>repeat<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~repeat_rate&quot;</highlight><highlight class="normal">,<sp/>0.0)</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"></highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Timeout<sp/>set<sp/>at<sp/>0.1<sp/>seconds.<sp/>That<sp/>means<sp/>that<sp/>the<sp/>user<sp/>needs<sp/>to<sp/>keep<sp/>the<sp/>key<sp/>pushed<sp/>for<sp/>moving<sp/>the<sp/>robot.<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>key_timeout<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~key_timeout&quot;</highlight><highlight class="normal">,<sp/>0.1)<sp/></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"></highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key_timeout<sp/>==<sp/>0.0:</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key_timeout<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="251"><highlight class="normal"></highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread<sp/>=<sp/><ref refid="classmy__teleop__twist__keyboard_1_1_publish_thread" kindref="compound">PublishThread</ref>(repeat)</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"></highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>x<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>z<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>th<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacemy__teleop__twist__keyboard_1a0267717c6da3391f8580dc5fd58f8805" kindref="member">main</ref>():</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="231"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>In<sp/>the<sp/>``main()``<sp/>function<sp/>I<sp/>made<sp/>the<sp/>most<sp/>important<sp/>changes<sp/>from<sp/>``teleop_twist_keyboard``<sp/>code,<sp/>that<sp/>are:</highlight></codeline>
+<codeline lineno="232"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="233"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Insertion<sp/>of<sp/>an<sp/>if(active<sp/>==<sp/>2)<sp/>statement<sp/>in<sp/>order<sp/>to<sp/>block<sp/>the<sp/>code<sp/>when<sp/>another<sp/>modality<sp/>is<sp/>running.</highlight></codeline>
+<codeline lineno="234"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>keys<sp/>now<sp/>must<sp/>be<sp/>kept<sp/>pressed<sp/>in<sp/>order<sp/>to<sp/>move<sp/>the<sp/>robot.<sp/>I<sp/>did<sp/>this<sp/>by<sp/>setting<sp/>the<sp/>key_timeout<sp/>variable<sp/>to<sp/>0.1.<sp/>Such<sp/>variable<sp/>was<sp/>the<sp/>select()<sp/>timeout.<sp/>That<sp/>means<sp/>that<sp/>the<sp/>select()<sp/>function<sp/>waits<sp/>0.1<sp/>seconds<sp/>for<sp/>new<sp/>inputs<sp/>at<sp/>every<sp/>loop.</highlight></codeline>
+<codeline lineno="235"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="236"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>rospy.init_node(</highlight><highlight class="stringliteral">&apos;my_teleop_twist_kb&apos;</highlight><highlight class="normal">)<sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Init<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>We<sp/>want<sp/>a<sp/>local<sp/>variable<sp/>that<sp/>is<sp/>equal<sp/>to<sp/>the<sp/>ROS<sp/>parameter<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Useful<sp/>flag<sp/>for<sp/>determine<sp/>an<sp/>idle<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>speed<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~speed&quot;</highlight><highlight class="normal">,<sp/>0.5)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>turn<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~turn&quot;</highlight><highlight class="normal">,<sp/>1.0)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/>repeat<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~repeat_rate&quot;</highlight><highlight class="normal">,<sp/>0.0)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Timeout<sp/>set<sp/>at<sp/>0.1<sp/>seconds.<sp/>That<sp/>means<sp/>that<sp/>the<sp/>user<sp/>needs<sp/>to<sp/>keep<sp/>the<sp/>key<sp/>pushed<sp/>for<sp/>moving<sp/>the<sp/>robot.<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/>key_timeout<sp/>=<sp/>rospy.get_param(</highlight><highlight class="stringliteral">&quot;~key_timeout&quot;</highlight><highlight class="normal">,<sp/>0.1)<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key_timeout<sp/>==<sp/>0.0:</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key_timeout<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread<sp/>=<sp/><ref refid="classmy__teleop__twist__keyboard_1_1_publish_thread" kindref="compound">PublishThread</ref>(repeat)</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>x<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>z<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>th<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>0</highlight></codeline>
 <codeline lineno="260"><highlight class="normal"></highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread.wait_for_subscribers()</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread.update(x,<sp/>y,<sp/>z,<sp/>th,<sp/>speed,<sp/>turn)</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"></highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>print(msg)</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>print(vels(speed,turn))</highlight></codeline>
-<codeline lineno="266"><highlight class="normal"></highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>while(1):</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"></highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="comment">#<sp/>Update<sp/>the<sp/>system<sp/>status</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="270"><highlight class="normal"></highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>active_<sp/>==<sp/>2:<sp/></highlight><highlight class="comment">#<sp/>If<sp/>this<sp/>modality<sp/>is<sp/>active</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/>getKey(key_timeout)<sp/></highlight><highlight class="comment">#Get<sp/>the<sp/>input<sp/>command</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>moveBindings.keys():<sp/></highlight><highlight class="comment">#<sp/>If<sp/>the<sp/>input<sp/>command<sp/>is<sp/>in<sp/>the<sp/>dictionary<sp/>set<sp/>the<sp/>x,<sp/>y,<sp/>z,<sp/>th<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>moveBindings[key][0]</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>=<sp/>moveBindings[key][1]</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>moveBindings[key][2]</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>th<sp/>=<sp/>moveBindings[key][3]</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>key<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>speedBindings.keys():</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>speed<sp/>=<sp/>speed<sp/>*<sp/>speedBindings[key][0]</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>turn<sp/>=<sp/>turn<sp/>*<sp/>speedBindings[key][1]</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(vels(speed,turn))</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>14):</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(msg)</highlight></codeline>
-<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>(status<sp/>+<sp/>1)<sp/>%<sp/>15</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Skip<sp/>updating<sp/>cmd_vel<sp/>if<sp/>key<sp/>timeout<sp/>and<sp/>robot<sp/>already</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>stopped.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>x<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>y<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>z<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>th<sp/>==<sp/>0:</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>th<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(key<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;\x03&apos;</highlight><highlight class="normal">):</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="297"><highlight class="normal"></highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pub_thread.update(x,<sp/>y,<sp/>z,<sp/>th,<sp/>speed,<sp/>turn)</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>flag<sp/>==<sp/>1:<sp/></highlight><highlight class="comment">#<sp/>Put<sp/>the<sp/>current<sp/>modality<sp/>in<sp/>Idle<sp/>state</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pub_thread.my_stop()<sp/></highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Modality<sp/>2<sp/>is<sp/>currently<sp/>in<sp/>idle<sp/>state\n&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>0</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread.wait_for_subscribers()</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>pub_thread.update(x,<sp/>y,<sp/>z,<sp/>th,<sp/>speed,<sp/>turn)</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>print(msg)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/>print(vels(speed,turn))</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>while(1):</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_=rospy.get_param(</highlight><highlight class="stringliteral">&quot;/active&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="comment">#<sp/>Update<sp/>the<sp/>system<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>active_<sp/>==<sp/>2:<sp/></highlight><highlight class="comment">#<sp/>If<sp/>this<sp/>modality<sp/>is<sp/>active</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key<sp/>=<sp/>getKey(key_timeout)<sp/></highlight><highlight class="comment">#Get<sp/>the<sp/>input<sp/>command</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>moveBindings.keys():<sp/></highlight><highlight class="comment">#<sp/>If<sp/>the<sp/>input<sp/>command<sp/>is<sp/>in<sp/>the<sp/>dictionary<sp/>set<sp/>the<sp/>x,<sp/>y,<sp/>z,<sp/>th<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>moveBindings[key][0]</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>=<sp/>moveBindings[key][1]</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>moveBindings[key][2]</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>th<sp/>=<sp/>moveBindings[key][3]</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>key<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>speedBindings.keys():</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>speed<sp/>=<sp/>speed<sp/>*<sp/>speedBindings[key][0]</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>turn<sp/>=<sp/>turn<sp/>*<sp/>speedBindings[key][1]</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(vels(speed,turn))</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>14):</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(msg)</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>(status<sp/>+<sp/>1)<sp/>%<sp/>15</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Skip<sp/>updating<sp/>cmd_vel<sp/>if<sp/>key<sp/>timeout<sp/>and<sp/>robot<sp/>already</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>stopped.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>key<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>x<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>y<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>z<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>th<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>th<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(key<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;\x03&apos;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pub_thread.update(x,<sp/>y,<sp/>z,<sp/>th,<sp/>speed,<sp/>turn)</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>flag<sp/>==<sp/>1:<sp/></highlight><highlight class="comment">#<sp/>Put<sp/>the<sp/>current<sp/>modality<sp/>in<sp/>Idle<sp/>state</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pub_thread.my_stop()<sp/></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(bcolors.OKGREEN<sp/>+<sp/>bcolors.BOLD<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;Modality<sp/>2<sp/>is<sp/>currently<sp/>in<sp/>idle<sp/>state\n&quot;</highlight><highlight class="normal"><sp/>+<sp/>bcolors.ENDC)</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flag<sp/>=<sp/>0</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"></highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__==</highlight><highlight class="stringliteral">&quot;__main__&quot;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacemy__teleop__twist__keyboard_1a0267717c6da3391f8580dc5fd58f8805" kindref="member">main</ref>()</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__==</highlight><highlight class="stringliteral">&quot;__main__&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacemy__teleop__twist__keyboard_1a0267717c6da3391f8580dc5fd58f8805" kindref="member">main</ref>()</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py"/>
   </compounddef>

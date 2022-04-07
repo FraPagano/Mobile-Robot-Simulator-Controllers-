@@ -74,7 +74,7 @@
 <span class="sd">Publishes to:</span>
 <span class="sd">    /cmd_vel</span>
 <span class="sd">    </span>
-<span class="sd">This is the Second Controlling Modality.</span>
+<span class="sd">This is the Second Robot Controlling Modality.</span>
 <span class="sd">This node reads inputs from the keyboard and makes the robot freely navigate in the environment.</span>
 <span class="sd">Messages of type Twist() are published to the &#39;/cmd_vel&#39; topic. </span>
 
@@ -275,6 +275,7 @@
 
 
 <span class="k">def</span> <span class="nf">getKey</span><span class="p">(</span><span class="n">key_timeout</span><span class="p">):</span> 
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> <span class="c1"># Settings for avoid printing commands on terminal</span>
     <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
     <span class="n">rlist</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">key_timeout</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">rlist</span><span class="p">:</span>
@@ -297,7 +298,7 @@
 <span class="sd">        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">settings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> <span class="c1"># Settings for avoid printing commands on terminal</span>
+    
 
     <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;my_teleop_twist_kb&#39;</span><span class="p">)</span>   <span class="c1"># Init node</span>
     <span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>      <span class="c1"># We want a local variable that is equal to the ROS parameter   </span>

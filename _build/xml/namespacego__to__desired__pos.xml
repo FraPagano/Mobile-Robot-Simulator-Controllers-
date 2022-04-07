@@ -22,7 +22,7 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="42" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="42" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="48" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacego__to__desired__pos_1add72cc2098a501ed25cfcd55fa664d2e" prot="public" static="no" mutable="no">
         <type></type>
@@ -36,7 +36,49 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="51" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="51" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="57" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacego__to__desired__pos_1a1a1ce46ac44db4c3b255d33553566ac1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int go_to_desired_pos.active_</definition>
+        <argsstring></argsstring>
+        <name>active_</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="63" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacego__to__desired__pos_1af0ecf7a16b1346459f60ba1cfea9d393" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int go_to_desired_pos.desired_position_x</definition>
+        <argsstring></argsstring>
+        <name>desired_position_x</name>
+        <initializer>=   0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="68" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacego__to__desired__pos_1a0abad38bb84712f96d48998c2328da6f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int go_to_desired_pos.desired_position_y</definition>
+        <argsstring></argsstring>
+        <name>desired_position_y</name>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="73" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacego__to__desired__pos_1af39d3fc360f394ec059ac0e3709c7c5b" prot="public" static="no" mutable="no">
         <type></type>
@@ -50,7 +92,7 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="70" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="70" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="78" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacego__to__desired__pos_1a1e503658605e92390edef3716fa6776c" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -64,7 +106,7 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="76" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="76" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="84" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacego__to__desired__pos_1a7caaaadcd3c4fcc974106343b87467e1" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -78,7 +120,7 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="84" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="84" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="92" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacego__to__desired__pos_1aa86c2059ac5c0b84936d1fd6fec31473" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -92,7 +134,7 @@ The robot is going to plan the path through the Dijkstra&apos;s algorithm.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="89" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="89" bodyend="-1"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="97" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="97" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -114,7 +156,7 @@ to set some parameters of the action message.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="94" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="94" bodyend="114"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="102" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="102" bodyend="122"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1a89512116ac44f939e16b01b46e19fc7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -137,14 +179,16 @@ In particular, this callback function puts a value that into the argument ``stat
 Depending on the value of this variable the client knows the status of the goal processing after the execution. 
 
 Args:
-    status: terminal state (as an integer from actionlib_msgs/GoalStatus)
-    result: result of the goal processing. 
+    status (actionlib_GoalStatus): 
+        terminal state (as an integer from actionlib_msgs/GoalStatus)
+    result (MoveBaseResult): 
+        result of the goal processing. 
 
 No Returns. </verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="115" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="115" bodyend="161"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="123" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="123" bodyend="171"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1a1db04c45bf06719794b54728d4f0543b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -163,7 +207,7 @@ No Returns.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="162" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="162" bodyend="171"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="172" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="172" bodyend="181"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1a04f86e2e0c72cfe737f7f23db591914e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -180,14 +224,14 @@ No Returns.
 <para><verbatim>Callback that gets called whenever feedback for this goal is received. 
 
 Args: 
-    feedback: information about the robot status during the the action server execution.
+    feedback (move_base_msgs/MoveBaseActionFeedback.msg): information about the robot status during the the action server execution.
 
 No Returns.  
 </verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="172" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="172" bodyend="184"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="182" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="182" bodyend="194"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1afbc845f273d7ff6a512879b7e829db92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -208,15 +252,15 @@ No Returns.
 <para><verbatim>This function fills the x, y fields of the goal message and sends a goal request to the action server.
 
 Args:
-    x: x coordinate of the position that we want the robot to reach.  
-    y: y coordinate of the position that we want the robot to reach.
+    x (double): x coordinate of the position that we want the robot to reach.  
+    y (double): y coordinate of the position that we want the robot to reach.
 
 No Returns
 </verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="185" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="185" bodyend="200"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="195" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="195" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1abfae6513d645ed57a5cada572bf7431b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -235,7 +279,7 @@ No Returns
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="201" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="201" bodyend="214"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="211" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="211" bodyend="224"/>
       </memberdef>
       <memberdef kind="function" id="namespacego__to__desired__pos_1a3a19b30cb006c7de5f1a8eb231606246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -245,14 +289,14 @@ No Returns
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para><verbatim>In the main funciton some goals parameters of the goal message are set, updated variables and if the current modality 
-is chosen, then the ``set_goal()`` function is called. Finally, the the case in which a goal was achieved and the one in which the user 
+<para><verbatim>In the main funciton some goals parameters of the goal message are set, updated variables and, if the current modality 
+is chosen, the ``set_goal()`` function is called. Finally, the the case in which a goal was achieved and the one in which the user 
 decides to send a cancel request before the goal achievement is managed. 
 </verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="215" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="215" bodyend="250"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="225" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" bodystart="225" bodyend="265"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -263,11 +307,17 @@ decides to send a cancel request before the goal achievement is managed.
     :synopsis: Python module for controlling the robot bby providing a desired point. 
 .. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;
 
-This is the First Controlling Modality.
+This is the First Robot Controlling Modality.
 This node makes the robot autonomously reach a x,y position inserted by the user. 
-The robot can reach the user&apos;s x,y coordinates thanks to the &apos;move_base&apos; action server. 
-The robot is going to plan the path through the Dijkstra&apos;s algorithm.
-The desired x, y coordinates are ROS parameters too and they are set by the :mod:`UI` node. 
+The robot can reach the user defined x,y coordinates thanks to the &apos;move_base&apos; action server. 
+The robot is going to plan the path through the Dijkstra&apos;s algorithm. 
+
+ROS parameters: 
+    1.  &quot;active&quot;: (type: int) parameter for activate the desired control modality 
+    2.  &quot;des_pos_x&quot;: (type: double) parameter for the desired X coordinate 
+    3.  &quot;des_pos_y&quot;: (type: double) parameter for the desired Y coordinate 
+
+These ROS parameters too and they are set by the :mod:`UI` node.
 </verbatim> </para>
     </detaileddescription>
     <location file="/root/my_ros_ws/src/final_assignment/scripts/go_to_desired_pos.py" line="1" column="1"/>

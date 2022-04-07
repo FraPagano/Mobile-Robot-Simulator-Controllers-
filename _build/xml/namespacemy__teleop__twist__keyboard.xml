@@ -120,7 +120,7 @@ e/c : increase/decrease only angular speed by 10%
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="213" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="213" bodyend="223"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="213" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="213" bodyend="224"/>
       </memberdef>
       <memberdef kind="function" id="namespacemy__teleop__twist__keyboard_1a3bc29fafdd88f1ec6323407b3b9d6a9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -141,7 +141,7 @@ e/c : increase/decrease only angular speed by 10%
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="224" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="224" bodyend="227"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="225" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="225" bodyend="228"/>
       </memberdef>
       <memberdef kind="function" id="namespacemy__teleop__twist__keyboard_1a0267717c6da3391f8580dc5fd58f8805" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>def</type>
@@ -158,7 +158,7 @@ e/c : increase/decrease only angular speed by 10%
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="228" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="228" bodyend="308"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" line="229" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/my_teleop_twist_keyboard.py" bodystart="229" bodyend="309"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -172,7 +172,7 @@ e/c : increase/decrease only angular speed by 10%
 Publishes to:
 /cmd_vel
 
-This is the Second Controlling Modality.
+This is the Second Robot Controlling Modality.
 This node reads inputs from the keyboard and makes the robot freely navigate in the environment.
 Messages of type Twist() are published to the &apos;/cmd_vel&apos; topic. 
 

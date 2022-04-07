@@ -132,11 +132,19 @@ ROS parameter are used in order to activate / deactivate the chosen modality.</p
 </div>
 <div class="section" id="module-scripts.go_to_desired_pos">
 <span id="first-modality-module"></span><h1>First Modality Module<a class="headerlink" href="#module-scripts.go_to_desired_pos" title="Permalink to this headline"></a></h1>
-<span class="target" id="module-go_to_desired_pos"></span><p>This is the First Controlling Modality.
+<span class="target" id="module-go_to_desired_pos"></span><p>This is the First Robot Controlling Modality.
 This node makes the robot autonomously reach a x,y position inserted by the user.
-The robot can reach the user’s x,y coordinates thanks to the ‘move_base’ action server.
-The robot is going to plan the path through the Dijkstra’s algorithm.
-The desired x, y coordinates are ROS parameters too and they are set by the <a class="reference internal" href="#module-UI" title="UI: Python module for the User Interface (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">UI</span></code></a> node.</p>
+The robot can reach the user defined x,y coordinates thanks to the ‘move_base’ action server.
+The robot is going to plan the path through the Dijkstra’s algorithm.</p>
+<dl class="simple">
+<dt>ROS parameters:</dt><dd><ol class="arabic simple">
+<li><p>“active”: (type: int) parameter for activate the desired control modality</p></li>
+<li><p>“des_pos_x”: (type: double) parameter for the desired X coordinate</p></li>
+<li><p>“des_pos_y”: (type: double) parameter for the desired Y coordinate</p></li>
+</ol>
+</dd>
+</dl>
+<p>These ROS parameters too and they are set by the <a class="reference internal" href="#module-UI" title="UI: Python module for the User Interface (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">UI</span></code></a> node.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="scripts.go_to_desired_pos.bcolors">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#bcolors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.bcolors" title="Permalink to this definition"></a></dt>
@@ -147,6 +155,24 @@ The desired x, y coordinates are ROS parameters too and they are set by the <a c
 <dt class="sig sig-object py" id="scripts.go_to_desired_pos.goal_msg">
 <span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">goal_msg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">target_pose:</span>&#160;&#160;&#160; <span class="pre">header:</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">seq:</span> <span class="pre">0</span>&#160;&#160;&#160;&#160; <span class="pre">stamp:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">secs:</span> <span class="pre">0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">nsecs:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160;&#160;&#160;&#160; <span class="pre">frame_id:</span> <span class="pre">''</span>&#160;&#160; <span class="pre">pose:</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">position:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160; <span class="pre">orientation:</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">w:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.goal_msg" title="Permalink to this definition"></a></dt>
 <dd><p>Global action message</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.active_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">active_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.active_" title="Permalink to this definition"></a></dt>
+<dd><p>Global ROS poarameter to block/unlock the modality</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.desired_position_x">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">desired_position_x</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.desired_position_x" title="Permalink to this definition"></a></dt>
+<dd><p>Global X desired coordinate</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_desired_pos.desired_position_y">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">desired_position_y</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.go_to_desired_pos.desired_position_y" title="Permalink to this definition"></a></dt>
+<dd><p>Global Y desired coordinate</p>
 </dd></dl>
 
 <dl class="py data">
@@ -197,8 +223,8 @@ Depending on the value of this variable the client knows the status of the goal 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>status</strong> – terminal state (as an integer from actionlib_msgs/GoalStatus)</p></li>
-<li><p><strong>result</strong> – result of the goal processing.</p></li>
+<li><p><strong>status</strong> (<em>actionlib_GoalStatus</em>) – terminal state (as an integer from actionlib_msgs/GoalStatus)</p></li>
+<li><p><strong>result</strong> (<em>MoveBaseResult</em>) – result of the goal processing.</p></li>
 </ul>
 </dd>
 </dl>
@@ -219,7 +245,7 @@ Depending on the value of this variable the client knows the status of the goal 
 <dd><p>Callback that gets called whenever feedback for this goal is received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>feedback</strong> – information about the robot status during the the action server execution.</p>
+<dd class="field-odd"><p><strong>feedback</strong> (<em>move_base_msgs/MoveBaseActionFeedback.msg</em>) – information about the robot status during the the action server execution.</p>
 </dd>
 </dl>
 <p>No Returns.</p>
@@ -232,8 +258,8 @@ Depending on the value of this variable the client knows the status of the goal 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – x coordinate of the position that we want the robot to reach.</p></li>
-<li><p><strong>y</strong> – y coordinate of the position that we want the robot to reach.</p></li>
+<li><p><strong>x</strong> (<em>double</em>) – x coordinate of the position that we want the robot to reach.</p></li>
+<li><p><strong>y</strong> (<em>double</em>) – y coordinate of the position that we want the robot to reach.</p></li>
 </ul>
 </dd>
 </dl>
@@ -251,8 +277,8 @@ Depending on the value of this variable the client knows the status of the goal 
 <dl class="py function">
 <dt class="sig sig-object py" id="scripts.go_to_desired_pos.main">
 <span class="sig-prename descclassname"><span class="pre">scripts.go_to_desired_pos.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_desired_pos.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_desired_pos.main" title="Permalink to this definition"></a></dt>
-<dd><p>In the main funciton some goals parameters of the goal message are set, updated variables and if the current modality
-is chosen, then the <code class="docutils literal notranslate"><span class="pre">set_goal()</span></code> function is called. Finally, the the case in which a goal was achieved and the one in which the user
+<dd><p>In the main funciton some goals parameters of the goal message are set, updated variables and, if the current modality
+is chosen, the <code class="docutils literal notranslate"><span class="pre">set_goal()</span></code> function is called. Finally, the the case in which a goal was achieved and the one in which the user
 decides to send a cancel request before the goal achievement is managed.</p>
 </dd></dl>
 
@@ -263,7 +289,7 @@ decides to send a cancel request before the goal achievement is managed.</p>
 <dt>Publishes to:</dt><dd><p>/cmd_vel</p>
 </dd>
 </dl>
-<p>This is the Second Controlling Modality.
+<p>This is the Second Robot Controlling Modality.
 This node reads inputs from the keyboard and makes the robot freely navigate in the environment.
 Messages of type Twist() are published to the ‘/cmd_vel’ topic.</p>
 <p>The functionality is quite similar to the teleop_twist_keyboad’s one.</p>
@@ -407,9 +433,12 @@ Such collision avoidance algorithm just uses the <code class="docutils literal n
 When an obstacle is detected, thanks to the <code class="docutils literal notranslate"><span class="pre">/scan</span></code> subscription we also know its direction with respect to the robot, and
 this function just pops the index of such direction from the dictionary. In this way the obsatcle
 direction is no more allowed and it will be impossible to publish on the /cmd_vel in that direction.
-The <code class="docutils literal notranslate"><span class="pre">.pop(key)</span></code> methos is applied by considering all the combinations that the robot could face.
-:param dictionary: allowed movements dictionary
-:type dictionary: dictionary</p>
+The <code class="docutils literal notranslate"><span class="pre">.pop(key)</span></code> methos is applied by considering all the combinations that the robot could face.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – allowed movements dictionary</p>
+</dd>
+</dl>
 <p>No Returns</p>
 </dd></dl>
 
@@ -421,7 +450,7 @@ The <code class="docutils literal notranslate"><span class="pre">.pop(key)</span
 <div><ul class="simple">
 <li><p>Insertion of an if(active == 3) statement in order to block the code when another modality is running.</p></li>
 <li><p>The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop</p></li>
-<li><p>Usage of the above descripted functions: <code class="docutils literal notranslate"><span class="pre">clbk_laser</span></code> and <code class="docutils literal notranslate"><span class="pre">pop_dict</span></code></p></li>
+<li><p>Added the above descripted functions: <code class="docutils literal notranslate"><span class="pre">clbk_laser</span></code> and <code class="docutils literal notranslate"><span class="pre">pop_dict</span></code></p></li>
 </ul>
 </div></blockquote>
 </dd></dl>
