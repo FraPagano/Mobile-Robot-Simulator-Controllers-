@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.my_teleop_twist_keyboard &mdash; Research Track I Final Assignment 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Research Track I Final Assignment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Research Track I Final Assignment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scripts.my_teleop_twist_keyboard</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.my_teleop_twist_keyboard</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: my_teleop_twist_keyboard</span>
+<span class="sd">    :platform: Unix</span>
+<span class="sd">    :synopsis: Python module for controlling the robot using the keyboard</span>
+<span class="sd">.. moduleauthor:: Francesco Pagano &lt;francescopagano1999@outlook.it&gt;</span>
+
+<span class="sd">Publishes to:</span>
+<span class="sd">    /cmd_vel</span>
+<span class="sd">    </span>
+<span class="sd">This is the Second Robot Controlling Modality.</span>
+<span class="sd">This node reads inputs from the keyboard and makes the robot freely navigate in the environment.</span>
+<span class="sd">Messages of type Twist() are published to the &#39;/cmd_vel&#39; topic. </span>
+
+<span class="sd">The functionality is quite similar to the teleop_twist_keyboad&#39;s one. </span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># IMPORTS</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">roslib</span><span class="p">;</span> <span class="n">roslib</span><span class="o">.</span><span class="n">load_manifest</span><span class="p">(</span><span class="s1">&#39;teleop_twist_keyboard&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Twist</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">select</span><span class="o">,</span> <span class="nn">termios</span><span class="o">,</span> <span class="nn">tty</span>
+
+ <span class="c1"># COLORS</span>
+<div class="viewcode-block" id="bcolors"><a class="viewcode-back" href="../../index.html#scripts.my_teleop_twist_keyboard.bcolors">[docs]</a><span class="k">class</span> <span class="nc">bcolors</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is used for printing colors on the terminal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[95m&#39;</span>
+    <span class="n">OKBLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m&#39;</span>
+    <span class="n">OKCYAN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[96m&#39;</span>
+    <span class="n">OKGREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span>
+    <span class="n">WARNING</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span>
+    <span class="n">FAIL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span>
+    <span class="n">ENDC</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>
+    <span class="n">BOLD</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span>
+    <span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[4m&#39;</span>
+    <span class="n">ORANGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[33m&#39;</span> 
+    <span class="n">PURPLE</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[35m&#39;</span></div>
+
+<span class="c1"># Instructions message</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Reading from the keyboard and Publishing to Twist!</span>
+
+<span class="s2">---------------------------</span>
+
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKBLUE</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Moving around:</span>
+<span class="s2">   u    i    o</span>
+<span class="s2">   j    k    l</span>
+<span class="s2">   m    ,    .</span>
+
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKCYAN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">For Holonomic mode (strafing), hold down the shift key:</span>
+<span class="s2">---------------------------</span>
+<span class="s2">   U    I    O</span>
+<span class="s2">   J    K    L</span>
+<span class="s2">   M    &lt;    &gt;</span>
+
+<span class="s2">t : up (+z)</span>
+<span class="s2">b : down (-z)</span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">anything else : stop</span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">q/z : increase/decrease max speeds by 10%</span>
+<span class="s2">w/x : increase/decrease only linear speed by 10%</span>
+<span class="s2">e/c : increase/decrease only angular speed by 10%</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span> <span class="o">+</span><span class="s2">&quot;&quot;&quot; </span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="n">moveBindings</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;i&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;o&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;j&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;l&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;u&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;,&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;.&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;m&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;O&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;I&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;J&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;L&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;U&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;&lt;&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;&gt;&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;M&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;t&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;b&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Dictionary for movement commands. The values in the key/value pair represents the direction in which the robot </span>
+<span class="sd">should move.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">speedBindings</span><span class="o">=</span><span class="p">{</span>
+
+        <span class="s1">&#39;q&#39;</span><span class="p">:(</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">),</span>
+        <span class="s1">&#39;z&#39;</span><span class="p">:(</span><span class="mf">.9</span><span class="p">,</span><span class="mf">.9</span><span class="p">),</span>
+        <span class="s1">&#39;w&#39;</span><span class="p">:(</span><span class="mf">1.1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;x&#39;</span><span class="p">:(</span><span class="mf">.9</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;e&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">),</span>
+        <span class="s1">&#39;c&#39;</span><span class="p">:(</span><span class="mi">1</span><span class="p">,</span><span class="mf">.9</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Dictionary for velocities commands. The values in the key/value pair represents the linear and angular </span>
+<span class="sd">velocity combinations that the robot should assume after that an input occurrs.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PublishThread"><a class="viewcode-back" href="../../index.html#scripts.my_teleop_twist_keyboard.PublishThread">[docs]</a><span class="k">class</span> <span class="nc">PublishThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PublishThread</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;cmd_vel&#39;</span><span class="p">,</span> <span class="n">Twist</span><span class="p">,</span> <span class="n">queue_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#Publisher on the &#39;cmd_vel&#39; topic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">th</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">turn</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Set timeout to None if rate is 0 (causes new_message to wait forever</span>
+        <span class="c1"># for new data to publish)</span>
+        <span class="k">if</span> <span class="n">rate</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">rate</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">wait_for_subscribers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">get_num_connections</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Waiting for subscriber to connect to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span>
+        <span class="k">if</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Got shutdown request before subscribers connected&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">turn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">th</span> <span class="o">=</span> <span class="n">th</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">turn</span> <span class="o">=</span> <span class="n">turn</span>
+        <span class="c1"># Notify publish thread that we have a new message.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    
+    <span class="k">def</span> <span class="nf">my_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Class funtion for stopping the robot movement </span>
+        <span class="n">twist</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Publish.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">twist</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PublishThread.run"><a class="viewcode-back" href="../../index.html#scripts.my_teleop_twist_keyboard.PublishThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">twist</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+            <span class="c1"># Wait for a new message or timeout.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+            <span class="c1"># Copy state into twist message.</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">th</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+            <span class="c1"># Publish.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">twist</span><span class="p">)</span>
+
+        <span class="c1"># Publish stop message when thread exits.</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">twist</span><span class="p">)</span> <span class="c1"># Publishes the twist message </span></div></div>
+
+
+<span class="k">def</span> <span class="nf">getKey</span><span class="p">(</span><span class="n">key_timeout</span><span class="p">):</span> 
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span> <span class="c1"># Settings for avoid printing commands on terminal</span>
+    <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+    <span class="n">rlist</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">key_timeout</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rlist</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Get input key from standard input</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">termios</span><span class="o">.</span><span class="n">tcsetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TCSADRAIN</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">key</span>
+
+
+<span class="k">def</span> <span class="nf">vels</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">turn</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;currently:</span><span class="se">\t</span><span class="s2">speed </span><span class="si">%s</span><span class="se">\t</span><span class="s2">turn </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="n">turn</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#scripts.my_teleop_twist_keyboard.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In the ``main()`` function I made the most important changes from ``teleop_twist_keyboard`` code, that are:</span>
+
+<span class="sd">        * Insertion of an if(active == 2) statement in order to block the code when another modality is running.</span>
+<span class="sd">        * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;my_teleop_twist_kb&#39;</span><span class="p">)</span>   <span class="c1"># Init node</span>
+    <span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span>      <span class="c1"># We want a local variable that is equal to the ROS parameter   </span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>                                <span class="c1"># Useful flag for determine an idle status</span>
+    
+    <span class="n">speed</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;~speed&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">turn</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;~turn&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">repeat</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;~repeat_rate&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Timeout set at 0.1 seconds. That means that the user needs to keep the key pushed for moving the robot. </span>
+    <span class="n">key_timeout</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;~key_timeout&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> 
+
+    <span class="k">if</span> <span class="n">key_timeout</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">key_timeout</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">pub_thread</span> <span class="o">=</span> <span class="n">PublishThread</span><span class="p">(</span><span class="n">repeat</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+    <span class="n">pub_thread</span><span class="o">.</span><span class="n">wait_for_subscribers</span><span class="p">()</span>
+    <span class="n">pub_thread</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">turn</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">vels</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="n">turn</span><span class="p">))</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">active_</span><span class="o">=</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/active&quot;</span><span class="p">)</span> <span class="c1"># Update the system status</span>
+
+        <span class="k">if</span> <span class="n">active_</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># If this modality is active</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">getKey</span><span class="p">(</span><span class="n">key_timeout</span><span class="p">)</span> <span class="c1">#Get the input command</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">moveBindings</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span> <span class="c1"># If the input command is in the dictionary set the x, y, z, th variables</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">moveBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">moveBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="n">moveBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">th</span> <span class="o">=</span> <span class="n">moveBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">speedBindings</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span> <span class="o">*</span> <span class="n">speedBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">turn</span> <span class="o">=</span> <span class="n">turn</span> <span class="o">*</span> <span class="n">speedBindings</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="n">vels</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="n">turn</span><span class="p">))</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="mi">14</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="p">(</span><span class="n">status</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">15</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Skip updating cmd_vel if key timeout and robot already</span>
+                <span class="c1"># stopped.</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">z</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">th</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">th</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x03</span><span class="s1">&#39;</span><span class="p">):</span>
+                    <span class="k">break</span>
+
+            <span class="n">pub_thread</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">turn</span><span class="p">)</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># Put the current modality in Idle state</span>
+                <span class="n">pub_thread</span><span class="o">.</span><span class="n">my_stop</span><span class="p">()</span> 
+                <span class="nb">print</span><span class="p">(</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s2">&quot;Modality 2 is currently in idle state</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="p">)</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+
+            
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Francesco Pagano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
