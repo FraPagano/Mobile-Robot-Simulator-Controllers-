@@ -69,7 +69,7 @@ menu_msg = """
 
 flag = False 
 """
-Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled online
+Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled during the execution. 
 """
 
 def interpreter():

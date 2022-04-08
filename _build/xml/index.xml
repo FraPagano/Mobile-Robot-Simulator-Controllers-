@@ -157,9 +157,13 @@
   </compound>
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
-  <compound refid="index_8rst_8txt" kind="file"><name>index.rst.txt</name>
-    <member refid="index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" kind="variable"><name>file</name></member>
-    <member refid="index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" kind="variable"><name>Mar</name></member>
+  <compound refid="__sources_2index_8rst_8txt" kind="file"><name>index.rst.txt</name>
+    <member refid="__sources_2index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" kind="variable"><name>file</name></member>
+    <member refid="__sources_2index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" kind="variable"><name>Mar</name></member>
+  </compound>
+  <compound refid="final__assignment_2__build_2html_2__sources_2index_8rst_8txt" kind="file"><name>index.rst.txt</name>
+    <member refid="final__assignment_2__build_2html_2__sources_2index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" kind="variable"><name>file</name></member>
+    <member refid="final__assignment_2__build_2html_2__sources_2index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" kind="variable"><name>Mar</name></member>
   </compound>
   <compound refid="conf_8py" kind="file"><name>conf.py</name>
   </compound>
@@ -175,11 +179,15 @@
   </compound>
   <compound refid="md__root_my_ros_ws_src_final_assignment__r_e_a_d_m_e" kind="page"><name>md__root_my_ros_ws_src_final_assignment_README</name>
   </compound>
-  <compound refid="dir_fb31ffd3aada385fecc3e0ea29bf1f94" kind="dir"><name>_build</name>
+  <compound refid="dir_3aaa5a13c1e3a82999f39bfe12a457c7" kind="dir"><name>_build</name>
   </compound>
-  <compound refid="dir_aedb5a8621525d257e0d6bc2c6cffdd3" kind="dir"><name>_build/html/_sources</name>
+  <compound refid="dir_1c3720a1156834590dc4d517f159df30" kind="dir"><name>_build/html/_sources</name>
   </compound>
-  <compound refid="dir_b4b8df43773714cebda7b4472c5732d1" kind="dir"><name>_build/html</name>
+  <compound refid="dir_585d6f41c8c6e69e0f84b478a34e55d0" kind="dir"><name>/root/my_ros_ws/src/final_assignment/docs/_sources</name>
+  </compound>
+  <compound refid="dir_49e56c817e5e54854c35e136979f97ca" kind="dir"><name>/root/my_ros_ws/src/final_assignment/docs</name>
+  </compound>
+  <compound refid="dir_897df88521e838d73653d9971f49bf6d" kind="dir"><name>_build/html</name>
   </compound>
   <compound refid="dir_53e6fa9553ac22a5646d2a2b2d7b97a1" kind="dir"><name>/root/my_ros_ws/src/final_assignment/scripts</name>
   </compound>

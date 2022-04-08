@@ -3,7 +3,7 @@
 """
 .. module:: go_to_desired_pos
 	:platform: Unix
-	:synopsis: Python module for controlling the robot bby providing a desired point. 
+	:synopsis: Python module for controlling the robot providing a desired position to reach. 
 .. moduleauthor:: Francesco Pagano <francescopagano1999@outlook.it>
 
 This is the First Robot Controlling Modality.

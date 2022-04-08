@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
-  <compounddef id="index_8rst_8txt" kind="file" language="C++">
+  <compounddef id="__sources_2index_8rst_8txt" kind="file" language="C++">
     <compoundname>index.rst.txt</compoundname>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="__sources_2index_8rst_8txt_1ae9742ce898b818e17259f358245c04b2" prot="public" static="no" mutable="no">
         <type>Research Track I Final Assignment documentation master</type>
         <definition>Research Track I Final Assignment documentation master file</definition>
         <argsstring></argsstring>
@@ -16,7 +16,7 @@
         </inbodydescription>
         <location file="/root/my_ros_ws/src/final_assignment/docs/_sources/index.rst.txt" line="1" column="57" bodyfile="/root/my_ros_ws/src/final_assignment/docs/_sources/index.rst.txt" bodystart="1" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="__sources_2index_8rst_8txt_1a6dcaf20443e723affdbfac3040012011" prot="public" static="no" mutable="no">
         <type>Research Track I Final Assignment documentation master created by sphinx quickstart on Sun</type>
         <definition>Research Track I Final Assignment documentation master created by sphinx quickstart on Sun Mar</definition>
         <argsstring></argsstring>

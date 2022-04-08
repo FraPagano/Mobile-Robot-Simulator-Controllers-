@@ -231,7 +231,7 @@ No Returns</verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="326" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="326" bodyend="416"/>
+        <location file="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" line="326" column="1" bodyfile="/root/my_ros_ws/src/final_assignment/scripts/teleop_avoid.py" bodystart="326" bodyend="411"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -249,7 +249,7 @@ Publishes to:
     /cmd_vel
 
 This is the Third Controlling Modality.
-This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
+Reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
 Messages of type Twist() are published to the &apos;/cmd_vel&apos; topic. 
 
 The functionality is quite similar to the teleop_twist_keyboad&apos;s one. </verbatim> </para>

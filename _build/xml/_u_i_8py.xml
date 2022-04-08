@@ -80,7 +80,7 @@
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal">flag<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"><sp/></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
-<codeline lineno="72"><highlight class="stringliteral">Global<sp/>bool<sp/>for<sp/>knowing<sp/>if<sp/>the<sp/>prevoius<sp/>modality<sp/>was<sp/>the<sp/>first<sp/>one<sp/>so<sp/>that<sp/>a<sp/>goal<sp/>can<sp/>be<sp/>canceled<sp/>online</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral">Global<sp/>bool<sp/>for<sp/>knowing<sp/>if<sp/>the<sp/>prevoius<sp/>modality<sp/>was<sp/>the<sp/>first<sp/>one<sp/>so<sp/>that<sp/>a<sp/>goal<sp/>can<sp/>be<sp/>canceled<sp/>during<sp/>the<sp/>execution.<sp/></highlight></codeline>
 <codeline lineno="73"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespace_u_i_1a8203d885551ea8a7112cd175f5998a8c" kindref="member">interpreter</ref>():</highlight></codeline>

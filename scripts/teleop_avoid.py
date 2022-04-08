@@ -13,7 +13,7 @@ Publishes to:
     /cmd_vel
 
 This is the Third Controlling Modality.
-This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
+Reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm. 
 Messages of type Twist() are published to the '/cmd_vel' topic. 
 
 The functionality is quite similar to the teleop_twist_keyboad's one. 
@@ -332,11 +332,6 @@ def main():
         * The keys now must be kept pressed in order to move the robot. I did this by setting the key_timeout variable to 0.1. Such variable was the select() timeout. That means that the select() function waits 0.1 seconds for new inputs at every loop
         * Added the above descripted functions: ``clbk_laser`` and ``pop_dict``
     """
-
-    # Settings for avoid printing commands on terminal
-    # settings_old = termios.tcgetattr(sys.stdin) 
-    # settings_new = settings_old
-    # settings_new[3] = settings_new[3] & ~termios.ECHO
 
     # Init node
     rospy.init_node('teleop_avoid') 

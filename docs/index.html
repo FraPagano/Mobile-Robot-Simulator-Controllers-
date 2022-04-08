@@ -103,7 +103,7 @@ ROS parameter are used in order to activate / deactivate the chosen modality.</p
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.UI.flag">
 <span class="sig-prename descclassname"><span class="pre">scripts.UI.</span></span><span class="sig-name descname"><span class="pre">flag</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#scripts.UI.flag" title="Permalink to this definition"></a></dt>
-<dd><p>Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled online</p>
+<dd><p>Global bool for knowing if the prevoius modality was the first one so that a goal can be canceled during the execution.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -350,7 +350,7 @@ from the args and kwargs arguments, respectively.</p>
 </dd>
 </dl>
 <p>This is the Third Controlling Modality.
-This node reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm.
+Reads inputs from the keyboard and makes the robot navigate in the environment with an obstacle avoidance algorithm.
 Messages of type Twist() are published to the ‘/cmd_vel’ topic.</p>
 <p>The functionality is quite similar to the teleop_twist_keyboad’s one.</p>
 <dl class="py class">

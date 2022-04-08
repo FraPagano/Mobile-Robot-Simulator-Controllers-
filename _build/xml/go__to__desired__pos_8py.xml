@@ -15,7 +15,7 @@
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
 <codeline lineno="4"><highlight class="stringliteral">..<sp/>module::<sp/>go_to_desired_pos</highlight></codeline>
 <codeline lineno="5"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:platform:<sp/>Unix</highlight></codeline>
-<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:synopsis:<sp/>Python<sp/>module<sp/>for<sp/>controlling<sp/>the<sp/>robot<sp/>bby<sp/>providing<sp/>a<sp/>desired<sp/>point.<sp/></highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:synopsis:<sp/>Python<sp/>module<sp/>for<sp/>controlling<sp/>the<sp/>robot<sp/>providing<sp/>a<sp/>desired<sp/>position<sp/>to<sp/>reach.<sp/></highlight></codeline>
 <codeline lineno="7"><highlight class="stringliteral">..<sp/>moduleauthor::<sp/>Francesco<sp/>Pagano<sp/>&lt;francescopagano1999@outlook.it&gt;</highlight></codeline>
 <codeline lineno="8"><highlight class="stringliteral"></highlight></codeline>
 <codeline lineno="9"><highlight class="stringliteral">This<sp/>is<sp/>the<sp/>First<sp/>Robot<sp/>Controlling<sp/>Modality.</highlight></codeline>
